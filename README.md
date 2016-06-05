@@ -5,3 +5,5 @@ Simple menubar application based on Electron with actual weather information and
 Using the [openweathermap](http://openweathermap.org/) API and the [Animate.CSS](https://daneden.github.io/animate.css/) library.
 
 ![App Screenshot](/screenshot.png "App Screenshot")
+
+![App Screenplay](/screenshot.gif "App Screenshot")
