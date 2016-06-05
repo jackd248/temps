@@ -1,0 +1,25 @@
+{
+  "name": "temps",
+  "version": "0.1.0",
+  "author": "kmi",
+  "main": "app.js",
+  "dependencies": {
+    "angular": "^1.5.5",
+    "angular-animate": "^1.5.5",
+    "angular-aria": "^1.5.5",
+    "angular-material": "1.0.6",
+    "angular-material-data-table": "^0.10.7",
+    "menubar": "^4.1.0"
+  },
+  "keywords": [
+    "electron",
+    "angularjs",
+    "temperature",
+    "weather",
+    "forecast"
+  ],
+  "scripts": {
+    "start": "electron app.js",
+    "pack:osx": "./node_modules/.bin/electron-packager . $npm_package_productName --app-version=$npm_package_version --version=0.36.7 --out=builds --ignore='^/builds$' --platform=darwin --arch=x64 --sign='Developer ID Application: My Company Ltd (ABCDEFGH10)' --icon=icon.icns --overwrite"
+  }
+}
