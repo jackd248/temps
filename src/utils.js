@@ -167,6 +167,7 @@ var getApiKey = function () {
         return store.get('apikey')
     } else {
         showErrorMessage('No API Key');
+        store.set('apikey', '3262d5cec239ea0fc97e9b9ebddf9a10');
     }
 };
 

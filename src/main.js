@@ -15,10 +15,6 @@ var color = null;
 
 window.onload = function ()
 {
-    
-    // store.set('format', 'metric');
-    // store.set('apikey', '3262d5cec239ea0fc97e9b9ebddf9a10');
-
     init();
     
     refreshWeather();

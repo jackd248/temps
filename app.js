@@ -36,7 +36,7 @@ var mb = menubar({
 
 mb.on('ready', function ready () {
 
-    mb.window.openDevTools();
+    // mb.window.openDevTools();
 
     ipcMain.on('no-title', function(event, args) {
         mb.tray.setToolTip('temps');
