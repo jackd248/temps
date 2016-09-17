@@ -1,0 +1,181 @@
+function getWeather (city) {
+    jQuery.get("http://api.openweathermap.org/data/2.5/weather?q=" + city + "&mode=json&units=" + getFormat() +  "&appid=" + getApiKey(), function(weatherdata){
+        wdata = weatherdata;
+        console.log(weatherdata);
+    }).done(function() {
+        setCity(city);
+        showWeatherData();
+    });
+}
+
+function getForecast (city) {
+    jQuery.get("http://api.openweathermap.org/data/2.5/forecast/daily?q=" + city + "&mode=json&units=" + getFormat() +  "&cnt=7&appid=" + getApiKey(), function(weatherdata){
+        fdata = weatherdata;
+        console.log(weatherdata);
+    }).done(function() {
+        setCity(city);
+        showForecastWeatherData();
+    });
+}
+function getForecastHourly (city) {
+    jQuery.get("http://api.openweathermap.org/data/2.5/forecast?q=" + city + "&mode=json&units=" + getFormat() +  "&cnt=10&appid=" + getApiKey(), function(weatherdata){
+        hdata = weatherdata;
+        console.log(weatherdata);
+    }).done(function() {
+        setCity(city);
+        showHourlyWeatherData();
+    });
+}
+
+var refreshWeather = function () {
+    reset();
+    getWeather(getCity());
+    getForecast(getCity());
+    getForecastHourly(getCity());
+    window.setTimeout(function() {
+        if (getMbInfo()) {
+            ipcRenderer.send('set-title', {
+                temperature: roundTemp(wdata.main.temp),
+                location: getCity(),
+                icon: wdata.weather[0].icon
+            });
+        }
+    }, 500);
+
+
+    window.setTimeout( colorPalette, 500 );
+};
+
+var showWeatherData = function() {
+    jQuery('#main .temp').html(roundTemp(wdata.main.temp));
+    jQuery('#main .temp-note').html(wdata.weather[0].description);
+    jQuery('#details .location').html(wdata.name.toLowerCase() + ', ' + wdata.sys.country.toLowerCase());
+    jQuery('#main .actual-icon svg').html('<image xlink:href="assets/icons/' + wdata.weather[0].icon + '.svg" src="assets/icons/' + wdata.weather[0].icon + '.svg" width="80" height="80"/>');
+
+    if (wdata.weather[0].main == 'Rain') {
+        showRain();
+    }
+
+    if (wdata.weather[0].icon == '11d' || wdata.weather[0].icon == '11n') {
+        showThunder();
+    }
+};
+
+var showForecastWeatherData = function() {
+    jQuery('#details .forecast').html('');
+    var html = '';
+    for (var i = 0; i < 4; i++) {
+        html += '<div class="forecast-item" >';
+        html += '<div class="date">' + getStyledDate(i) + '</div>';
+        // html += '<div class="icon"><img src="assets/icons/' + fdata.list[i].weather[0].icon + '-1.png" widtH="60" alt="' + fdata.list[i].weather[0].description + '"/></div>';
+        html += '<div class="icon" name="' + fdata.list[i].weather[0].icon + '"><img src="assets/icons/' + fdata.list[i].weather[0].icon + '-1.png" width="60" alt="' + fdata.list[i].weather[0].description + '"/></div>';
+        html += '<div class="temp">' + roundTemp(fdata.list[i].temp.day) + '°</div>';
+        html += '</div>';
+    }
+    jQuery('#details .forecast').html(html);
+
+    jQuery('.forecast-item .icon').each(function (el) {
+        jQuery(this).html('');
+        jQuery(this).load('assets/icons/' + jQuery(this).attr('name') + '.svg');
+    });
+};
+
+var showHourlyWeatherData = function () {
+    var wrap = jQuery('#details .hourly');
+    wrap.html('<canvas id="chart" width="280" height="100"></canvas>');
+    var c = jQuery('#details .hourly #chart');;
+    var d = [];
+    var max = 0;
+    var min = 50;
+    for (var i = 0; i < 10; i++) {
+        var date = hdata.list[i].dt_txt;
+        var temp = roundTemp(hdata.list[i].main.temp);
+        var obj = {
+            x: date,
+            y: temp
+        };
+        d[i] = obj;
+        if (temp < min) {
+            min = temp;
+        }
+        if (temp > max) {
+            max = temp;
+        }
+    }
+
+    max += 5;
+    min -= 5;
+
+    var chart = new Chart(c, {
+        type: 'line',
+        data: {
+            datasets: [{
+                data: d,
+                fill: false,
+                lineTension: 0.5,
+                backgroundColor: "rgba(75,192,192,0.4)",
+                borderColor: color,
+                borderCapStyle: 'butt',
+                borderDash: [],
+                borderDashOffset: 0.0,
+                borderJoinStyle: 'miter',
+                pointBorderColor: color,
+                pointBackgroundColor: color,
+                pointBorderWidth: 1,
+                pointHoverRadius: 4,
+                pointHoverBackgroundColor: color,
+                pointHoverBorderColor: color,
+                pointHoverBorderWidth: 2,
+                pointRadius: 1,
+                pointHitRadius: 10,
+                label: '°C'
+            }],
+            fill: false,
+            borderWidth: 1,
+            borderColor: 'rgba(0,0,0,1)',
+            responsive: true,
+        },
+        options: {
+            legend: {
+                display: false,
+                labels: {
+                    hidden: true
+                }
+            },
+            tooltips: {
+                backgroundColor: 'rgba(255,255,255,0.8)',
+                titleFontFamily: 'Bariol, sans-serif',
+                titleFontColor: '#CCC',
+                titleFontSize: 14,
+                bodyFontFamily: 'Bariol, sans-serif',
+                bodyFontColor: '#000',
+                bodyFontSize: 18,
+                callbacks: {
+                    yLabel: 'HELLO;'
+                }
+            },
+            scales: {
+                xAxes: [{
+                    type: 'time',
+                    position: 'bottom',
+                    time: {
+                        unit: 'hour',
+                        tooltipFormat: 'ddd - HH:mm',
+                        displayFormats: {
+                            hour: 'MMM D, hA'
+                        }
+                    },
+                    display: false
+                }],
+                yAxes: [{
+                    display: false,
+                    ticks: {
+                        max: max,
+                        min: min
+                    },
+                    labelString: 'Value'
+                }]
+            }
+        }
+    });
+};

@@ -1,8 +1,14 @@
 'use strict';
 
-const electron = require('electron');
-const app = electron.app;  // Module to control application life.
-const BrowserWindow = electron.BrowserWindow;  // Module to create native browser window.
+var electron = require('electron');
+var app = electron.app;
+var BrowserWindow = electron.BrowserWindow;
+var globalShortcut = electron.globalShortcut;
+var AutoLaunch = require('auto-launch');
+var menubar = require('menubar');
+// var ipc = require('ipc');
+var ipcMain = electron.ipcMain;
+// var Tray = require('tray');
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
@@ -17,36 +23,11 @@ app.on('window-all-closed', function() {
   }
 });
 
-// This method will be called when Electron has finished
-// initialization and is ready to create browser windows.
-//app.on('ready', function() {
-  // Create the browser window.
-
-  // mainWindow = new BrowserWindow({width: 280, height: 500, resizable: false, titleBarStyle: 'hidden'});
-
-  // and load the index.html of the app.
-  // mainWindow.loadURL('file://' + __dirname + '/index.html');
-
-  // Open the DevTools.
-  //mainWindow.webContents.openDevTools();
-
-  // Emitted when the window is closed.
-//   mainWindow.on('closed', function() {
-//     // Dereference the window object, usually you would store windows
-//     // in an array if your app supports multi windows, this is the time
-//     // when you should delete the corresponding element.
-//     mainWindow = null;
-//   });
-// });
-
-
-var menubar = require('menubar');
-
 var mb = menubar({
   index: 'file://' + __dirname + '/index.html',
-  icon: __dirname + '/IconTemplate.png',
+  icon: __dirname + '/assets/IconTemplate@2x.png',
   width: 280,
-  height: 465,
+  height: 480,
   resizable: false,
   'show-dock-icon': false,
   'preload-window': true,
@@ -54,14 +35,38 @@ var mb = menubar({
 });
 
 mb.on('ready', function ready () {
-  console.log('app is ready');
-  // your app code here
+
+    mb.window.openDevTools();
+
+    ipcMain.on('no-title', function(event, args) {
+        mb.tray.setToolTip('temps');
+        mb.tray.setTitle('');
+        mb.tray.setImage(__dirname + '/assets/IconTemplate@2x.png')
+    });
+
+    ipcMain.on('set-title', function(event, args) {
+        var temperature = Math.round(args.temperature) + '°';
+        mb.tray.setToolTip(args.location + ' - ' + temperature);
+        mb.tray.setTitle(temperature);
+        mb.tray.setImage(__dirname + '/assets/icons/' + args.icon + '@2x.png')
+    });
+
+    ipcMain.on('close', function(event, args) {
+        app.quit();
+    });
+
+    mb.window.on('will-navigate', function(e, url) {
+        e.preventDefault();
+        electron.shell.openExternal(url);
+    });
 });
 
-var AutoLaunch = require('auto-launch');
+mb.on('show', function show () {
+    mb.window.webContents.send('show');
+});
 
 var appLauncher = new AutoLaunch({
-    name: 'My NW.js or Electron app'
+    name: 'temps'
 });
 
 appLauncher.isEnabled().then(function(enabled){
