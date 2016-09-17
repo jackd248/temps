@@ -1,7 +1,33 @@
 # temps
-Simple menubar application based on Electron with actual weather information and forecast.
 
-## Notes
-Using the [openweathermap](http://openweathermap.org/) API and the [Animate.CSS](https://daneden.github.io/animate.css/) library.
+Temps is a _lightweight_ and minimal menubar application based on Electron with actual weather information and forecast for Windows, Mac and Linux.
 
-![App Screenplay](/screenshot.gif "App Screenshot")
+![temps screenshot](assets/screenshot.png)
+
+## Features
+
+* Weather information
+* Daily forecast
+* Hourly forecast
+* Show information directly in menubar
+
+## Build
+
+1. Clone repo ```git clone https://github.com/jackd248/temps.git```
+2. Change to repo ```cd temps```
+3. ```npm install && npm start```
+
+## Download
+
+You can [download](https://github.com/jackd248/temps/releases) the latest stable version of Temps for Windows, Mac OS and Linux. 
+
+## Credits
+
+This application uses code from several open source projects:
+
+* [Electron](http://electron.atom.io/)
+* [OpenWeatherMap](http://openweathermap.org/)
+
+## License
+
+Copyright (c) 2016 Konrad Michalik, This software is licensed under the [MIT License](LICENSE).
