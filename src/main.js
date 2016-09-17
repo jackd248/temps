@@ -28,6 +28,7 @@ var loadEventListener = function() {
     jQuery('#details .content').click(toggleDetails);
 
     showDate();
+    refreshInfo();
 
     jQuery('input#city').keypress(function (e) {
         if (e.which == 13) {

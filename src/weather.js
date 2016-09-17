@@ -27,6 +27,20 @@ function getForecastHourly (city) {
     });
 }
 
+var refreshInfo = function() {
+    var info = setInterval(function()
+    {
+        if (getMbInfo()) {
+            ipcRenderer.send('set-title', {
+                temperature: roundTemp(wdata.main.temp),
+                location: getCity(),
+                icon: wdata.weather[0].icon
+            });
+        }
+        console.log('refresh info');
+    }, 300000);
+};
+
 var refreshWeather = function () {
     reset();
     getWeather(getCity());
