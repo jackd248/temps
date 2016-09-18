@@ -44,6 +44,6 @@
     "localStorage": "^1.0.3",
     "sugar": "^2.0.1",
     "chart.js": "^2.2.2",
-    "tooltipster": "^4.1.4"
+    "timezone-js": "^0.4.13"
   }
 }

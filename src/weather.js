@@ -3,8 +3,14 @@ function getWeather (city) {
         wdata = weatherdata;
         console.log(weatherdata);
     }).done(function() {
-        setCity(city);
-        showWeatherData();
+        if (wdata.cod != 404) {
+            setCity(city);
+            showWeatherData();
+        } else {
+            showErrorMessage(wdata.message);
+        }
+    }).fail(function() {
+        showErrorMessage('Failure during data fetching');
     });
 }
 
@@ -13,8 +19,14 @@ function getForecast (city) {
         fdata = weatherdata;
         console.log(weatherdata);
     }).done(function() {
-        setCity(city);
-        showForecastWeatherData();
+        if (fdata.cod != 404) {
+            setCity(city);
+            showForecastWeatherData();
+        } else {
+            showErrorMessage(fdata.message);
+        }
+    }).fail(function() {
+        showErrorMessage('Failure during data fetching');
     });
 }
 function getForecastHourly (city) {
@@ -22,8 +34,14 @@ function getForecastHourly (city) {
         hdata = weatherdata;
         console.log(weatherdata);
     }).done(function() {
-        setCity(city);
-        showHourlyWeatherData();
+        if (hdata.cod != 404) {
+            setCity(city);
+            showHourlyWeatherData();
+        } else {
+            showErrorMessage(hdata.message);
+        }
+    }).fail(function() {
+        showErrorMessage('Failure during data fetching');
     });
 }
 
@@ -41,21 +59,21 @@ var refreshWeather = function () {
     getForecast(getCity());
     getForecastHourly(getCity());
     window.setTimeout(function() {
-        if (getMbInfo()) {
+        if (getMbInfo() & wdata.cod != 404) {
             ipcRenderer.send('set-title', {
                 temperature: roundTemp(wdata.main.temp),
                 location: getCity(),
                 icon: wdata.weather[0].icon
             });
         }
-    }, 500);
+    }, 300);
 
 
     window.setTimeout( colorPalette, 500 );
 };
 
 var showWeatherData = function() {
-    jQuery('#main .temp').html(roundTemp(wdata.main.temp));
+    jQuery('#main .temp').html(roundTemp(wdata.main.temp) + '°');
     jQuery('#main .temp-note').html(wdata.weather[0].description);
     jQuery('#details .location').html(wdata.name.toLowerCase() + ', ' + wdata.sys.country.toLowerCase());
     jQuery('#main .actual-icon svg').html('<image xlink:href="assets/icons/' + wdata.weather[0].icon + '.svg" src="assets/icons/' + wdata.weather[0].icon + '.svg" width="80" height="80"/>');
@@ -132,6 +150,8 @@ var showHourlyWeatherData = function () {
         }
     }
 
+    var format = (getFormat() == 'metric') ? '°C' : '°F';
+
     max += 5;
     min -= 5;
 
@@ -157,7 +177,7 @@ var showHourlyWeatherData = function () {
                 pointHoverBorderWidth: 2,
                 pointRadius: 1,
                 pointHitRadius: 10,
-                label: '°C'
+                label: format
             }],
             fill: false,
             borderWidth: 1,
@@ -199,7 +219,6 @@ var showHourlyWeatherData = function () {
                         max: max,
                         min: min
                     },
-                    labelString: 'Value'
                 }]
             }
         }

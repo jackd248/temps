@@ -45,21 +45,56 @@ var setColor = function (c) {
 };
 
 var colorPalette = function() {
+    if (wdata.cod == 404) {
+        setColor('#444');
+        return;
+    }
     var temp = roundTemp(wdata.main.temp);
-    var colors = ['#b1695a', '#db9864', '#e3bb88', '#def1c5', '#80bbb2', '#69a5a6'];
-      if (temp > 30) {
-        setColor(colors[0]);
-      } else if (temp > 26) {
-          setColor(colors[1]);
-      } else if (temp > 20) {
-          setColor(colors[2]);
-      } else if (temp >14) {
-          setColor(colors[4]);
-      } else if (temp > 8) {
-          setColor(colors[4]);
-      } else {
-          setColor(colors[5]);
-      }
+    // var colors = ['#b1695a', '#db9864', '#e3bb88', '#def1c5', '#80bbb2', '#69a5a6'];
+    var colors = ['#b1695a', '#FF7043', '#FFB74D', '#e3bb88', '#AFB42B', '#7CB342', '#26A69A', '#0097A7', '#0288D1', '#1976D2'];
+
+    if (getFormat() == 'metric') {
+        if (temp > 30) {
+            setColor(colors[0]);
+        } else if (temp > 26) {
+            setColor(colors[1]);
+        } else if (temp > 22) {
+            setColor(colors[2]);
+        } else if (temp > 18) {
+            setColor(colors[3]);
+        } else if (temp > 14) {
+            setColor(colors[4]);
+        } else if (temp > 10) {
+            setColor(colors[5]);
+        } else if (temp > 6) {
+            setColor(colors[6]);
+        } else if (temp > 2) {
+            setColor(colors[7]);
+        } else {
+            setColor(colors[8]);
+        }
+    } else {
+        if (temp > 86) {
+            setColor(colors[0]);
+        } else if (temp > 78) {
+            setColor(colors[1]);
+        } else if (temp > 71) {
+            setColor(colors[2]);
+        } else if (temp > 64) {
+            setColor(colors[3]);
+        } else if (temp > 57) {
+            setColor(colors[4]);
+        } else if (temp > 50) {
+            setColor(colors[5]);
+        } else if (temp > 42) {
+            setColor(colors[6]);
+        } else if (temp > 35) {
+            setColor(colors[7]);
+        } else {
+            setColor(colors[8]);
+        }
+    }
+
 };
 
 var roundTemp = function (temp) {
@@ -148,10 +183,11 @@ var setMbInfo = function(bool) {
 };
 
 var showErrorMessage = function(message) {
-    // ToDo
     setColor('#444444');
-    jQuery('#main .content .temp').html('=(');
+    jQuery('#main .content .temp').html('=( ');
     jQuery('#main .content .temp-note').html(message);
+    jQuery('#main .actual-icon svg').html('<image xlink:href="assets/icons/11d.svg" src="assets/icons/11d.svg" width="80" height="80"/>');
+
 };
 
 var getMbInfo = function() {
@@ -202,6 +238,10 @@ var showThunder = function() {
 };
 
 var reset = function() {
+    jQuery('#main .actual-icon svg').html('');
+    jQuery('#details .location').html('');
+    jQuery('#details .forecast').html('');
+    jQuery('#details .hourly').html('');
     jQuery('.drop').remove();
     jQuery('.thunder').remove();
 };

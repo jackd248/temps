@@ -198,11 +198,6 @@ h1:after {
     margin-left: 15px;
 }
 
-#main .temp:after {
-    font-size: 48px;
-    content: '°';
-}
-
 #main .temp-note {
     font-size: 18px;
     color: rgba(255,255,255,0.5);
@@ -230,8 +225,8 @@ h1:after {
     position: absolute;
 }
 
-#main .settings img:hover {
-    cursour: pointer;
+#main .settings img:hover, #main .settings:hover {
+    cursor: pointer;
 }
 
 #main .actual-icon {
@@ -241,10 +236,6 @@ h1:after {
     left: 8%;
     position: absolute;
     z-index: 5;
-}
-
-#main .actual-icon svg g {
-    fill: red;
 }
 
 #details {

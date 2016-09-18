@@ -6,6 +6,7 @@ var $, jQuery = require('jquery');
 var sugar = require("sugar");
 var chart = require("chart.js");
 var ipcRenderer = require('electron').ipcRenderer;
+var timezoneJS = require('timezone-js');
 
 var wdata = null;
 var fdata = null;
@@ -20,7 +21,6 @@ window.onload = function ()
     refreshWeather();
 
     loadEventListener();
-
 };
 
 var loadEventListener = function() {
@@ -69,7 +69,13 @@ var loadEventListener = function() {
         jQuery('input#city').delay(600).focus().select();
     });
 
-    jQuery('#main:not(div.settings)').click(function () {
+    jQuery('#main').click(function () {
+        if (jQuery('#settings .content').is(":visible")) {
+            toggleSettings();
+        }
+    });
+
+    jQuery('#main .content').click(function () {
         refreshWeather();
     });
 
@@ -82,7 +88,6 @@ var loadEventListener = function() {
     });
 
     ipcRenderer.on('show', function() {
-        console.log('show');
         refreshWeather();
     });
 };

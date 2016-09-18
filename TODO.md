@@ -1,16 +1,17 @@
 * hourly forecast usability improvement
 * show weather icon for hourly forecast
 * "no internet connection" error
-* "no api key" error
-* "api error"
+* ~~"no api key" error~~
+* ~~"api error"~~
 * app icon
+* ~~menubar dark mode icon~~
 * snow animation
 * city autocomplete
 * loading animation
 * time and date of city
-* global shortcut
+* ~~global shortcut~~
 * auto updates
 * landing page
-* allow copy, paste, select all
+* ~~allow copy, paste, select all~~
 * upgrading color palette
 * outsource configs
