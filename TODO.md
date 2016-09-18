@@ -6,3 +6,4 @@
 * snow animation
 * city autocomplete
 * loading animation
+* time and date of city
