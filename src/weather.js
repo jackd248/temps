@@ -30,13 +30,7 @@ function getForecastHourly (city) {
 var refreshInfo = function() {
     var info = setInterval(function()
     {
-        if (getMbInfo()) {
-            ipcRenderer.send('set-title', {
-                temperature: roundTemp(wdata.main.temp),
-                location: getCity(),
-                icon: wdata.weather[0].icon
-            });
-        }
+        refreshWeather();
         console.log('refresh info');
     }, 300000);
 };
@@ -108,12 +102,33 @@ var showHourlyWeatherData = function () {
             x: date,
             y: temp
         };
-        d[i] = obj;
+        // usability data
+        if (i == 0) {
+            var nd = new Date(date);
+            nd.setTime(nd.getTime() - (1*60*60*1000));
+            var nt = temp;
+            var ob = {
+                x: nd.getFullYear() + '-' + (nd.getMonth()+1) + '-' + nd.getDate() + ' ' + nd.getHours() + ':0' + nd.getMinutes() + ':0' + nd.getSeconds(),
+                y: nt
+            };
+            d[0] = ob;
+        }
+        d[i+1] = obj;
         if (temp < min) {
             min = temp;
         }
         if (temp > max) {
             max = temp;
+        }
+        if (i == 9) {
+            var nd = new Date(date);
+            nd.setTime(nd.getTime() + (1*60*60*1000));
+            var nt = temp;
+            var ob = {
+                x: nd.getFullYear() + '-' + (nd.getMonth()+1) + '-' + nd.getDate() + ' ' + nd.getHours() + ':0' + nd.getMinutes() + ':0' + nd.getSeconds(),
+                y: nt
+            };
+            d[11] = ob;
         }
     }
 
@@ -164,9 +179,6 @@ var showHourlyWeatherData = function () {
                 bodyFontFamily: 'Bariol, sans-serif',
                 bodyFontColor: '#000',
                 bodyFontSize: 18,
-                callbacks: {
-                    yLabel: 'HELLO;'
-                }
             },
             scales: {
                 xAxes: [{

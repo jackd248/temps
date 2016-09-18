@@ -26,7 +26,7 @@ app.on('window-all-closed', function() {
 var mb = menubar({
   index: 'file://' + __dirname + '/index.html',
   icon: __dirname + '/assets/IconTemplate@2x.png',
-  width: 280,
+  width: 580,
   height: 480,
   resizable: false,
   'show-dock-icon': false,
@@ -36,7 +36,7 @@ var mb = menubar({
 
 mb.on('ready', function ready () {
 
-    // mb.window.openDevTools();
+    mb.window.openDevTools();
 
     ipcMain.on('no-title', function(event, args) {
         mb.tray.setToolTip('temps');

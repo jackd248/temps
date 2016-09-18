@@ -2,10 +2,10 @@ var months = ['jan','feb', 'mar', 'apr', 'may', 'jun', 'jul', 'aug', 'sep', 'oct
 
 var getTodayDay = function () {
     var days = [
-        "monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday"
+        "sunday", "monday", "tuesday", "wednesday", "thursday", "friday", "saturday"
     ];
     var date = new Date();
-    return days[(date.getDay() - 1 )];
+    return days[(date.getDay())];
 };
 
 var getTodayDate = function () {
