@@ -7,3 +7,4 @@
 * city autocomplete
 * loading animation
 * time and date of city
+* global shortcut
