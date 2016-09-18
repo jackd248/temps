@@ -32,8 +32,8 @@ app.on('will-quit', function() {
 
 var mb = menubar({
   index: 'file://' + __dirname + '/index.html',
-  icon: __dirname + '/assets/icons/IconTemplate.png',
-  width: 580,
+  icon: __dirname + '/assets/IconTemplate.png',
+  width: 280,
   height: 480,
   resizable: false,
   'show-dock-icon': false,
@@ -43,7 +43,7 @@ var mb = menubar({
 
 mb.on('ready', function ready () {
 
-    mb.window.openDevTools();
+    // mb.window.openDevTools();
 
     Menu.setApplicationMenu(Menu.buildFromTemplate(template));
 
