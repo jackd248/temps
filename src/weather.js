@@ -9,8 +9,10 @@ function getWeather (city) {
         } else {
             showErrorMessage(wdata.message);
         }
-    }).fail(function() {
+    }).fail(function(xhr, statusText) {
         showErrorMessage('Failure during data fetching');
+        console.log(xhr);
+        console.log(statusText);
     });
 }
 
@@ -25,8 +27,10 @@ function getForecast (city) {
         } else {
             showErrorMessage(fdata.message);
         }
-    }).fail(function() {
+    }).fail(function(xhr, statusText) {
         showErrorMessage('Failure during data fetching');
+        console.log(xhr);
+        console.log(statusText);
     });
 }
 function getForecastHourly (city) {
@@ -40,8 +44,10 @@ function getForecastHourly (city) {
         } else {
             showErrorMessage(hdata.message);
         }
-    }).fail(function() {
+    }).fail(function(xhr, statusText) {
         showErrorMessage('Failure during data fetching');
+        console.log(xhr);
+        console.log(statusText);
     });
 }
 
@@ -193,10 +199,10 @@ var showHourlyWeatherData = function () {
             },
             tooltips: {
                 backgroundColor: 'rgba(255,255,255,0.8)',
-                titleFontFamily: 'Bariol, sans-serif',
+                titleFontFamily: 'Rubik, sans-serif',
                 titleFontColor: '#CCC',
                 titleFontSize: 14,
-                bodyFontFamily: 'Bariol, sans-serif',
+                bodyFontFamily: 'Rubik, sans-serif',
                 bodyFontColor: '#000',
                 bodyFontSize: 18,
             },

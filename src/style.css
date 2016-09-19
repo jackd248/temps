@@ -8,7 +8,7 @@ body {
   height: 100%;
   padding: 0;
   margin: 0;
-  font-family: Bariol, sans-serif;
+  font-family: Rubik, sans-serif;
   overflow: hidden;
   background-color: #FFFFFF;
   -webkit-overflow-scrolling: touch;
@@ -34,6 +34,7 @@ h1 {
     margin: 0px;
     padding: 0;
     text-align: center;
+    font-weight: 100;
 }
 
 h1:after {
@@ -344,6 +345,12 @@ h1:after {
 #settings .form-item label, #settings .form-item .label {
     display: block;
     color: #CCC;
+    font-size: 12px;
+}
+
+#settings .form-item .label {
+    display: inline-block;
+    padding-right: 5px;
 }
 
 #settings .form-item input[type="text"] {
@@ -359,6 +366,10 @@ h1:after {
 #settings .form-item input[type="text"]:focus {
     border-bottom: 1px solid #000;
     outline: 0;
+}
+
+#settings .form-item input[type="radio"] {
+    margin-left: 15px;
 }
 
 #settings .form-item span.help, #settings .footer  {
@@ -379,10 +390,15 @@ h1:after {
     background: #FFF;
     box-sizing: border-box;
     font-size: 16px;
+    -webkit-transition: all .3s ease-in-out;
+    -moz-transition: all .3s ease-in-out;
+    -o-transition: all .3s ease-in-out;
+    transition: all .3s ease-in-out;
 }
 
 #settings button:hover {
     cursor: pointer;
+    border: 1px solid #000;
 }
 
 #settings .footer {

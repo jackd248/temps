@@ -184,6 +184,7 @@ var setMbInfo = function(bool) {
 
 var showErrorMessage = function(message) {
     setColor('#444444');
+    ipcRenderer.send('no-title');
     jQuery('#main .actual-icon svg').html('');
     jQuery('#details .location').html('');
     jQuery('#details .forecast').html('');

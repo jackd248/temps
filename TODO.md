@@ -8,16 +8,20 @@
 * ~~bugs~~
 
 ## v0.4.0
-* hourly forecast usability improvement
-* show weather icon for hourly forecast
-* "no internet connection" error
+* Open external browser
+* ~~Font problem~~
+* ~~~"no internet connection" error~~
 * snow animation
 * loading animation
 * time and date of city
-* auto updates
-* outsource configs
 
 ## v0.5.0
+* hourly forecast usability improvement
+* show weather icon for hourly forecast
 * landing page
 * web demo
+* outsource configs
+
+## v0.6.0
 * city autocomplete
+* auto updates
