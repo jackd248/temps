@@ -320,6 +320,17 @@ h1:after {
     transition: all 1s ease-in-out;
 }
 
+#settings h1:before {
+    width: 40px;
+    height: 40px;
+    content: ' ';
+    background: url('../assets/app.png') no-repeat center center;
+    background-size: cover;
+    position: absolute;
+    margin-left: -50px;
+    margin-top: -5px;
+}
+
 #settings .content {
     display: none;
     padding: 10px;

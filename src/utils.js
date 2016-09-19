@@ -51,7 +51,7 @@ var colorPalette = function() {
     }
     var temp = roundTemp(wdata.main.temp);
     // var colors = ['#b1695a', '#db9864', '#e3bb88', '#def1c5', '#80bbb2', '#69a5a6'];
-    var colors = ['#b1695a', '#FF7043', '#FFB74D', '#e3bb88', '#AFB42B', '#7CB342', '#26A69A', '#0097A7', '#0288D1', '#1976D2'];
+    var colors = ['#b1695a', '#DB9864', '#E3BB88', '#D0C7A8', '#B1C2A3', '#80BBB2', '#6D9E96', '#8F95A5', '#6F7685'];
 
     if (getFormat() == 'metric') {
         if (temp > 30) {
@@ -184,6 +184,10 @@ var setMbInfo = function(bool) {
 
 var showErrorMessage = function(message) {
     setColor('#444444');
+    jQuery('#main .actual-icon svg').html('');
+    jQuery('#details .location').html('');
+    jQuery('#details .forecast').html('');
+    jQuery('#details .hourly').html('');
     jQuery('#main .content .temp').html('=( ');
     jQuery('#main .content .temp-note').html(message);
     jQuery('#main .actual-icon svg').html('<image xlink:href="assets/icons/11d.svg" src="assets/icons/11d.svg" width="80" height="80"/>');
@@ -203,7 +207,6 @@ var getApiKey = function () {
         return store.get('apikey')
     } else {
         showErrorMessage('No API Key');
-        store.set('apikey', '3262d5cec239ea0fc97e9b9ebddf9a10');
     }
 };
 
@@ -238,10 +241,6 @@ var showThunder = function() {
 };
 
 var reset = function() {
-    jQuery('#main .actual-icon svg').html('');
-    jQuery('#details .location').html('');
-    jQuery('#details .forecast').html('');
-    jQuery('#details .hourly').html('');
     jQuery('.drop').remove();
     jQuery('.thunder').remove();
 };
