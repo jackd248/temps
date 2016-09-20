@@ -4,17 +4,17 @@ var getTodayDay = function () {
     var days = [
         "sunday", "monday", "tuesday", "wednesday", "thursday", "friday", "saturday"
     ];
-    var date = new Date();
+    var date = getDate();
     return days[(date.getDay())];
 };
 
 var getTodayDate = function () {
-    var date = new Date();
+    var date = getDate();
     return getTodayDay() + ', ' + months[date.getMonth()] + ' ' +  date.getDate();
 };
 
 var getTime = function() {
-    var dt = new Date();
+    var dt = getDate();
     return dt.getHours() + ":" + addZero(dt.getMinutes());
 };
 
@@ -157,10 +157,14 @@ var showDate = function() {
     jQuery('#main .clock').html(getTime());
     var clock = setInterval(function()
     {
-        jQuery('#details .header .date').html(getTodayDate());
-        jQuery('#main .clock').html(getTime());
-        console.log('refresh clock');
+        refreshClock();
     }, 60000);
+};
+
+var refreshClock = function () {
+    jQuery('#details .header .date').html(getTodayDate());
+    jQuery('#main .clock').html(getTime());
+    console.log('refresh clock');
 };
 
 var setCity = function(city) {

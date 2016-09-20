@@ -14,6 +14,7 @@ var hdata = null;
 
 var color = null;
 var loading = [false, false ,false];
+var timeoffset = 7200;
 
 window.onload = function ()
 {

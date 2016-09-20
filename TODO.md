@@ -11,9 +11,9 @@
 * Open external browser
 * ~~Font problem~~
 * ~~"no internet connection" error~~
-* snow animation
+* ~~snow animation~~
 * ~~loading animation~~
-* time and date of city
+* ~~time and date of city~~
 * ~~more contrast~~
 
 ## v0.5.0

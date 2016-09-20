@@ -143,7 +143,7 @@ h1:after {
     width: 70px;
     text-align: center;
     position: absolute;
-    bottom: 0;
+    bottom: 5px;
 }
 
 .spinner > div {
@@ -297,7 +297,7 @@ h1:after {
 
 #details .date, #details .location {
     width: 50%;
-    font-size: 14px;
+    font-size: 12px;
     float: left;
     padding: 10px;
     text-align: center;
@@ -338,6 +338,11 @@ h1:after {
 
 #details .forecast-item .date {
     font-size: 10px;
+}
+
+#details .forecast-item .icon svg {
+    width: 59px;
+    height: 59px;
 }
 
 #details .forecast-item .icon svg path {

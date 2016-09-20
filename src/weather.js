@@ -80,7 +80,11 @@ var refreshWeather = function () {
                 icon: wdata.weather[0].icon
             });
         }
-    }, 300);
+        if (wdata.cod != 404) {
+            getTimezone();
+        }
+
+    }, 500);
 
 
     window.setTimeout( colorPalette, 500 );
