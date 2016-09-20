@@ -242,6 +242,10 @@ var showThunder = function() {
     jQuery('#main').prepend('<div class="thunder"></div>');
 };
 
+var showSnow = function() {
+    jQuery('#main').prepend('<div class="snow"></div>');
+};
+
 var reset = function() {
     jQuery('.drop').remove();
     jQuery('.thunder').remove();

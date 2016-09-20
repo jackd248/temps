@@ -96,6 +96,10 @@ var showWeatherData = function() {
         showRain();
     }
 
+    if (wdata.weather[0].main == 'Snow') {
+        showSnow();
+    }
+
     if (wdata.weather[0].icon == '11d' || wdata.weather[0].icon == '11n') {
         showThunder();
     }
