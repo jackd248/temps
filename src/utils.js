@@ -42,6 +42,7 @@ var setColor = function (c) {
     color = c;
     jQuery('#main').css('background-color',c);
     jQuery('#details .forecast-item svg path').css('fill',c);
+    jQuery('.spinner > div').css('background-color',c);
 };
 
 var colorPalette = function() {
@@ -244,6 +245,18 @@ var showThunder = function() {
 var reset = function() {
     jQuery('.drop').remove();
     jQuery('.thunder').remove();
+};
+
+var startLoading = function () {
+    loading[0] = true;
+    loading[1] = true;
+    loading[2] = true;
+};
+
+var checkLoading = function() {
+    if (!loading[0] && !loading[1] && !loading[2]) {
+        jQuery('.spinner').fadeOut();
+    }
 };
 
 // function to generate a random number range.

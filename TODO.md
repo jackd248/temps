@@ -10,10 +10,11 @@
 ## v0.4.0
 * Open external browser
 * ~~Font problem~~
-* ~~~"no internet connection" error~~
+* ~~"no internet connection" error~~
 * snow animation
-* loading animation
+* ~~loading animation~~
 * time and date of city
+* ~~more contrast~~
 
 ## v0.5.0
 * hourly forecast usability improvement

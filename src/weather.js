@@ -3,6 +3,8 @@ function getWeather (city) {
         wdata = weatherdata;
         console.log(weatherdata);
     }).done(function() {
+        loading[0] = false;
+        checkLoading();
         if (wdata.cod != 404) {
             setCity(city);
             showWeatherData();
@@ -21,6 +23,8 @@ function getForecast (city) {
         fdata = weatherdata;
         console.log(weatherdata);
     }).done(function() {
+        loading[1] = false;
+        checkLoading();
         if (fdata.cod != 404) {
             setCity(city);
             showForecastWeatherData();
@@ -38,6 +42,8 @@ function getForecastHourly (city) {
         hdata = weatherdata;
         console.log(weatherdata);
     }).done(function() {
+        loading[2] = false;
+        checkLoading();
         if (hdata.cod != 404) {
             setCity(city);
             showHourlyWeatherData();
@@ -60,6 +66,8 @@ var refreshInfo = function() {
 };
 
 var refreshWeather = function () {
+    jQuery('.spinner').fadeIn();
+    startLoading();
     reset();
     getWeather(getCity());
     getForecast(getCity());

@@ -13,6 +13,7 @@ var fdata = null;
 var hdata = null;
 
 var color = null;
+var loading = [false, false ,false];
 
 window.onload = function ()
 {
