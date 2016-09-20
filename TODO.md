@@ -21,7 +21,9 @@
 * landing page
 * web demo
 * outsource configs
+* Windows menubar icon white
 
 ## v0.6.0
 * city autocomplete
 * auto updates
+* Tests
