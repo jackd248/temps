@@ -1,7 +1,10 @@
 {
   "name": "temps",
   "productName": "Temps",
-  "version": "0.2.0",
+  "website": "https://jackd248.github.io/temps/",
+  "version": "0.4.0",
+  "icon": "assets/app.png",
+  "description": "A simple but smart menubar weather app",
   "main": "app.js",
   "electronVersion": "1.3.5",
   "keywords": [
@@ -27,6 +30,14 @@
   },
   "author": "Konrad Michalik <hello@konradmichalik.eu>",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jackd248/temps.git",
+    "docs": "https://github.com/jackd248/temps/blob/master/README.md"
+  },
+  "bugs": {
+    "url": "https://github.com/jackd248/temps/issues"
+  },
   "devDependencies": {
     "devtron": "^1.3.0",
     "electron-packager": "^8.0.0",

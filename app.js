@@ -94,6 +94,8 @@ mb.on('show', function show () {
     mb.window.webContents.send('show');
 });
 
+
+
 var appLauncher = new AutoLaunch({
     name: 'temps'
 });

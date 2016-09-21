@@ -5,7 +5,6 @@ var store = JsonStorage.create(localStorage, 'temps', { stringify: true });
 var $, jQuery = require('jquery');
 var chart = require("chart.js");
 var ipcRenderer = require('electron').ipcRenderer;
-var timezoneJS = require('timezone-js');
 
 var wdata = null;
 var fdata = null;

@@ -4,7 +4,6 @@ function getTimezone() {
     jQuery.get("https://maps.googleapis.com/maps/api/timezone/json?location=" + wdata.coord.lat + "," + wdata.coord.lon + "&timestamp=1331161200&key=" + apikey, function(data){
         console.log(data);
         timeoffset = data.rawOffset + 3600;
-        console.log(addSeconds(convertDateToUTC(new Date()), data.rawOffset));
     }).done(function() {
         jQuery('#details .header .date').html(getTodayDate());
         refreshClock();
