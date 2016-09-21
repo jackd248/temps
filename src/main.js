@@ -3,7 +3,6 @@ var JsonStorage = require('json-storage').JsonStorage;
 var store = JsonStorage.create(localStorage, 'temps', { stringify: true });
 
 var $, jQuery = require('jquery');
-var sugar = require("sugar");
 var chart = require("chart.js");
 var ipcRenderer = require('electron').ipcRenderer;
 var timezoneJS = require('timezone-js');

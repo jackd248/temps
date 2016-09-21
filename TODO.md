@@ -8,7 +8,7 @@
 * ~~bugs~~
 
 ## v0.4.0
-* Open external browser
+* ~~landing page~~
 * ~~Font problem~~
 * ~~"no internet connection" error~~
 * ~~snow animation~~
@@ -19,12 +19,12 @@
 ## v0.5.0
 * hourly forecast usability improvement
 * show weather icon for hourly forecast
-* landing page
 * web demo
 * outsource configs
 * Windows menubar icon white
+* Open external browser
 
 ## v0.6.0
 * city autocomplete
 * auto updates
-* Tests
+* testing

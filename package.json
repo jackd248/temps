@@ -42,8 +42,6 @@
     "jquery": "^3.1.0",
     "json-storage": "^2.1.1",
     "localStorage": "^1.0.3",
-    "sugar": "^2.0.1",
-    "chart.js": "^2.2.2",
-    "timezone-js": "^0.4.13"
+    "chart.js": "^2.2.2"
   }
 }
