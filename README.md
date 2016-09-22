@@ -11,9 +11,10 @@ Temps
 
 <p align="center">
   <a href="https://github.com/jackd248/temps/releases"><img src="https://img.shields.io/github/release/jackd248/temps.svg" alt="Release"></a>
+  <a href="https://github.com/jackd248/temps/releases"><img src="https://img.shields.io/github/downloads/jackd248/temps/latest/total.svg" alt="Downloads" /></a>
 </p>
 
-Temps is a modern and minimal menubar application based on Electron with actual weather information and forecast for Windows, Mac and Linux.
+> Temps is a modern and minimal menubar application based on Electron with actual weather information and forecast for Windows, Mac and Linux.
 
 ![temps screenshot](assets/screenshot.png)
 
