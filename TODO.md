@@ -19,7 +19,10 @@
 ## v0.5.0
 * hourly forecast usability improvement
 * show weather icon for hourly forecast
-* web demo
+* Only change icons if data has changed
+* Open at startup option
+* Clean up code
+* forecast graph color bug
 * outsource configs
 * Windows menubar icon white
 * Open external browser
@@ -28,3 +31,5 @@
 * city autocomplete
 * auto updates
 * testing
+* web demo
+* Less, ECMAScript 5
