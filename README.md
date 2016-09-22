@@ -26,6 +26,7 @@ Temps
 * Timezone support
 * Information directly in your menubar available
 * Rain, snow and thunder animation
+* Global shortcut ```Cmd``` + ```Shift``` + ```W```
 * Minimal and colorful design
 
 ## Development
