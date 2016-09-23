@@ -45,6 +45,7 @@ var mb = menubar({
 
 mb.on('ready', function ready () {
 
+    // ToDo: Not working anymore with electron 1.4
     // mb.window.openDevTools();
 
     Menu.setApplicationMenu(Menu.buildFromTemplate(template));
@@ -123,6 +124,7 @@ appLauncher.isEnabled().then(function(enabled){
 
 appLauncher.enable();
 
+// Menu template and shortcuts
 var template = [{
     label: "Temps",
     submenu: [

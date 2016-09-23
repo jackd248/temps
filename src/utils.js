@@ -4,17 +4,17 @@ var getTodayDay = function () {
     var days = [
         "sunday", "monday", "tuesday", "wednesday", "thursday", "friday", "saturday"
     ];
-    var date = getDate();
+    var date = getDate(new Date());
     return days[(date.getDay())];
 };
 
 var getTodayDate = function () {
-    var date = getDate();
+    var date = getDate(new Date());
     return getTodayDay() + ', ' + months[date.getMonth()] + ' ' +  date.getDate();
 };
 
 var getTime = function() {
-    var dt = getDate();
+    var dt = getDate(new Date());
     return dt.getHours() + ":" + addZero(dt.getMinutes());
 };
 
@@ -25,18 +25,6 @@ var getStyledDate = function (num) {
     var date = new Date();
     return days[(date.getDay() + num) % 7];
 };
-var getCuttedTime = function (time) {
-    return time.substring(11, 16);
-};
-
-var getStyledTime = function (time) {
-    var date = new Date(time * 1000);
-    return date.getHours() + ":" + date.getMinutes();
-};
-
-var countNumber = function (i) {
-    return ((i % 4) + 1);
-};
 
 var setColor = function (c) {
     color = c;
@@ -46,11 +34,11 @@ var setColor = function (c) {
 };
 
 var colorPalette = function() {
-    if (wdata.cod == 404) {
+    if (wdata[0].cod == 404) {
         setColor('#444');
         return;
     }
-    var temp = roundTemp(wdata.main.temp);
+    var temp = roundTemp(wdata[0].main.temp);
     // var colors = ['#b1695a', '#db9864', '#e3bb88', '#def1c5', '#80bbb2', '#69a5a6'];
     var colors = ['#b1695a', '#DB9864', '#E3BB88', '#D0C7A8', '#B1C2A3', '#80BBB2', '#6D9E96', '#8F95A5', '#6F7685'];
 
@@ -167,31 +155,6 @@ var refreshClock = function () {
     console.log('refresh clock');
 };
 
-var setCity = function(city) {
-    store.set('actual-city', city);
-    jQuery('#settings input#city').val(city);
-};
-
-var setFormat = function(format) {
-    store.set('format', format);
-    jQuery('input:radio[value=' + format + ']')[0].checked = true;
-};
-
-var setApiKey = function(key) {
-    store.set('apikey', key);
-    jQuery('#settings input#apikey').val(key);
-};
-
-var setMbInfo = function(bool) {
-    store.set('mb-info', bool);
-    jQuery('input[type="checkbox"][name="mb-info"]').prop('checked', bool);
-};
-
-var setAutoLaunch = function(bool) {
-    store.set('auto-launch', bool);
-    jQuery('input[type="checkbox"][name="auto-launch"]').prop('checked', bool);
-};
-
 var showErrorMessage = function(message) {
     setColor('#444444');
     ipcRenderer.send('no-title');
@@ -203,42 +166,6 @@ var showErrorMessage = function(message) {
     jQuery('#main .content .temp-note').html(message);
     jQuery('#main .actual-icon svg').html('<image xlink:href="assets/icons/11d.svg" src="assets/icons/11d.svg" width="80" height="80"/>');
 
-};
-
-var getMbInfo = function() {
-    if (store.get('mb-info') != null) {
-        return store.get('mb-info');
-    }  else {
-        return true;
-    }
-};
-
-var getAutoLaunch = function() {
-    if (store.get('auto-launch') != null) {
-        return store.get('auto-launch');
-    }  else {
-        return true;
-    }
-};
-
-var getApiKey = function () {
-    if (store.get('apikey')) {
-        return store.get('apikey')
-    } else {
-        showErrorMessage('No API Key');
-    }
-};
-
-var getFormat = function() {
-    if (store.get('format')) {
-        return store.get('format');
-    } else {
-        return 'metric';
-    }
-};
-
-var getCity = function () {
-    return store.get('actual-city');
 };
 
 // number of drops created.

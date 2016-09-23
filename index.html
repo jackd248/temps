@@ -5,13 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <title>temps</title>
-    <link rel="stylesheet" href="src/libs/animate.min.css">
     <link rel="stylesheet" href="src/style.css">
     <link href="https://fonts.googleapis.com/css?family=Rubik" rel="stylesheet">
-    <script type="text/javascript" src="src/utils.js"></script>
-    <script type="text/javascript" src="src/timezone.js"></script>
-    <script type="text/javascript" src="src/weather.js"></script>
-    <script type="text/javascript" src="src/main.js"></script>
+
 </head>
 
 <body>
@@ -70,7 +66,7 @@
                     </span>
                 </div>
                 <div class="form-item small clear">
-                    <div class="label pull-left">Format</div>
+                    <div class="label pull-left">Temperature scale</div>
                     <div class="pull-right">
                         <input type="Radio" name="format" value="metric" checked="checked" /> °C
                         <input type="Radio" name="format" value="imperial" /> °F
@@ -92,7 +88,7 @@
                     <button class="close">Close</button>
                 </div>
                 <div class="footer">
-                    <a href="https://jackd248.github.io/temps/" target="_blank" alt="temps">temps</a> - v0.4.0 &copy; 2016
+                    <a href="https://jackd248.github.io/temps/" target="_blank" alt="temps">temps</a> - v0.5.0 &copy; 2016
                 </div>
             </div>
         </div>
@@ -102,5 +98,11 @@
             <div class="bounce3"></div>
         </div>
     </div>
+
+    <script type="text/javascript" src="src/utils.js"></script>
+    <script type="text/javascript" src="src/store.js"></script>
+    <script type="text/javascript" src="src/timezone.js"></script>
+    <script type="text/javascript" src="src/weather.js"></script>
+    <script type="text/javascript" src="src/main.js"></script>
 </body>
 </html>

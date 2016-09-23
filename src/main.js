@@ -6,13 +6,13 @@ var $, jQuery = require('jquery');
 var chart = require("chart.js");
 var ipcRenderer = require('electron').ipcRenderer;
 
-var wdata = null;
-var fdata = null;
-var hdata = null;
+const config = require('./src/config.json');
+
+var wdata = {};
 
 var color = null;
-var loading = [false, false ,false];
-var timeoffset = 7200;
+var loading = [false, false ,false, false];
+var timeoffset = config.timezone.offset;
 
 window.onload = function ()
 {

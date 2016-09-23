@@ -22,9 +22,11 @@
 * Only change icons if data has changed
 * ~~Open at startup option~~
 * Clean up code
-* forecast graph color bug
+* ~~forecast graph color bug~~
+* ~~forecast timezone bug~~
 * outsource configs
 * Windows menubar icon white
+* Support keyboard functions
 
 ## v0.6.0
 * city autocomplete

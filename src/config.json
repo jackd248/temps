@@ -1,0 +1,57 @@
+{
+  "name": "temps",
+  "version": "v0.5.0",
+  "timezone": {
+    "url": "https://maps.googleapis.com/maps/api/timezone/json",
+    "apikey": "AIzaSyD7CnHeMDQV_XCXlimoPwiPSB_83Wfq7LE",
+    "offset": 7200
+  },
+  "weather": {
+    "url": {
+      "actual": "http://api.openweathermap.org/data/2.5/weather?mode=json",
+      "daily": "http://api.openweathermap.org/data/2.5/forecast/daily?cnt=4&mode=json",
+      "hourly": "http://api.openweathermap.org/data/2.5/forecast?cnt=10&mode=json"
+    }
+  },
+  "random": {
+    "cities": [
+      "London, UK",
+      "Paris, FR",
+      "New York, US",
+      "Hawaii, US",
+      "Sydney, AU",
+      "Tokyo, JP",
+      "Berlin, DE",
+      "Los Angeles, US",
+      "Antarctis",
+      "Cape Town, ZA",
+      "Istanbul, TR",
+      "Baghdad, IQ",
+      "Kabul, AF",
+      "Buenos Aires, AR",
+      "Vienna, AT",
+      "Dhaka, BD",
+      "Brussels, BE",
+      "La Paz, BO",
+      "Rio de Janeiro, BR",
+      "Ottawa, CA",
+      "Beijing, CN",
+      "Havana, CU",
+      "Prague, CZ",
+      "Cairo, EG",
+      "Helsinki, FI",
+      "Athens, GR",
+      "Port-au-Prince, HT",
+      "Reykjavik, IS",
+      "New Delhi, IN",
+      "Jakarta, ID",
+      "Jerusalem, IL",
+      "Rome, IT",
+      "Seoul, KR",
+      "Ulaanbaatar, MN",
+      "Wellington, NZ",
+      "Moscow, RU",
+      "Madrid, SP"
+    ]
+  }
+}

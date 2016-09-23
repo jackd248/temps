@@ -1,54 +1,22 @@
-function getWeather (city) {
-    jQuery.get("http://api.openweathermap.org/data/2.5/weather?q=" + city + "&mode=json&units=" + getFormat() +  "&appid=" + getApiKey(), function(weatherdata){
-        wdata = weatherdata;
-        console.log(weatherdata);
-    }).done(function() {
-        loading[0] = false;
-        checkLoading();
-        if (wdata.cod != 404) {
-            setCity(city);
-            showWeatherData();
-        } else {
-            showErrorMessage(wdata.message);
-        }
-    }).fail(function(xhr, statusText) {
-        showErrorMessage('Failure during data fetching');
-        console.log(xhr);
-        console.log(statusText);
-    });
-}
+var wChange = false;
+var fChange = false;
+var hChange = false;
 
-function getForecast (city) {
-    jQuery.get("http://api.openweathermap.org/data/2.5/forecast/daily?q=" + city + "&mode=json&units=" + getFormat() +  "&cnt=7&appid=" + getApiKey(), function(weatherdata){
-        fdata = weatherdata;
+
+function getWeather (url, city, option, callback) {
+    jQuery.get(url + "&q=" + city + "&units=" + getFormat() +  "&appid=" + getApiKey(), function(weatherdata){
         console.log(weatherdata);
+        wdata[option] = weatherdata
     }).done(function() {
-        loading[1] = false;
+        loading[option] = false;
         checkLoading();
-        if (fdata.cod != 404) {
+        if (wdata[option].cod != 404) {
             setCity(city);
-            showForecastWeatherData();
+            if (callback && typeof(callback) === "function") {
+                callback();
+            }
         } else {
-            showErrorMessage(fdata.message);
-        }
-    }).fail(function(xhr, statusText) {
-        showErrorMessage('Failure during data fetching');
-        console.log(xhr);
-        console.log(statusText);
-    });
-}
-function getForecastHourly (city) {
-    jQuery.get("http://api.openweathermap.org/data/2.5/forecast?q=" + city + "&mode=json&units=" + getFormat() +  "&cnt=10&appid=" + getApiKey(), function(weatherdata){
-        hdata = weatherdata;
-        console.log(weatherdata);
-    }).done(function() {
-        loading[2] = false;
-        checkLoading();
-        if (hdata.cod != 404) {
-            setCity(city);
-            showHourlyWeatherData();
-        } else {
-            showErrorMessage(hdata.message);
+            showErrorMessage(wdata[option].message);
         }
     }).fail(function(xhr, statusText) {
         showErrorMessage('Failure during data fetching');
@@ -69,42 +37,43 @@ var refreshWeather = function () {
     jQuery('.spinner').fadeIn();
     startLoading();
     reset();
-    getWeather(getCity());
-    getForecast(getCity());
-    getForecastHourly(getCity());
+    getWeather(config.weather.url.actual, getCity(), 0, showWeatherData);
+    getWeather(config.weather.url.daily, getCity(), 1, showForecastWeatherData);
+    getWeather(config.weather.url.hourly, getCity(), 2, showHourlyWeatherData);
     window.setTimeout(function() {
-        if (getMbInfo() & wdata.cod != 404) {
+        if (getMbInfo() & wdata[0].cod != 404) {
             ipcRenderer.send('set-title', {
-                temperature: roundTemp(wdata.main.temp),
+                temperature: roundTemp(wdata[0].main.temp),
                 location: getCity(),
-                icon: wdata.weather[0].icon
+                icon: wdata[0].weather[0].icon
             });
         }
-        if (wdata.cod != 404) {
+        if (wdata[0].cod != 404) {
             getTimezone();
         }
 
+        colorPalette();
     }, 500);
 
 
-    window.setTimeout( colorPalette, 500 );
+    window.setTimeout( colorPalette, 600 );
 };
 
 var showWeatherData = function() {
-    jQuery('#main .temp').html(roundTemp(wdata.main.temp) + '°');
-    jQuery('#main .temp-note').html(wdata.weather[0].description);
-    jQuery('#details .location').html(wdata.name.toLowerCase() + ', ' + wdata.sys.country.toLowerCase());
-    jQuery('#main .actual-icon svg').html('<image xlink:href="assets/icons/' + wdata.weather[0].icon + '.svg" src="assets/icons/' + wdata.weather[0].icon + '.svg" width="80" height="80"/>');
+    jQuery('#main .temp').html(roundTemp(wdata[0].main.temp) + '°');
+    jQuery('#main .temp-note').html(wdata[0].weather[0].description);
+    jQuery('#details .location').html(wdata[0].name.toLowerCase() + ', ' + wdata[0].sys.country.toLowerCase());
+    jQuery('#main .actual-icon svg').html('<image xlink:href="assets/icons/' + wdata[0].weather[0].icon + '.svg" src="assets/icons/' + wdata[0].weather[0].icon + '.svg" width="80" height="80"/>');
 
-    if (wdata.weather[0].main == 'Rain') {
+    if (wdata[0].weather[0].main == 'Rain') {
         showRain();
     }
 
-    if (wdata.weather[0].main == 'Snow') {
+    if (wdata[0].weather[0].main == 'Snow') {
         showSnow();
     }
 
-    if (wdata.weather[0].icon == '11d' || wdata.weather[0].icon == '11n') {
+    if (wdata[0].weather[0].icon == '11d' || wdata[0].weather[0].icon == '11n') {
         showThunder();
     }
 };
@@ -115,9 +84,9 @@ var showForecastWeatherData = function() {
     for (var i = 0; i < 4; i++) {
         html += '<div class="forecast-item" >';
         html += '<div class="date">' + getStyledDate(i) + '</div>';
-        // html += '<div class="icon"><img src="assets/icons/' + fdata.list[i].weather[0].icon + '-1.png" widtH="60" alt="' + fdata.list[i].weather[0].description + '"/></div>';
-        html += '<div class="icon" name="' + fdata.list[i].weather[0].icon + '"><img src="assets/icons/' + fdata.list[i].weather[0].icon + '-1.png" width="60" alt="' + fdata.list[i].weather[0].description + '"/></div>';
-        html += '<div class="temp">' + roundTemp(fdata.list[i].temp.day) + '°</div>';
+        // html += '<div class="icon"><img src="assets/icons/' + wdata[1].list[i].weather[0].icon + '-1.png" widtH="60" alt="' + wdata[1].list[i].weather[0].description + '"/></div>';
+        html += '<div class="icon" name="' + wdata[1].list[i].weather[0].icon + '"><img src="assets/icons/' + wdata[1].list[i].weather[0].icon + '-1.png" width="60" alt="' + wdata[1].list[i].weather[0].description + '"/></div>';
+        html += '<div class="temp">' + roundTemp(wdata[1].list[i].temp.day) + '°</div>';
         html += '</div>';
     }
     jQuery('#details .forecast').html(html);
@@ -136,8 +105,8 @@ var showHourlyWeatherData = function () {
     var max = 0;
     var min = 50;
     for (var i = 0; i < 10; i++) {
-        var date = hdata.list[i].dt_txt;
-        var temp = roundTemp(hdata.list[i].main.temp);
+        var date = getDate(new Date(wdata[2].list[i].dt_txt));
+        var temp = roundTemp(wdata[2].list[i].main.temp);
         var obj = {
             x: date,
             y: temp
