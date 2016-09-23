@@ -16,7 +16,7 @@ Temps
 
 > Temps is a modern and minimal menubar application based on Electron with actual weather information and forecast for Windows, Mac and Linux.
 
-![temps screenshot](assets/screenshot.png)
+![temps screenshot](assets/screenshot.jpg)
 
 ## Features
 
@@ -28,6 +28,8 @@ Temps
 * Rain, snow and thunder animation
 * Global shortcut ```Cmd``` + ```Shift``` + ```W```
 * Minimal and colorful design
+
+![temps screenshot](assets/screenshot-overview.png)
 
 ## Development
 

@@ -184,7 +184,12 @@ var setApiKey = function(key) {
 
 var setMbInfo = function(bool) {
     store.set('mb-info', bool);
-    jQuery('input[type="checkbox"]').prop('checked', bool);
+    jQuery('input[type="checkbox"][name="mb-info"]').prop('checked', bool);
+};
+
+var setAutoLaunch = function(bool) {
+    store.set('auto-launch', bool);
+    jQuery('input[type="checkbox"][name="auto-launch"]').prop('checked', bool);
 };
 
 var showErrorMessage = function(message) {
@@ -203,6 +208,14 @@ var showErrorMessage = function(message) {
 var getMbInfo = function() {
     if (store.get('mb-info') != null) {
         return store.get('mb-info');
+    }  else {
+        return true;
+    }
+};
+
+var getAutoLaunch = function() {
+    if (store.get('auto-launch') != null) {
+        return store.get('auto-launch');
     }  else {
         return true;
     }

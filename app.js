@@ -15,6 +15,8 @@ var Tray = electron.Tray;
 // be closed automatically when the JavaScript object is garbage collected.
 var mainWindow = null;
 
+var autoLaunch = true;
+
 // Quit when all windows are closed.
 app.on('window-all-closed', function() {
   // On OS X it is common for applications and their menu bar
@@ -60,9 +62,6 @@ mb.on('ready', function ready () {
         console.log('registration failed')
     }
 
-    // Check whether a shortcut is registered.
-    console.log(globalShortcut.isRegistered('CommandOrControl+Shift+W'));
-
     ipcMain.on('no-title', function(event, args) {
         mb.tray.setToolTip('temps');
         mb.tray.setTitle('');
@@ -84,17 +83,32 @@ mb.on('ready', function ready () {
         app.quit();
     });
 
-    mb.window.on('will-navigate', function(e, url) {
-        e.preventDefault();
-        electron.shell.openExternal(url);
+    ipcMain.on('auto-launch', function(event, args) {
+
+        // appLauncher.isEnabled() not working for now
+        console.log(appLauncher.isEnabled());
+        if (autoLaunch) {
+            appLauncher.disable();
+            autoLaunch = false;
+            console.log('disable auto-launch');
+        } else {
+            appLauncher.enable();
+            autoLaunch = true;
+            console.log('enable auto-launch');
+        }
     });
+
+    //ToDo: open links in external browser
+    // mb.on('will-navigate', function(e, url) {
+    //     console.log('navigate');
+    //     e.preventDefault();
+    //     electron.shell.openExternal(url);
+    // });
 });
 
 mb.on('show', function show () {
     mb.window.webContents.send('show');
 });
-
-
 
 var appLauncher = new AutoLaunch({
     name: 'temps'

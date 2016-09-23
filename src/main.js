@@ -59,9 +59,14 @@ var loadEventListener = function() {
         if (getMbInfo()) {
             refreshWeather();
         } else {
-            console.log('send');
             ipcRenderer.send('no-title');
         }
+    });
+
+    jQuery('input[type="checkbox"][name="auto-launch"]').change(function () {
+        var bool =jQuery('input[type="checkbox"][name="auto-launch"]:checked').length > 0;
+        setAutoLaunch(bool);
+        ipcRenderer.send('auto-launch');
     });
 
     jQuery('.location').click(function () {
@@ -115,5 +120,11 @@ var init = function() {
         setMbInfo(store.get('mb-info'));
     }  else {
         setMbInfo(true);
+    }
+
+    if (store.get('auto-launch') != null) {
+        setAutoLaunch(store.get('auto-launch'));
+    }  else {
+        setAutoLaunch(true);
     }
 };

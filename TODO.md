@@ -20,16 +20,16 @@
 * hourly forecast usability improvement
 * show weather icon for hourly forecast
 * Only change icons if data has changed
-* Open at startup option
+* ~~Open at startup option~~
 * Clean up code
 * forecast graph color bug
 * outsource configs
 * Windows menubar icon white
-* Open external browser
 
 ## v0.6.0
 * city autocomplete
 * auto updates
 * testing
 * web demo
+* Open external browser
 * Less, ECMAScript 5

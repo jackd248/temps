@@ -30,6 +30,14 @@ a:hover {
     display: none;
 }
 
+.pull-left {
+    float: left;
+}
+
+.pull-right {
+    float: right;
+}
+
 h1 {
     margin: 0px;
     padding: 0;
@@ -119,7 +127,7 @@ h1:after {
 .drop {
     /*background:-webkit-gradient(linear,0% 0%,0% 100%, from(rgba(13,52,58,1) ), to(rgba(255,255,255,0.6))  );
     background: -moz-linear-gradient(top, rgba(13,52,58,1) 0%, rgba(255,255,255,.6) 100%);*/
-    background-color: rgba(255,255,255,0.1);
+    background-color: rgba(255,255,255,0.2);
     width:1px;
     height:50px;
     position: absolute;
@@ -389,7 +397,11 @@ h1:after {
 }
 
 #settings .form-item {
-    padding: 10px 0;
+    padding: 12px 0;
+}
+
+#settings .form-item.small {
+    padding: 5px 0;
 }
 
 #settings .form-item label, #settings .form-item .label {
@@ -430,6 +442,12 @@ h1:after {
 
 #settings .form-item span.help a, #settings .footer a {
     color: #000;
+}
+
+.clear::after {
+    content: "";
+    clear: both;
+    display: block;
 }
 
 #settings button {

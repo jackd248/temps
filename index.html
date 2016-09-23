@@ -66,17 +66,26 @@
                     <label for="apikey">API Key</label>
                     <input type="text" name="apikey" id="apikey" value=""/>
                     <span class="help">
-                        You need an api key from <a href="http://www.openweathermap.org/" alt="openweathermap" target="_blank">openweathermap</a> for your weather data.
+                        You need a free api key from <a href="http://www.openweathermap.org/" alt="openweathermap" target="_blank">openweathermap</a>.
                     </span>
                 </div>
-                <div class="form-item">
-                    <span class="label">Format</span>
-                    <input type="Radio" name="format" value="metric" checked="checked" /> °C
-                    <input type="Radio" name="format" value="imperial" /> °F
+                <div class="form-item small clear">
+                    <div class="label pull-left">Format</div>
+                    <div class="pull-right">
+                        <input type="Radio" name="format" value="metric" checked="checked" /> °C
+                        <input type="Radio" name="format" value="imperial" /> °F
+                    </div>
                 </div>
-                <div class="form-item">
-                    <label>
-                        <input type="checkbox" name="mb-info" value="true"> Show weather in menubar
+                <div class="form-item small">
+                    <label class="clear">
+                        <div class="pull-left">Show weather in menubar</div>
+                        <div class="pull-right"><input type="checkbox" name="mb-info" value="true"></div>
+                    </label>
+                </div>
+                <div class="form-item small">
+                    <label class="clear">
+                        <div class="pull-left">Startup at login</div>
+                        <div class="pull-right"><input type="checkbox" name="auto-launch" value="true"> </div>
                     </label>
                 </div>
                 <div class="form-item">
