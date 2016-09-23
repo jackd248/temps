@@ -512,3 +512,27 @@ body {
     0% {background-position: 0px 0px, 0px 0px, 0px 0px;}
     100% {background-position: 500px 500px, 100px 200px, -100px 150px;}
 }
+
+#chartjs-tooltip {
+    opacity: 0;
+    position: absolute;
+    background: rgba(255,255,255, .7);
+    color: #999999;
+    text-align: center;
+    width: 77px;
+    font-size: 14px;
+    padding: 3px;
+    border-radius: 3px;
+    -webkit-transition: all .1s ease;
+    transition: all .1s ease;
+    pointer-events: none;
+    -webkit-transform: translate(-50%, 0);
+    transform: translate(-50%, 0);
+}
+#chartjs-tooltip b {
+    color: #000000;
+    font-size: 18px;
+}
+#chartjs-tooltip > img {
+    height: 2em;
+}

@@ -35,7 +35,7 @@ var loadEventListener = function() {
             setCity(jQuery('input#city').val());
             refreshWeather();
             toggleSettings();
-            return false;    //<---- Add this line
+            return false;
         }
     });
 
@@ -44,7 +44,7 @@ var loadEventListener = function() {
             setApiKey(jQuery('input#apikey').val());
             refreshWeather();
             toggleSettings();
-            return false;    //<---- Add this line
+            return false;
         }
     });
     

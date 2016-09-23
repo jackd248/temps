@@ -18,7 +18,7 @@
 
 ## v0.5.0
 * hourly forecast usability improvement
-* show weather icon for hourly forecast
+* ~~show weather icon for hourly forecast~~
 * Only change icons if data has changed
 * ~~Open at startup option~~
 * Clean up code

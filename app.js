@@ -86,8 +86,8 @@ mb.on('ready', function ready () {
 
     ipcMain.on('auto-launch', function(event, args) {
 
-        // appLauncher.isEnabled() not working for now
-        console.log(appLauncher.isEnabled());
+        // ToDo: appLauncher.isEnabled() not working for now
+        // console.log(appLauncher.isEnabled());
         if (autoLaunch) {
             appLauncher.disable();
             autoLaunch = false;

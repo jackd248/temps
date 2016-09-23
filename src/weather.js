@@ -1,8 +1,3 @@
-var wChange = false;
-var fChange = false;
-var hChange = false;
-
-
 function getWeather (url, city, option, callback) {
     jQuery.get(url + "&q=" + city + "&units=" + getFormat() +  "&appid=" + getApiKey(), function(weatherdata){
         console.log(weatherdata);
@@ -39,7 +34,7 @@ var refreshWeather = function () {
     reset();
     getWeather(config.weather.url.actual, getCity(), 0, showWeatherData);
     getWeather(config.weather.url.daily, getCity(), 1, showForecastWeatherData);
-    getWeather(config.weather.url.hourly, getCity(), 2, showHourlyWeatherData);
+    getWeather(config.weather.url.hourly, getCity(), 2);
     window.setTimeout(function() {
         if (getMbInfo() & wdata[0].cod != 404) {
             ipcRenderer.send('set-title', {
@@ -84,7 +79,7 @@ var showForecastWeatherData = function() {
     for (var i = 0; i < 4; i++) {
         html += '<div class="forecast-item" >';
         html += '<div class="date">' + getStyledDate(i) + '</div>';
-        // html += '<div class="icon"><img src="assets/icons/' + wdata[1].list[i].weather[0].icon + '-1.png" widtH="60" alt="' + wdata[1].list[i].weather[0].description + '"/></div>';
+        // html += '<div class="icon"><img src="assets/icons/' + wdata[1].list[i].weather[0].icon + '-1.png" width="60" alt="' + wdata[1].list[i].weather[0].description + '"/></div>';
         html += '<div class="icon" name="' + wdata[1].list[i].weather[0].icon + '"><img src="assets/icons/' + wdata[1].list[i].weather[0].icon + '-1.png" width="60" alt="' + wdata[1].list[i].weather[0].description + '"/></div>';
         html += '<div class="temp">' + roundTemp(wdata[1].list[i].temp.day) + '°</div>';
         html += '</div>';
@@ -98,15 +93,17 @@ var showForecastWeatherData = function() {
 };
 
 var showHourlyWeatherData = function () {
-    var wrap = jQuery('#details .hourly');
+    var wrap = jQuery('#details .hourly #canvas-holder');
     wrap.html('<canvas id="chart" width="280" height="100"></canvas>');
     var c = jQuery('#details .hourly #chart');;
     var d = [];
+    var e = [];
     var max = 0;
     var min = 50;
     for (var i = 0; i < 10; i++) {
         var date = getDate(new Date(wdata[2].list[i].dt_txt));
         var temp = roundTemp(wdata[2].list[i].main.temp);
+        var icon = wdata[2].list[i].weather[0].icon;
         var obj = {
             x: date,
             y: temp
@@ -121,8 +118,10 @@ var showHourlyWeatherData = function () {
                 y: nt
             };
             d[0] = ob;
+            e.push(icon);
         }
         d[i+1] = obj;
+        e.push(icon);
         if (temp < min) {
             min = temp;
         }
@@ -138,6 +137,7 @@ var showHourlyWeatherData = function () {
                 y: nt
             };
             d[11] = ob;
+            e.push(icon);
         }
     }
 
@@ -149,8 +149,10 @@ var showHourlyWeatherData = function () {
     var chart = new Chart(c, {
         type: 'line',
         data: {
+            labels: ["January", "February", "March", "April", "May", "June", "July"],
             datasets: [{
                 data: d,
+                label: format,
                 fill: false,
                 lineTension: 0.5,
                 backgroundColor: "rgba(75,192,192,0.4)",
@@ -167,22 +169,23 @@ var showHourlyWeatherData = function () {
                 pointHoverBorderColor: color,
                 pointHoverBorderWidth: 2,
                 pointRadius: 1,
-                pointHitRadius: 10,
-                label: format
+                pointHitRadius: 10
             }],
             fill: false,
             borderWidth: 1,
             borderColor: 'rgba(0,0,0,1)',
-            responsive: true,
+            responsive: true
         },
         options: {
             legend: {
                 display: false,
                 labels: {
-                    hidden: true
+                    hidden: false
                 }
             },
             tooltips: {
+                enabled: false,
+                mode: 'x-axis',
                 backgroundColor: 'rgba(255,255,255,0.8)',
                 titleFontFamily: 'Rubik, sans-serif',
                 titleFontColor: '#CCC',
@@ -190,6 +193,37 @@ var showHourlyWeatherData = function () {
                 bodyFontFamily: 'Rubik, sans-serif',
                 bodyFontColor: '#000',
                 bodyFontSize: 18,
+                callbacks: {
+                    footer: function(data) {
+                        var text = e[data[0].index];
+                        return text;
+                    }
+                },
+                custom: function (tooltip) {
+                    var tooltipEl = jQuery('#chartjs-tooltip');
+
+                    if (!tooltip) {
+                        tooltipEl.css({
+                            opacity: 0
+                        });
+                        return;
+                    }
+
+                    if (tooltip.body) {
+                        tooltipEl.removeClass('above below');
+                        tooltipEl.addClass(tooltip.yAlign);
+                        var parts = tooltip.body[0].lines[0].split(":");
+                        var innerHtml = '<img src="assets/icons/' + tooltip.footer[0] +  'Template@2x.png"/> <span><b>' + parts[1].trim() + '</span> <span>' + parts[0].trim() + '</span></b><br/><small>' + tooltip.title[0] + '</small>';
+                        tooltipEl.html(innerHtml);
+
+                        tooltipEl.css({
+                            opacity: 1,
+                            left: tooltip.x + 40 +'px',
+                            // top: tooltip.y + 350 +'px',
+                            top: 420 +'px', // always on bottom
+                        });
+                    }
+                }
             },
             scales: {
                 xAxes: [{
@@ -209,8 +243,11 @@ var showHourlyWeatherData = function () {
                     ticks: {
                         max: max,
                         min: min
-                    },
+                    }
                 }]
+            },
+            hover: {
+                mode: 'x-axis'
             }
         }
     });

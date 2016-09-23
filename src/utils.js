@@ -193,6 +193,7 @@ var showSnow = function() {
 var reset = function() {
     jQuery('.drop').remove();
     jQuery('.thunder').remove();
+    jQuery('#chartjs-tooltip').css('opacity',0);
 };
 
 var startLoading = function () {
