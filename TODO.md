@@ -24,9 +24,12 @@
 * Clean up code
 * ~~forecast graph color bug~~
 * ~~forecast timezone bug~~
+* forecast offset bug
 * ~~outsource configs~~
 * Windows menubar icon white
 * ~~Support keyboard functions~~
+* ~~Favorite city~~
+* ~~Number counting animation~~
 
 ## v0.6.0
 * city autocomplete
