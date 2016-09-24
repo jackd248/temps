@@ -27,7 +27,7 @@ Temps
 * Timezone support
 * Information directly in your menubar available
 * Rain, snow and thunder animation
-* Global shortcut ```Cmd``` + ```Shift``` + ```W```
+* Global shortcut <kbd>Cmd</kbd> + <kbd>Shift</kbd> + <kbd>W</kbd>
 * Minimal and colorful design
 
 ![temps screenshot](assets/screenshot-overview.png)

@@ -516,7 +516,7 @@ body {
 #chartjs-tooltip {
     opacity: 0;
     position: absolute;
-    background: rgba(255,255,255, .7);
+    background: rgba(255,255,255,0);
     color: #999999;
     text-align: center;
     width: 77px;
@@ -529,10 +529,29 @@ body {
     -webkit-transform: translate(-50%, 0);
     transform: translate(-50%, 0);
 }
+#chartjs-tooltip::after {
+    content: "";
+    clear: both;
+    display: block;
+}
+
 #chartjs-tooltip b {
-    color: #000000;
+    color: #999999;
     font-size: 18px;
 }
 #chartjs-tooltip > img {
     height: 2em;
+}
+#chartjs-tooltip .icon {
+    float: left;
+    width: 20px;
+    height: 20px;
+    margin-right: 5px;
+    margin-top: -7px;
+    position: relative;
+
+}
+#chartjs-tooltip svg {
+    width: 35px;
+    height: 35px;
 }
