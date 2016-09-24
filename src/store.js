@@ -1,6 +1,14 @@
 var setCity = function (city) {
   store.set('actual-city', city)
   jQuery('#settings input#city').val(city)
+
+  if (store.get('favorite-city') != null) {
+    if (city == store.get('favorite-city')) {
+      jQuery('input[type="checkbox"][name="favorite-city"]').prop('checked', true)
+    } else {
+      jQuery('input[type="checkbox"][name="favorite-city"]').prop('checked', false)
+    }
+  }
 }
 
 var setFormat = function (format) {
@@ -21,6 +29,10 @@ var setMbInfo = function (bool) {
 var setAutoLaunch = function (bool) {
   store.set('auto-launch', bool)
   jQuery('input[type="checkbox"][name="auto-launch"]').prop('checked', bool)
+}
+
+var setFavoriteCity = function (city) {
+  store.set('favorite-city', city)
 }
 
 var getMbInfo = function () {
@@ -57,4 +69,12 @@ var getFormat = function () {
 
 var getCity = function () {
   return store.get('actual-city')
+}
+
+var getFavoriteCity = function () {
+  if (store.get('favorite-city')) {
+    return store.get('favorite-city')
+  } else {
+    return ''
+  }
 }

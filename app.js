@@ -2,18 +2,11 @@
 
 var electron = require('electron')
 var app = electron.app
-var BrowserWindow = electron.BrowserWindow
 var globalShortcut = electron.globalShortcut
 var AutoLaunch = require('auto-launch')
 var menubar = require('menubar')
 var Menu = electron.Menu
-
 var ipcMain = electron.ipcMain
-var Tray = electron.Tray
-
-// Keep a global reference of the window object, if you don't, the window will
-// be closed automatically when the JavaScript object is garbage collected.
-var mainWindow = null
 
 var autoLaunch = true
 
@@ -169,6 +162,10 @@ var template = [{
     { type: 'separator' },
     { label: 'Reload Data', accelerator: 'CmdOrCtrl+E', click: function(item, focusedWindow){
         if (focusedWindow) focusedWindow.webContents.send('reload-data')
+      }
+    },
+    { label: 'Favorite City', accelerator: 'CmdOrCtrl+F', click: function(item, focusedWindow){
+        if (focusedWindow) focusedWindow.webContents.send('favorite-city')
       }
     },
     { label: 'Randomn City', accelerator: 'CmdOrCtrl+W', click: function(item, focusedWindow){

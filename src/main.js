@@ -53,6 +53,16 @@ var loadEventListener = function () {
     refreshWeather()
   })
 
+  jQuery('input[type="checkbox"][name="favorite-city"]').change(function () {
+    var bool = jQuery('input[type="checkbox"][name="favorite-city"]:checked').length > 0
+    console.log(bool)
+    if (bool) {
+      setFavoriteCity(jQuery('input#city').val())
+    } else {
+      setFavoriteCity('')
+    }
+  })
+
   jQuery('input[type="checkbox"][name="mb-info"]').change(function () {
     var bool = jQuery('input[type="checkbox"][name="mb-info"]:checked').length > 0
     setMbInfo(bool)
@@ -100,6 +110,8 @@ var loadEventListener = function () {
 
   ipcRenderer.on('reload-data', refreshWeather)
 
+  ipcRenderer.on('favorite-city', favoriteCity)
+
   ipcRenderer.on('random-city', randomCity)
 }
 
@@ -132,5 +144,13 @@ var init = function () {
     setAutoLaunch(store.get('auto-launch'))
   } else {
     setAutoLaunch(true)
+  }
+
+  if (store.get('favorite-city') != null) {
+    if (getCity() == store.get('favorite-city')) {
+      jQuery('input[type="checkbox"][name="favorite-city"]').prop('checked', true)
+    } else {
+      jQuery('input[type="checkbox"][name="favorite-city"]').prop('checked', false)
+    }
   }
 }

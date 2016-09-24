@@ -24,9 +24,9 @@
 * Clean up code
 * ~~forecast graph color bug~~
 * ~~forecast timezone bug~~
-* outsource configs
+* ~~outsource configs~~
 * Windows menubar icon white
-* Support keyboard functions
+* ~~Support keyboard functions~~
 
 ## v0.6.0
 * city autocomplete
@@ -35,3 +35,4 @@
 * web demo
 * Open external browser
 * Less, ECMAScript 5
+* Clean up code

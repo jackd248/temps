@@ -123,7 +123,6 @@ var toggleDetails = function () {
     jQuery('#details .hourly').delay(500).fadeIn()
     showHourlyWeatherData()
   }
-
 }
 
 var showDate = function () {
@@ -146,7 +145,7 @@ var showErrorMessage = function (message) {
   jQuery('#main .actual-icon svg').html('')
   jQuery('#details .location').html('')
   jQuery('#details .forecast').html('')
-  jQuery('#details .hourly').html('')
+  jQuery('#details .hourly #canvas-holder').html('')
   jQuery('#main .content .temp').html('=( ')
   jQuery('#main .content .temp-note').html(message)
   jQuery('#main .actual-icon svg').html('<image xlink:href="assets/icons/11d.svg" src="assets/icons/11d.svg" width="80" height="80"/>')
@@ -202,4 +201,11 @@ var randomCity = function() {
   var cities = config.random.cities
   setCity(cities[randRange(0,cities.length-1)])
   refreshWeather()
+}
+
+var favoriteCity = function() {
+  if (getFavoriteCity() && getFavoriteCity() != '') {
+    setCity(getFavoriteCity())
+    refreshWeather()
+  }
 }

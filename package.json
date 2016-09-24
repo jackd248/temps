@@ -56,6 +56,6 @@
     "jquery": "^3.1.1",
     "json-storage": "^2.1.1",
     "localStorage": "^1.0.3",
-    "chart.js": "^2.3.0"
+    "chart.js": "^2.2.1"
   }
 }

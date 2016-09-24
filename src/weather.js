@@ -35,6 +35,7 @@ var refreshWeather = function () {
   getWeather(config.weather.url.actual, getCity(), 0, showWeatherData)
   getWeather(config.weather.url.daily, getCity(), 1, showForecastWeatherData)
   getWeather(config.weather.url.hourly, getCity(), 2)
+
   window.setTimeout(function () {
     if (getMbInfo() & wdata[0].cod != 404) {
       ipcRenderer.send('set-title', {
@@ -49,7 +50,7 @@ var refreshWeather = function () {
   }, 500)
 
 
-  window.setTimeout(colorPalette, 600)
+  window.setTimeout(colorPalette, 1000)
 }
 
 var showWeatherData = function () {
@@ -98,7 +99,7 @@ var showForecastWeatherData = function () {
 var showHourlyWeatherData = function () {
   var wrap = jQuery('#details .hourly #canvas-holder')
   wrap.html('<canvas id="chart" width="280" height="100"></canvas>')
-  var c = jQuery('#details .hourly #chart')
+  var c = jQuery('#details .hourly #canvas-holder #chart')
   var d = []
   var e = []
   var max = 0
@@ -143,6 +144,7 @@ var showHourlyWeatherData = function () {
       e.push(icon)
     }
   }
+  console.log(d)
 
   var format = (getFormat() == 'metric') ? '°C' : '°F'
 
@@ -163,7 +165,6 @@ var showHourlyWeatherData = function () {
         backgroundColor: 'rgba(75,192,192,0.4)',
         borderColor: color,
         borderCapStyle: 'butt',
-        borderDash: [],
         borderDashOffset: 0.0,
         borderJoinStyle: 'miter',
         pointBorderColor: color,
@@ -179,7 +180,7 @@ var showHourlyWeatherData = function () {
       fill: false,
       borderWidth: 1,
       borderColor: 'rgba(0,0,0,1)',
-      responsive: true
+      responsive: false
     },
     options: {
       legend: {
@@ -191,13 +192,6 @@ var showHourlyWeatherData = function () {
       tooltips: {
         enabled: false,
         mode: 'x-axis',
-        backgroundColor: 'rgba(255,255,255,0.8)',
-        titleFontFamily: 'Rubik, sans-serif',
-        titleFontColor: '#CCC',
-        titleFontSize: 14,
-        bodyFontFamily: 'Rubik, sans-serif',
-        bodyFontColor: '#000',
-        bodyFontSize: 18,
         callbacks: {
           footer: function (data) {
             var text = e[data[0].index]
