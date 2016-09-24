@@ -54,7 +54,14 @@ var refreshWeather = function () {
 }
 
 var showWeatherData = function () {
-  jQuery('#main .temp').html(roundTemp(wdata[0].main.temp) + '°')
+  //jQuery('#main #temp').html(roundTemp(wdata[0].main.temp))
+  if (numAnim == null) {
+    numAnim = new CountUp("temp", 0, roundTemp(wdata[0].main.temp), 0, 2);
+    numAnim.start();
+  } else {
+    numAnim.update(roundTemp(wdata[0].main.temp))
+  }
+  jQuery('#main .temp .unit').html('°')
   jQuery('#main .temp-note').html(wdata[0].weather[0].description)
   jQuery('#details .location').html(wdata[0].name.toLowerCase() + ', ' + wdata[0].sys.country.toLowerCase())
   jQuery('#main .actual-icon svg').html('<image xlink:href="assets/icons/' + wdata[0].weather[0].icon + '.svg" src="assets/icons/' + wdata[0].weather[0].icon + '.svg" width="80" height="80"/>')

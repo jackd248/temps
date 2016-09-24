@@ -5,6 +5,7 @@ var store = JsonStorage.create(localStorage, 'temps', { stringify: true })
 var $, jQuery = require('jquery')
 var chart = require('chart.js')
 var ipcRenderer = require('electron').ipcRenderer
+var CountUp = require('countup.js')
 
 const config = require('./src/config.json')
 
@@ -13,6 +14,7 @@ var wdata = {}
 var color = null
 var loading = [false, false, false, false]
 var timeoffset = config.timezone.offset
+var numAnim = null
 
 window.onload = function ()
 {
@@ -55,7 +57,6 @@ var loadEventListener = function () {
 
   jQuery('input[type="checkbox"][name="favorite-city"]').change(function () {
     var bool = jQuery('input[type="checkbox"][name="favorite-city"]:checked').length > 0
-    console.log(bool)
     if (bool) {
       setFavoriteCity(jQuery('input#city').val())
     } else {

@@ -415,6 +415,13 @@ h1:after {
     padding-right: 5px;
 }
 
+#settings .form-item label.inline {
+    color: #000000;
+    font-size: 18px;
+    display: inline-block;
+    padding-left: 10px;
+}
+
 #settings .form-item input[type="text"] {
      display: block;
      width: 100%;
@@ -434,10 +441,11 @@ h1:after {
     padding-right: 20px;
 }
 
-#settings .form-item input[type="checkbox"][name="favorite-city"] {
-    margin-top: -20px;
+#settings .form-item label.fav {
+    margin-top: -22px;
     position: absolute;
-    right: 10px;
+    right: 5px;
+    font-size: 12px;
 }
 
 #settings .form-item input[type="radio"] {
@@ -452,6 +460,41 @@ h1:after {
 
 #settings .form-item span.help a, #settings .footer a {
     color: #000;
+}
+
+input[type="checkbox"], input[type="radio"] {
+    display:none;
+}
+input[type="checkbox"] + span {
+    display:inline-block;
+    width:20px;
+    height:20px;
+    margin:-1px 4px 0 0;
+    vertical-align:middle;
+    background:url(../assets/checkboxes.png) left top no-repeat;
+    cursor:pointer;
+}
+input[type="checkbox"]:checked + span {
+    background:url(../assets/checkboxes.png) -20px top no-repeat;
+}
+input[type="radio"] + span {
+    display:inline-block;
+    width:20px;
+    height:20px;
+    margin:-1px 4px 0 0;
+    vertical-align:middle;
+    background:url(../assets/checkboxes.png) -40px top no-repeat;
+    cursor:pointer;
+}
+input[type="radio"]:checked + span {
+    background:url(../assets/checkboxes.png) -60px top no-repeat;
+}
+
+input[type="checkbox"][name="favorite-city"] + span {
+    background:url(../assets/checkboxes.png) -80px top no-repeat;
+}
+input[type="checkbox"][name="favorite-city"]:checked + span {
+    background:url(../assets/checkboxes.png) -100px top no-repeat;
 }
 
 .clear::after {

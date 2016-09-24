@@ -22,7 +22,9 @@
                 </div>
             </div>
             <div class="content">
-                <div class="temp"></div>
+                <div class="temp">
+                    <span id="temp"></span><span class="unit"></span>
+                </div>
                 <hr/>
                 <div class="temp-note"></div>
             </div>
@@ -58,7 +60,7 @@
                 <div class="form-item">
                     <label for="city">City</label>
                     <input type="text" name="city" id="city" value="" autofocus/>
-                    <input type="checkbox" name="favorite-city" value="false">
+                    <label class="inline fav"><input type="checkbox" name="favorite-city" value="false"><span></span></label>
                 </div>
                 <div class="form-item">
                     <label for="apikey">API Key</label>
@@ -70,20 +72,20 @@
                 <div class="form-item small clear">
                     <div class="label pull-left">Temperature scale</div>
                     <div class="pull-right">
-                        <input type="Radio" name="format" value="metric" checked="checked" /> °C
-                        <input type="Radio" name="format" value="imperial" /> °F
+                        <label class="inline"><input type="Radio" name="format" value="metric" checked="checked" /><span></span>°C </label>
+                        <label class="inline"><input type="Radio" name="format" value="imperial" /><span></span>°F </label>
                     </div>
                 </div>
                 <div class="form-item small">
                     <label class="clear">
                         <div class="pull-left">Show weather in menubar</div>
-                        <div class="pull-right"><input type="checkbox" name="mb-info" value="true"></div>
+                        <div class="pull-right"><input type="checkbox" name="mb-info" value="true"><span></span></div>
                     </label>
                 </div>
                 <div class="form-item small">
                     <label class="clear">
                         <div class="pull-left">Start at login</div>
-                        <div class="pull-right"><input type="checkbox" name="auto-launch" value="true"> </div>
+                        <div class="pull-right"><input type="checkbox" name="auto-launch" value="true"><span></span></div>
                     </label>
                 </div>
                 <div class="form-item">

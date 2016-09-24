@@ -146,7 +146,9 @@ var showErrorMessage = function (message) {
   jQuery('#details .location').html('')
   jQuery('#details .forecast').html('')
   jQuery('#details .hourly #canvas-holder').html('')
-  jQuery('#main .content .temp').html('=( ')
+  jQuery('#main .content #temp').html('=( ')
+  jQuery('#main .content .temp .unit').html('')
+  numAnim = null
   jQuery('#main .content .temp-note').html(message)
   jQuery('#main .actual-icon svg').html('<image xlink:href="assets/icons/11d.svg" src="assets/icons/11d.svg" width="80" height="80"/>')
 
