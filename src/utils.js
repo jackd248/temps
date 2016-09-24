@@ -44,43 +44,43 @@ var colorPalette = function() {
 
     if (getFormat() == 'metric') {
         if (temp > 30) {
-            setColor(colors[0]);
+            setColor(colors[0])
         } else if (temp > 26) {
-            setColor(colors[1]);
+            setColor(colors[1])
         } else if (temp > 22) {
-            setColor(colors[2]);
+            setColor(colors[2])
         } else if (temp > 18) {
-            setColor(colors[3]);
+            setColor(colors[3])
         } else if (temp > 14) {
-            setColor(colors[4]);
+            setColor(colors[4])
         } else if (temp > 10) {
-            setColor(colors[5]);
+            setColor(colors[5])
         } else if (temp > 6) {
-            setColor(colors[6]);
+            setColor(colors[6])
         } else if (temp > 2) {
-            setColor(colors[7]);
+            setColor(colors[7])
         } else {
-            setColor(colors[8]);
+            setColor(colors[8])
         }
     } else {
         if (temp > 86) {
-            setColor(colors[0]);
+            setColor(colors[0])
         } else if (temp > 78) {
-            setColor(colors[1]);
+            setColor(colors[1])
         } else if (temp > 71) {
-            setColor(colors[2]);
+            setColor(colors[2])
         } else if (temp > 64) {
-            setColor(colors[3]);
+            setColor(colors[3])
         } else if (temp > 57) {
-            setColor(colors[4]);
+            setColor(colors[4])
         } else if (temp > 50) {
-            setColor(colors[5]);
+            setColor(colors[5])
         } else if (temp > 42) {
-            setColor(colors[6]);
+            setColor(colors[6])
         } else if (temp > 35) {
-            setColor(colors[7]);
+            setColor(colors[7])
         } else {
-            setColor(colors[8]);
+            setColor(colors[8])
         }
     }
 
@@ -116,19 +116,7 @@ var addZero = function(i) {
     return i;
 };
 
-var showHourly = function () {
-    jQuery('#details .hourly').removeClass('hidden');
-    jQuery('#details .forecast').addClass('hidden');
-};
-
-var showForecast = function () {
-    jQuery('#details .hourly').addClass('hidden');
-    jQuery('#details .forecast').removeClass('hidden');
-};
-
 var toggleDetails = function() {
-    // jQuery('#details .hourly').toggleClass('hidden');
-    // jQuery('#details .forecast').toggleClass('hidden');
     if (jQuery('#details .hourly').is(':visible')) {
         jQuery('#details .hourly').fadeOut();
         jQuery('#details .forecast').delay(500).fadeIn();

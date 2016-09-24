@@ -213,7 +213,8 @@ var showHourlyWeatherData = function () {
                         tooltipEl.removeClass('above below');
                         tooltipEl.addClass(tooltip.yAlign);
                         var parts = tooltip.body[0].lines[0].split(":");
-                        var innerHtml = '<img src="assets/icons/' + tooltip.footer[0] +  'Template@2x.png"/> <span><b>' + parts[1].trim() + '</span> <span>' + parts[0].trim() + '</span></b><br/><small>' + tooltip.title[0] + '</small>';
+                        var dates = tooltip.title[0].split(" - ");
+                        var innerHtml = '<img src="assets/icons/' + tooltip.footer[0] +  'Template@2x.png"/> <span><b>' + parts[1].trim() + '</span> <span>' + parts[0].trim() + '</span></b><br/><small>' + dates[0].toLowerCase() + ', ' + dates[1] + '</small>';
                         tooltipEl.html(innerHtml);
 
                         tooltipEl.css({
