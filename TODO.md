@@ -26,7 +26,7 @@
 * ~~forecast timezone bug~~
 * forecast offset bug
 * ~~outsource configs~~
-* Windows menubar icon white
+* ~~Windows menubar icon white~~
 * ~~Support keyboard functions~~
 * ~~Favorite city~~
 * ~~Number counting animation~~

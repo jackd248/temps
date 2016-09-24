@@ -58,7 +58,11 @@ mb.on('ready', function ready () {
   ipcMain.on('no-title', function (event, args) {
     mb.tray.setToolTip('temps')
     mb.tray.setTitle('')
-    mb.tray.setImage(__dirname + '/assets/IconTemplate.png')
+    if (process.platform === 'darwin') {
+      mb.tray.setImage(__dirname + '/assets/IconTemplate.png')
+    } else {
+      mb.tray.setImage(__dirname + '/assets/icons/01dW.png')
+    }
   })
 
   ipcMain.on('set-title', function (event, args) {
@@ -68,7 +72,7 @@ mb.on('ready', function ready () {
     if (process.platform === 'darwin') {
       mb.tray.setImage(__dirname + '/assets/icons/' + args.icon + 'Template.png')
     } else {
-      mb.tray.setImage(__dirname + '/assets/icons/' + args.icon + '.png')
+      mb.tray.setImage(__dirname + '/assets/icons/' + args.icon + 'W.png')
     }
   })
 
