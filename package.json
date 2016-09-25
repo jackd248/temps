@@ -26,9 +26,7 @@
     "package:win64": "electron-builder dist/Temps-win32-x64/ --platform=win --out=dist --config=config.json && mv 'dist/Temps Setup.exe' dist/Temps_Windows64.exe",
     "package:win32": "electron-builder dist/Temps-win32-ia32/ --platform=win --out=dist --config=config.json && mv 'dist/Temps Setup.exe' dist/Temps_Windows32.exe",
     "package:osx": "hdiutil create -format UDZO -srcfolder dist/Temps-darwin-x64/Temps.app dist/Temps_Mac.dmg",
-    "package:linux": "cd dist/ && zip -r Temps_Linux_x64.zip Temps-linux-x64 && zip -r Temps_Linux_ia32.zip Temps-linux-ia32 && cd ../",
-    "test": "npm run lint",
-    "lint": "standard --fix"
+    "package:linux": "cd dist/ && zip -r Temps_Linux_x64.zip Temps-linux-x64 && zip -r Temps_Linux_ia32.zip Temps-linux-ia32 && cd ../"
   },
   "author": "Konrad Michalik <hello@konradmichalik.eu>",
   "license": "MIT",
@@ -57,6 +55,8 @@
     "json-storage": "^2.1.1",
     "localStorage": "^1.0.3",
     "chart.js": "^2.2.1",
-    "countup.js": "^1.7.1"
+    "countup.js": "^1.7.1",
+    "semver": "^5.1.0",
+    "superagent": "^2.0.0"
   }
 }

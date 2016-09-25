@@ -186,10 +186,11 @@ var startLoading = function () {
   loading[0] = true
   loading[1] = true
   loading[2] = true
+  loading[3] = true
 }
 
 var checkLoading = function () {
-  if (!loading[0] && !loading[1] && !loading[2]) {
+  if (!loading[0] && !loading[1] && !loading[2] && !loading[3]) {
     jQuery('.spinner').fadeOut()
   }
 }

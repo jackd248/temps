@@ -1,23 +1,28 @@
-function getWeather (url, city, option, callback) {
-  jQuery.get(url + '&q=' + city + '&units=' + getFormat() + '&appid=' + getApiKey(), function (weatherdata) {
-    console.log(weatherdata)
-    wdata[option] = weatherdata
-  }).done(function () {
-    loading[option] = false
-    checkLoading()
-    if (wdata[option].cod != 404) {
-      setCity(city)
-      if (callback && typeof (callback) === 'function') {
-        callback()
-      }
-    } else {
-      showErrorMessage(wdata[option].message)
-    }
-  }).fail(function (xhr, statusText) {
-    showErrorMessage('Failure during data fetching')
-    console.log(xhr)
-    console.log(statusText)
-  })
+const superagent = require('superagent')
+
+const getWeather = function (url, city, option, callback) {
+  superagent
+      .get(url)
+      .query({q: city})
+      .query({units: getFormat()})
+      .query({appid: getApiKey()})
+      .end(function (err, res) {
+        if (err || !res.ok) {
+          showErrorMessage('Failure during data fetching')
+        } else {
+          wdata[option] = res.body
+          loading[option] = false
+          checkLoading
+          if (wdata[option].cod != 404) {
+            setCity(city)
+            if (callback && typeof (callback) === 'function') {
+              callback()
+            }
+          } else {
+            showErrorMessage(wdata[option].message)
+          }
+        }
+      })
 }
 
 var refreshInfo = function () {
@@ -107,6 +112,7 @@ var showHourlyWeatherData = function () {
   var wrap = jQuery('#details .hourly #canvas-holder')
   wrap.html('<canvas id="chart" width="280" height="100"></canvas>')
   var c = jQuery('#details .hourly #canvas-holder #chart')
+  jQuery('#details .hourly #chartjs-tooltip').html()
   var d = []
   var e = []
   var max = 0
@@ -151,7 +157,6 @@ var showHourlyWeatherData = function () {
       e.push(icon)
     }
   }
-  console.log(d)
 
   var format = (getFormat() == 'metric') ? '°C' : '°F'
 

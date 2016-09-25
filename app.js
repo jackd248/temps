@@ -6,7 +6,12 @@ var globalShortcut = electron.globalShortcut
 var AutoLaunch = require('auto-launch')
 var menubar = require('menubar')
 var Menu = electron.Menu
+var dialog = electron.dialog
 var ipcMain = electron.ipcMain
+var shell = electron.shell
+const superagent = require('superagent')
+const semver = require('semver')
+const config = require('./package.json')
 
 var autoLaunch = true
 
@@ -36,6 +41,8 @@ var mb = menubar({
 })
 
 mb.on('ready', function ready () {
+
+  autoUpdater()
 
     // ToDo: Not working anymore with electron 1.4
     // mb.window.openDevTools();
@@ -178,3 +185,31 @@ var template = [{
     }
   ]}
 ]
+
+const autoUpdater = function() {
+  superagent
+      .get('https://raw.githubusercontent.com/jackd248/temps/master/package.json')
+      .end(function (err, res) {
+        if (err || !res.ok) {
+          console.log(err)
+        } else {
+          try {
+            const newVersion = JSON.parse(res.text).version
+            const oldVersion = config.version
+            if (semver.gt(newVersion, oldVersion)) {
+              const confirm = dialog.showMessageBox({
+                type: 'info',
+                message: 'A new version ' + newVersion + ' of Temps is available.',
+                detail: 'Do you want to download it now?',
+                buttons: ['Yes', 'No']
+              })
+              if (confirm === 0) {
+                shell.openExternal('https://github.com/jackd248/temps/releases')
+              }
+            }
+          } catch(err) {
+            console.log(err)
+          }
+        }
+      })
+}
