@@ -11,7 +11,7 @@ Temps
 
 <p align="center">
   <a href="https://github.com/jackd248/temps/releases"><img src="https://img.shields.io/github/release/jackd248/temps.svg" alt="Release"></a>
-  <a href="https://github.com/jackd248/temps/releases"><img src="https://img.shields.io/github/downloads/jackd248/temps/latest/total.svg" alt="Downloads" /></a>
+  <a href="https://github.com/jackd248/temps/releases"><img src="https://img.shields.io/github/downloads/jackd248/temps/total.svg" alt="Downloads" /></a>
   <a href="https://david-dm.org/jackd248/temps" title="dependencies status"><img src="https://david-dm.org/jackd248/temps/status.svg" /></a>
 </p>
 
@@ -26,9 +26,22 @@ Temps
 * Interactive hourly weather graph
 * Timezone support
 * Information directly in your menubar available
-* Rain, snow and thunder animation
-* Global shortcut <kbd>Cmd</kbd> + <kbd>Shift</kbd> + <kbd>W</kbd>
+* _Rain_, _snow_ and _thunder_ animation
+* Shortcut support
 * Minimal and colorful design
+
+### Keyboard support
+
+You can use the following shortcuts for easy usage of Temps:
+
+* <kbd>Cmd</kbd> + <kbd>Shift</kbd> + <kbd>W</kbd> Global shortcut
+* <kbd>Cmd</kbd> + <kbd>D</kbd> Switch details (four-day and hourly forecast)
+* <kbd>Cmd</kbd> + <kbd>S</kbd> Open settings
+* <kbd>Cmd</kbd> + <kbd>F</kbd> Search weather for your favorite city
+* <kbd>Cmd</kbd> + <kbd>R</kbd> Reload application
+* <kbd>Cmd</kbd> + <kbd>E</kbd> Reload weather data
+* <kbd>Cmd</kbd> + <kbd>W</kbd> Search random city weather data
+* <kbd>Cmd</kbd> + <kbd>Q</kbd> Close application
 
 ![temps screenshot](assets/screenshot-overview.png)
 
