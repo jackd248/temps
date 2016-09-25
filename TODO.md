@@ -19,21 +19,22 @@
 ## v0.5.0
 * ~~hourly forecast usability improvement~~
 * ~~show weather icon for hourly forecast~~
-* Only change icons if data has changed
+* ~~Only change icons if data has changed~~
 * ~~Open at startup option~~
-* Clean up code
+* ~~Clean up code~~
 * ~~forecast graph color bug~~
 * ~~forecast timezone bug~~
-* forecast offset bug
 * ~~outsource configs~~
 * ~~Windows menubar icon white~~
 * ~~Support keyboard functions~~
 * ~~Favorite city~~
 * ~~Number counting animation~~
+* ~~Auto updater~~
 
 ## v0.6.0
+* forecast offset bug
 * city autocomplete
-* auto updates
+* city history
 * testing
 * web demo
 * Open external browser
