@@ -63,9 +63,11 @@ Builds app binaries for OS X, Linux, and Windows.
 
 You can [download](https://github.com/jackd248/temps/releases) the latest stable version of Temps for Windows, Mac OS and Linux. 
 
-## Instructions
+### Instructions
 
-You need a free API Key by [OpenWeatherMap](http://openweathermap.org/) to fetch weather information.
+__You need a free API Key by [OpenWeatherMap](http://openweathermap.org/) to fetch weather information.__
+
+Because of this is a non-profit project, I'm not able to offer unlimited access to weather information by myself. 
 
 ## Credits
 
