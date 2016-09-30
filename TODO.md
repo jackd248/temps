@@ -33,10 +33,15 @@
 
 ## v0.6.0
 * forecast offset bug
-* city autocomplete
+* endless loading animation bug
 * city history
-* testing
-* web demo
-* Open external browser
+* automatic testing
+* open external browser
+* providing a starter api key inside the app
+* usability improvements
 * Less, ECMAScript 5
 * Clean up code
+
+## v0.7.0
+* city autocomplete
+* web demo
