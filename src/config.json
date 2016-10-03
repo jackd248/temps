@@ -1,6 +1,6 @@
 {
   "name": "temps",
-  "version": "v0.5.0",
+  "version": "v0.5.1",
   "apikey": "547bbdc38bd641bef6645cd2c4bc613f",
   "timezone": {
     "url": "https://maps.googleapis.com/maps/api/timezone/json",
@@ -53,7 +53,18 @@
       "Ulaanbaatar, MN",
       "Wellington, NZ",
       "Moscow, RU",
-      "Madrid, SP"
+      "Madrid, SP",
+      "Tirana, AL",
+      "Algiers, DZ",
+      "Andorra la Vella, AD",
+      "Vatican City, VA",
+      "Caracas, VE",
+      "Abu Dhabi, AE",
+      "Kyiv, UA",
+      "Kampala, UG",
+      "Ankara, TR",
+      "Tunis, TN",
+      ""
     ]
   }
 }

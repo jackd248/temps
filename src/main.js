@@ -1,20 +1,20 @@
 var localStorage = require('localStorage')
-var JsonStorage = require('json-storage').JsonStorage
-var store = JsonStorage.create(localStorage, 'temps', { stringify: true })
+let JsonStorage = require('json-storage').JsonStorage
+let store = JsonStorage.create(localStorage, 'temps', { stringify: true })
 
-var $, jQuery = require('jquery')
-var chart = require('chart.js')
-var ipcRenderer = require('electron').ipcRenderer
-var CountUp = require('countup.js')
+const jQuery = require('jquery')
+const chart = require('chart.js')
+const ipcRenderer = require('electron').ipcRenderer
+const CountUp = require('countup.js')
 
 const config = require('./src/config.json')
 
-var wdata = {}
+let wdata = {}
 
-var color = null
-var loading = [false, false, false, false]
-var timeoffset = config.timezone.offset
-var numAnim = null
+let color = null
+let loading = [false, false, false, false]
+let timeoffset = config.timezone.offset
+let numAnim = null
 
 window.onload = function ()
 {
@@ -25,7 +25,7 @@ window.onload = function ()
   loadEventListener()
 }
 
-var loadEventListener = function () {
+const loadEventListener = function () {
 
   jQuery('#details .content').click(toggleDetails)
 
@@ -56,7 +56,7 @@ var loadEventListener = function () {
   })
 
   jQuery('input[type="checkbox"][name="favorite-city"]').change(function () {
-    var bool = jQuery('input[type="checkbox"][name="favorite-city"]:checked').length > 0
+    const bool = jQuery('input[type="checkbox"][name="favorite-city"]:checked').length > 0
     if (bool) {
       setFavoriteCity(jQuery('input#city').val())
     } else {
@@ -65,7 +65,7 @@ var loadEventListener = function () {
   })
 
   jQuery('input[type="checkbox"][name="mb-info"]').change(function () {
-    var bool = jQuery('input[type="checkbox"][name="mb-info"]:checked').length > 0
+    const bool = jQuery('input[type="checkbox"][name="mb-info"]:checked').length > 0
     setMbInfo(bool)
     if (getMbInfo()) {
       refreshWeather()
@@ -75,7 +75,7 @@ var loadEventListener = function () {
   })
 
   jQuery('input[type="checkbox"][name="auto-launch"]').change(function () {
-    var bool = jQuery('input[type="checkbox"][name="auto-launch"]:checked').length > 0
+    const bool = jQuery('input[type="checkbox"][name="auto-launch"]:checked').length > 0
     setAutoLaunch(bool)
     ipcRenderer.send('auto-launch')
   })
@@ -124,7 +124,7 @@ var loadEventListener = function () {
   ipcRenderer.on('random-city', randomCity)
 }
 
-var init = function () {
+const init = function () {
   if (store.get('actual-city')) {
     setCity(store.get('actual-city'))
   } else {
