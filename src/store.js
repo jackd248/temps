@@ -55,7 +55,7 @@ var getApiKey = function () {
   if (store.get('apikey')) {
     return store.get('apikey')
   } else {
-    showErrorMessage('No API Key')
+    return config.apikey
   }
 }
 

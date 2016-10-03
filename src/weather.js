@@ -7,12 +7,12 @@ const getWeather = function (url, city, option, callback) {
       .query({units: getFormat()})
       .query({appid: getApiKey()})
       .end(function (err, res) {
+        loading[option] = false
         if (err || !res.ok) {
           showErrorMessage('Failure during data fetching')
         } else {
           wdata[option] = res.body
-          loading[option] = false
-          checkLoading
+          checkLoading()
           if (wdata[option].cod != 404) {
             setCity(city)
             if (callback && typeof (callback) === 'function') {
@@ -25,15 +25,15 @@ const getWeather = function (url, city, option, callback) {
       })
 }
 
-var refreshInfo = function () {
-  var info = setInterval(function ()
+const refreshInfo = function () {
+  const info = setInterval(function ()
     {
     refreshWeather()
     console.log('refresh info')
   }, 300000)
 }
 
-var refreshWeather = function () {
+const refreshWeather = function () {
   jQuery('.spinner').fadeIn()
   startLoading()
   reset()
@@ -58,8 +58,7 @@ var refreshWeather = function () {
   window.setTimeout(colorPalette, 1000)
 }
 
-var showWeatherData = function () {
-  //jQuery('#main #temp').html(roundTemp(wdata[0].main.temp))
+const showWeatherData = function () {
   if (numAnim == null) {
     numAnim = new CountUp("temp", 0, roundTemp(wdata[0].main.temp), 0, 2);
     numAnim.start();
@@ -86,10 +85,10 @@ var showWeatherData = function () {
   colorPalette()
 }
 
-var showForecastWeatherData = function () {
+const showForecastWeatherData = function () {
   jQuery('#details .forecast').html('')
-  var html = ''
-  for (var i = 0; i < 4; i++) {
+  let html = ''
+  for (let i = 0; i < 4; i++) {
     html += '<div class="forecast-item" >'
     html += '<div class="date">' + getStyledDate(i) + '</div>'
         // html += '<div class="icon"><img src="assets/icons/' + wdata[1].list[i].weather[0].icon + '-1.png" width="60" alt="' + wdata[1].list[i].weather[0].description + '"/></div>';
@@ -108,36 +107,24 @@ var showForecastWeatherData = function () {
   })
 }
 
-var showHourlyWeatherData = function () {
-  var wrap = jQuery('#details .hourly #canvas-holder')
+const showHourlyWeatherData = function () {
+  const wrap = jQuery('#details .hourly #canvas-holder')
   wrap.html('<canvas id="chart" width="280" height="100"></canvas>')
-  var c = jQuery('#details .hourly #canvas-holder #chart')
+  const c = jQuery('#details .hourly #canvas-holder #chart')
   jQuery('#details .hourly #chartjs-tooltip').html()
-  var d = []
-  var e = []
-  var max = 0
-  var min = 50
-  for (var i = 0; i < 10; i++) {
-    var date = getDate(new Date(wdata[2].list[i].dt_txt))
-    var temp = roundTemp(wdata[2].list[i].main.temp)
-    var icon = wdata[2].list[i].weather[0].icon
-    var obj = {
+  let d = []
+  let e = []
+  let max = 0
+  let min = 50
+  for (let i = 0; i < 10; i++) {
+    const date = getDate(new Date(wdata[2].list[i].dt_txt))
+    const temp = roundTemp(wdata[2].list[i].main.temp)
+    const icon = wdata[2].list[i].weather[0].icon
+    const obj = {
       x: date,
       y: temp
     }
-        // usability data
-    if (i == 0) {
-      var nd = new Date(date)
-      nd.setTime(nd.getTime() - (1 * 60 * 60 * 1000))
-      var nt = temp
-      var ob = {
-        x: nd.getFullYear() + '-' + (nd.getMonth() + 1) + '-' + nd.getDate() + ' ' + nd.getHours() + ':0' + nd.getMinutes() + ':0' + nd.getSeconds(),
-        y: nt
-      }
-      d[0] = ob
-      e.push(icon)
-    }
-    d[i + 1] = obj
+    d[i] = obj
     e.push(icon)
     if (temp < min) {
       min = temp
@@ -145,30 +132,18 @@ var showHourlyWeatherData = function () {
     if (temp > max) {
       max = temp
     }
-    if (i == 9) {
-      var nd = new Date(date)
-      nd.setTime(nd.getTime() + (1 * 60 * 60 * 1000))
-      var nt = temp
-      var ob = {
-        x: nd.getFullYear() + '-' + (nd.getMonth() + 1) + '-' + nd.getDate() + ' ' + nd.getHours() + ':0' + nd.getMinutes() + ':0' + nd.getSeconds(),
-        y: nt
-      }
-      d[11] = ob
-      e.push(icon)
-    }
   }
 
-  var format = (getFormat() == 'metric') ? '°C' : '°F'
+  const format = (getFormat() == 'metric') ? '°C' : '°F'
 
   max += 5
   min -= 5
 
-  var previousTooltip = null
+  let previousTooltip = null
 
-  var chart = new Chart(c, {
+  const chart = new Chart(c, {
     type: 'line',
     data: {
-      labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
       datasets: [{
         data: d,
         label: format,
@@ -206,12 +181,12 @@ var showHourlyWeatherData = function () {
         mode: 'x-axis',
         callbacks: {
           footer: function (data) {
-            var text = e[data[0].index]
+            const text = e[data[0].index]
             return text
           }
         },
         custom: function (tooltip) {
-          var tooltipEl = jQuery('#chartjs-tooltip')
+          const tooltipEl = jQuery('#chartjs-tooltip')
 
           if (!tooltip) {
             tooltipEl.css({
@@ -224,9 +199,9 @@ var showHourlyWeatherData = function () {
             if (previousTooltip != tooltip.title[0]) {
               tooltipEl.removeClass('above below')
               tooltipEl.addClass(tooltip.yAlign)
-              var parts = tooltip.body[0].lines[0].split(':')
-              var dates = tooltip.title[0].split(' - ')
-              var innerHtml = '<div class="icon"></div> <span><b>' + parts[1].trim() + '</span></b> <span>' + parts[0].trim() + '</span><br/><small>' + dates[0].toLowerCase() + ', ' + dates[1] + '</small>'
+              const parts = tooltip.body[0].lines[0].split(':')
+              const dates = tooltip.title[0].split(' - ')
+              const innerHtml = '<div class="icon"></div> <span><b>' + parts[1].trim() + '</span></b> <span>' + parts[0].trim() + '</span><br/><small>' + dates[0].toLowerCase() + ', ' + dates[1] + '</small>'
               tooltipEl.html(innerHtml)
 
               jQuery('#chartjs-tooltip .icon').load('assets/icons/' + tooltip.footer[0] + '.svg', null, function () {

@@ -1,15 +1,21 @@
-function getTimezone () {
-  jQuery.get(config.timezone.url + '?location=' + wdata[0].coord.lat + ',' + wdata[0].coord.lon + '&timestamp=1331161200&key=' + config.timezone.apikey, function (data) {
-    timeoffset = data.rawOffset + 3600
-  }).done(function () {
-    jQuery('#details .header .date').html(getTodayDate())
-    refreshClock()
-    loading[3] = false
-    checkLoading()
-    showHourlyWeatherData()
-  }).fail(function () {
-        // showErrorMessage('Failure during data fetching');
-  })
+const getTimezone = function () {
+  superagent
+      .get(config.timezone.url)
+      .query({location: wdata[0].coord.lat + ',' + wdata[0].coord.lon})
+      .query({timestamp: '1331161200'})
+      .query({key: config.timezone.apikey})
+      .end(function (err, res) {
+        loading[3] = false
+        if (err || !res.ok) {
+          showErrorMessage('Failure during data fetching')
+        } else {
+          timeoffset = res.body.rawOffset + 3600
+          jQuery('#details .header .date').html(getTodayDate())
+          refreshClock()
+          checkLoading()
+          showHourlyWeatherData()
+        }
+      })
 }
 
 function convertDateToUTC (date) {

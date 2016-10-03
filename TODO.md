@@ -31,14 +31,16 @@
 * ~~Number counting animation~~
 * ~~Auto updater~~
 
-## v0.6.0
+## v0.5.1
 * forecast offset bug
 * endless loading animation bug
-* city history
-* automatic testing
 * open external browser
 * providing a starter api key inside the app
 * usability improvements
+
+## v0.6.0
+* city history
+* automatic testing
 * Less, ECMAScript 5
 * Clean up code
 

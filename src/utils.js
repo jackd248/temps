@@ -96,6 +96,7 @@ var toggleSettings = function () {
     jQuery('#details').delay(500).fadeIn()
     jQuery('#settings').height('0px')
     jQuery('#settings .content').fadeOut()
+    jQuery('#nav-icon').removeClass('open')
   } else {
     jQuery('#main').height('120px')
     jQuery('#main .content').fadeOut()
@@ -103,8 +104,8 @@ var toggleSettings = function () {
     jQuery('#details').fadeOut()
     jQuery('#settings').height('340px')
     jQuery('#settings .content').delay(500).fadeIn()
+    jQuery('#nav-icon').addClass('open')
   }
-
 }
 
 var addZero = function (i) {
@@ -151,6 +152,8 @@ var showErrorMessage = function (message) {
   numAnim = null
   jQuery('#main .content .temp-note').html(message)
   jQuery('#main .actual-icon svg').html('<image xlink:href="assets/icons/11d.svg" src="assets/icons/11d.svg" width="80" height="80"/>')
+  timeoffset = config.timezone.offset
+  refreshClock()
 
 }
 

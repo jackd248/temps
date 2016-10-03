@@ -1,19 +1,19 @@
 'use strict'
 
-var electron = require('electron')
-var app = electron.app
-var globalShortcut = electron.globalShortcut
-var AutoLaunch = require('auto-launch')
-var menubar = require('menubar')
-var Menu = electron.Menu
-var dialog = electron.dialog
-var ipcMain = electron.ipcMain
-var shell = electron.shell
+const electron = require('electron')
+const app = electron.app
+const globalShortcut = electron.globalShortcut
+const AutoLaunch = require('auto-launch')
+const menubar = require('menubar')
+const Menu = electron.Menu
+const dialog = electron.dialog
+const ipcMain = electron.ipcMain
+const shell = electron.shell
 const superagent = require('superagent')
 const semver = require('semver')
 const config = require('./package.json')
 
-var autoLaunch = true
+let autoLaunch = true
 
 // Quit when all windows are closed.
 app.on('window-all-closed', function () {
@@ -29,7 +29,7 @@ app.on('will-quit', function () {
   globalShortcut.unregisterAll()
 })
 
-var mb = menubar({
+const mb = menubar({
   index: 'file://' + __dirname + '/index.html',
   icon: __dirname + '/assets/IconTemplate.png',
   width: 280,
@@ -73,7 +73,7 @@ mb.on('ready', function ready () {
   })
 
   ipcMain.on('set-title', function (event, args) {
-    var temperature = Math.round(args.temperature) + '°'
+    const temperature = Math.round(args.temperature) + '°'
     mb.tray.setToolTip(args.location + ' - ' + temperature)
     mb.tray.setTitle(temperature)
     if (process.platform === 'darwin') {
@@ -85,6 +85,11 @@ mb.on('ready', function ready () {
 
   ipcMain.on('close', function (event, args) {
     app.quit()
+  })
+
+  ipcMain.on('will-navigate', function (event, args) {
+    const url = args.url
+    electron.shell.openExternal(url)
   })
 
   ipcMain.on('auto-launch', function (event, args) {
@@ -114,7 +119,7 @@ mb.on('show', function show () {
   mb.window.webContents.send('show')
 })
 
-var appLauncher = new AutoLaunch({
+const appLauncher = new AutoLaunch({
   name: 'temps'
 })
 
@@ -128,7 +133,7 @@ appLauncher.isEnabled().then(function (enabled) {
 appLauncher.enable()
 
 // Menu template and shortcuts
-var template = [{
+const template = [{
   label: 'Temps',
   submenu: [
         { label: 'About Temps', selector: 'orderFrontStandardAboutPanel:' },

@@ -95,8 +95,16 @@ var loadEventListener = function () {
     refreshWeather()
   })
 
-  jQuery('#main .settings img').click(function () {
+  jQuery('#nav-icon').click(function() {
     toggleSettings()
+  })
+
+  jQuery('a').click(function (e) {
+    e.preventDefault()
+    const target = jQuery(this).attr('href')
+    ipcRenderer.send('will-navigate', {
+      url: target
+    })
   })
 
   jQuery('#settings .close').click(function () {
@@ -120,7 +128,7 @@ var init = function () {
   if (store.get('actual-city')) {
     setCity(store.get('actual-city'))
   } else {
-    setCity('Dresden, DE')
+    setCity('Berlin, DE')
   }
 
   if (store.get('format')) {
