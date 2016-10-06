@@ -26,7 +26,6 @@ window.onload = function ()
 }
 
 const loadEventListener = function () {
-
   jQuery('#details .content').click(toggleDetails)
 
   showDate()
@@ -95,7 +94,7 @@ const loadEventListener = function () {
     refreshWeather()
   })
 
-  jQuery('#nav-icon').click(function() {
+  jQuery('#nav-icon').click(function () {
     toggleSettings()
   })
 

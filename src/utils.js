@@ -81,7 +81,6 @@ var colorPalette = function () {
       setColor(colors[8])
     }
   }
-
 }
 
 var roundTemp = function (temp) {
@@ -154,7 +153,6 @@ var showErrorMessage = function (message) {
   jQuery('#main .actual-icon svg').html('<image xlink:href="assets/icons/11d.svg" src="assets/icons/11d.svg" width="80" height="80"/>')
   timeoffset = config.timezone.offset
   refreshClock()
-
 }
 
 // number of drops created.
@@ -203,13 +201,13 @@ function randRange (minNum, maxNum) {
   return (Math.floor(Math.random() * (maxNum - minNum + 1)) + minNum)
 }
 
-var randomCity = function() {
+var randomCity = function () {
   var cities = config.random.cities
-  setCity(cities[randRange(0,cities.length-1)])
+  setCity(cities[randRange(0, cities.length - 1)])
   refreshWeather()
 }
 
-var favoriteCity = function() {
+var favoriteCity = function () {
   if (getFavoriteCity() && getFavoriteCity() != '') {
     setCity(getFavoriteCity())
     refreshWeather()

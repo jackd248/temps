@@ -41,7 +41,6 @@ const mb = menubar({
 })
 
 mb.on('ready', function ready () {
-
   autoUpdater()
 
     // ToDo: Not working anymore with electron 1.4
@@ -93,7 +92,6 @@ mb.on('ready', function ready () {
   })
 
   ipcMain.on('auto-launch', function (event, args) {
-
         // ToDo: appLauncher.isEnabled() not working for now
         // console.log(appLauncher.isEnabled());
     if (autoLaunch) {
@@ -165,33 +163,33 @@ const template = [{
         }
       }
     ]}, {
-  label: 'Actions',
-  submenu: [
-    { label: 'Details', accelerator: 'CmdOrCtrl+D', click: function(item, focusedWindow){
-        if (focusedWindow) focusedWindow.webContents.send('toggle-details')
-      }
+      label: 'Actions',
+      submenu: [
+    { label: 'Details', accelerator: 'CmdOrCtrl+D', click: function (item, focusedWindow) {
+      if (focusedWindow) focusedWindow.webContents.send('toggle-details')
+    }
     },
-    { label: 'Settings', accelerator: 'CmdOrCtrl+S', click: function(item, focusedWindow){
-        if (focusedWindow) focusedWindow.webContents.send('toggle-settings')
-      }
+    { label: 'Settings', accelerator: 'CmdOrCtrl+S', click: function (item, focusedWindow) {
+      if (focusedWindow) focusedWindow.webContents.send('toggle-settings')
+    }
     },
     { type: 'separator' },
-    { label: 'Reload Data', accelerator: 'CmdOrCtrl+E', click: function(item, focusedWindow){
-        if (focusedWindow) focusedWindow.webContents.send('reload-data')
-      }
-    },
-    { label: 'Favorite City', accelerator: 'CmdOrCtrl+F', click: function(item, focusedWindow){
-        if (focusedWindow) focusedWindow.webContents.send('favorite-city')
-      }
-    },
-    { label: 'Randomn City', accelerator: 'CmdOrCtrl+W', click: function(item, focusedWindow){
-        if (focusedWindow) focusedWindow.webContents.send('random-city')
-      }
+    { label: 'Reload Data', accelerator: 'CmdOrCtrl+E', click: function (item, focusedWindow) {
+      if (focusedWindow) focusedWindow.webContents.send('reload-data')
     }
-  ]}
+    },
+    { label: 'Favorite City', accelerator: 'CmdOrCtrl+F', click: function (item, focusedWindow) {
+      if (focusedWindow) focusedWindow.webContents.send('favorite-city')
+    }
+    },
+    { label: 'Randomn City', accelerator: 'CmdOrCtrl+W', click: function (item, focusedWindow) {
+      if (focusedWindow) focusedWindow.webContents.send('random-city')
+    }
+    }
+      ]}
 ]
 
-const autoUpdater = function() {
+const autoUpdater = function () {
   superagent
       .get('https://raw.githubusercontent.com/jackd248/temps/master/package.json')
       .end(function (err, res) {
@@ -212,7 +210,7 @@ const autoUpdater = function() {
                 shell.openExternal('https://github.com/jackd248/temps/releases')
               }
             }
-          } catch(err) {
+          } catch (err) {
             console.log(err)
           }
         }

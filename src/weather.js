@@ -54,14 +54,13 @@ const refreshWeather = function () {
     }
   }, 500)
 
-
   window.setTimeout(colorPalette, 1000)
 }
 
 const showWeatherData = function () {
   if (numAnim == null) {
-    numAnim = new CountUp("temp", 0, roundTemp(wdata[0].main.temp), 0, 2);
-    numAnim.start();
+    numAnim = new CountUp('temp', 0, roundTemp(wdata[0].main.temp), 0, 2)
+    numAnim.start()
   } else {
     numAnim.update(roundTemp(wdata[0].main.temp))
   }
@@ -215,7 +214,6 @@ const showHourlyWeatherData = function () {
               })
               previousTooltip = tooltip.title[0]
             }
-
           }
         }
       },
