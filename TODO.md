@@ -32,18 +32,23 @@
 * ~~Auto updater~~
 
 ## v0.5.1
-* forecast offset bug
-* endless loading animation bug
-* open external browser
-* providing a starter api key inside the app
-* usability improvements
+* ~~forecast offset bug~~
+* ~~endless loading animation bug~~
+* ~~open external browser~~
+* ~~providing a starter api key inside the app~~
+* ~~usability improvements~~
 
 ## v0.6.0
+* usability improvements
+* geolocation usage
+* code clean up
+
+## v0.7.0
 * city history
 * automatic testing
 * Less, ECMAScript 5
 * Clean up code
 
-## v0.7.0
+## v0.8.0
 * city autocomplete
 * web demo

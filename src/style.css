@@ -12,6 +12,10 @@ body {
   overflow: hidden;
   background-color: #FFFFFF;
   -webkit-overflow-scrolling: touch;
+  -webkit-user-select: none;  /* Chrome all / Safari all */
+  -moz-user-select: none;     /* Firefox all */
+  -ms-user-select: none;      /* IE 10+ */
+  user-select: none;          /* Likely future */
 }
 
 a {
@@ -398,6 +402,14 @@ h1:after {
 
 #settings .form-item {
     padding: 12px 0;
+    min-height: 30px;
+    box-sizing: border-box;
+}
+
+#settings .form-item::after {
+    content: "";
+    clear: both;
+    display: block;
 }
 
 #settings .form-item.small {
@@ -413,6 +425,10 @@ h1:after {
 #settings .form-item .label {
     display: inline-block;
     padding-right: 5px;
+}
+
+#settings .form-item .fit {
+    margin-top: -4px;
 }
 
 #settings .form-item label.inline {
@@ -504,10 +520,11 @@ input[type="checkbox"][name="favorite-city"]:checked + span {
 }
 
 #settings button {
-    width: 100%;
+    width: 49%;
     text-align: center;
     border: 1px solid #999999;
     color: #000;
+    padding: 3px;
     background: #FFF;
     box-sizing: border-box;
     font-size: 16px;
@@ -520,6 +537,11 @@ input[type="checkbox"][name="favorite-city"]:checked + span {
 #settings button:hover {
     cursor: pointer;
     border: 1px solid #000;
+}
+
+#settings button.apply {
+    background-color: #80BBB2;
+    color: #FFFFFF;
 }
 
 #settings .footer {
@@ -645,15 +667,19 @@ body {
     background: rgba(255,255,255,0);
     color: #999999;
     text-align: center;
-    width: 77px;
+    width: 95px;
+    padding: 3px 11px;
+    box-sizing: border-box;
     font-size: 14px;
-    padding: 3px;
     border-radius: 3px;
-    -webkit-transition: all .1s ease;
-    transition: all .1s ease;
     pointer-events: none;
     -webkit-transform: translate(-50%, 0);
     transform: translate(-50%, 0);
+
+    -webkit-transition: .25s ease-in-out;
+    -moz-transition: .25s ease-in-out;
+    -o-transition: .25s ease-in-out;
+    transition: .25s ease-in-out;
 }
 #chartjs-tooltip::after {
     content: "";

@@ -209,7 +209,7 @@ const showHourlyWeatherData = function () {
               })
               tooltipEl.css({
                 opacity: 1,
-                left: tooltip.x + 40 + 'px',
+                left: tooltip.x + 35 + 'px',
                 // top: tooltip.y + 350 +'px',
                 top: 430 + 'px' // always on bottom
               })

@@ -107,7 +107,14 @@ const loadEventListener = function () {
     })
   })
 
-  jQuery('#settings .close').click(function () {
+  jQuery('#settings .apply').click(function () {
+    setCity(jQuery('input#city').val())
+    setApiKey(jQuery('input#apikey').val())
+    refreshWeather()
+    toggleSettings()
+  })
+
+  jQuery('#settings .quit').click(function () {
     ipcRenderer.send('close')
   })
 
