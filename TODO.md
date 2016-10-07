@@ -39,9 +39,9 @@
 * ~~usability improvements~~
 
 ## v0.6.0
-* usability improvements
-* geolocation usage
-* code clean up
+* ~~usability improvements~~
+* ~~geolocation usage~~
+* ~~code clean up~~
 
 ## v0.7.0
 * city history
