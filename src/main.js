@@ -98,6 +98,11 @@ const loadEventListener = function () {
     toggleSettings()
   })
 
+  jQuery('#settings .geolocation').click(function () {
+    getGeolocation()
+    toggleSettings()
+  })
+
   jQuery('a').click(function (e) {
     e.preventDefault()
     const target = jQuery(this).attr('href')
@@ -128,6 +133,8 @@ const loadEventListener = function () {
   ipcRenderer.on('favorite-city', favoriteCity)
 
   ipcRenderer.on('random-city', randomCity)
+
+  ipcRenderer.on('geolocation', getGeolocation)
 }
 
 const init = function () {

@@ -40,7 +40,8 @@ You can use the following shortcuts for easy usage of Temps:
 * <kbd>Cmd</kbd> + <kbd>F</kbd> Search weather for your favorite city
 * <kbd>Cmd</kbd> + <kbd>R</kbd> Reload application
 * <kbd>Cmd</kbd> + <kbd>E</kbd> Reload weather data
-* <kbd>Cmd</kbd> + <kbd>W</kbd> Search random city weather data
+* <kbd>Cmd</kbd> + <kbd>W</kbd> Search random city weather 
+* <kbd>Cmd</kbd> + <kbd>G</kbd> Find your location
 * <kbd>Cmd</kbd> + <kbd>Q</kbd> Close application
 
 ![temps screenshot](assets/screenshot-overview.png)
@@ -68,6 +69,10 @@ You can [download](https://github.com/jackd248/temps/releases) the latest stable
 __You need a free API Key by [OpenWeatherMap](http://openweathermap.org/) to fetch weather information.__
 
 Because of this is a non-profit project, I'm not able to offer unlimited access to weather information by myself. 
+
+For the start you can use the built-in key to get the weather data. But it can be possible with heavy data traffic, that the service isn't available for this key all the time. 
+
+The apps are also not signed for now. So you need to grant usage by the system to run the app. 
 
 ## Credits
 

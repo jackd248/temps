@@ -1,6 +1,6 @@
 const superagent = require('superagent')
 
-const getWeather = function (url, city, option, callback) {
+const getWeatherByCity = function (url, city, option, callback) {
   superagent
       .get(url)
       .query({q: city})
@@ -25,6 +25,32 @@ const getWeather = function (url, city, option, callback) {
       })
 }
 
+const getWeatherByCoord = function (url, lat, lon, option, callback) {
+  superagent
+      .get(url)
+      .query({lat: lat})
+      .query({lon: lon})
+      .query({units: getFormat()})
+      .query({appid: getApiKey()})
+      .end(function (err, res) {
+        loading[option] = false
+        if (err || !res.ok) {
+          showErrorMessage('Failure during data fetching')
+        } else {
+          wdata[option] = res.body
+          checkLoading()
+          if (wdata[option].cod != 404) {
+            if (option == 0) setCity(wdata[option].name + ', ' + wdata[option].sys.country.toUpperCase())
+            if (callback && typeof (callback) === 'function') {
+              callback()
+            }
+          } else {
+            showErrorMessage(wdata[option].message)
+          }
+        }
+      })
+}
+
 const refreshInfo = function () {
   const info = setInterval(function ()
     {
@@ -37,9 +63,9 @@ const refreshWeather = function () {
   jQuery('.spinner').fadeIn()
   startLoading()
   reset()
-  getWeather(config.weather.url.actual, getCity(), 0, showWeatherData)
-  getWeather(config.weather.url.daily, getCity(), 1, showForecastWeatherData)
-  getWeather(config.weather.url.hourly, getCity(), 2)
+  getWeatherByCity(config.weather.url.actual, getCity(), 0, showWeatherData)
+  getWeatherByCity(config.weather.url.daily, getCity(), 1, showForecastWeatherData)
+  getWeatherByCity(config.weather.url.hourly, getCity(), 2)
 
   window.setTimeout(function () {
     if (getMbInfo() & wdata[0].cod != 404) {
@@ -243,4 +269,44 @@ const showHourlyWeatherData = function () {
       }
     }
   })
+}
+
+const getGeolocation = function () {
+
+  jQuery('.spinner').fadeIn()
+  startLoading()
+
+  superagent
+      .get(config.location.url)
+      .query({browser: 'chromium'})
+      .query({sensor: true})
+      .end(function (err, res) {
+        if (err || !res.ok) {
+          console.log(err)
+          showErrorMessage('Failure during location fetching')
+        } else {
+          const lat = res.body.location.lat
+          const lon = res.body.location.lng
+
+          reset()
+          getWeatherByCoord(config.weather.url.actual, lat, lon, 0, showWeatherData)
+          getWeatherByCoord(config.weather.url.daily, lat, lon, 1, showForecastWeatherData)
+          getWeatherByCoord(config.weather.url.hourly, lat, lon, 2)
+
+          window.setTimeout(function () {
+            if (getMbInfo() & wdata[0].cod != 404) {
+              ipcRenderer.send('set-title', {
+                temperature: roundTemp(wdata[0].main.temp),
+                location: getCity(),
+                icon: wdata[0].weather[0].icon
+              })
+            }
+            if (wdata[0].cod != 404) {
+              getTimezone()
+            }
+          }, 500)
+
+          window.setTimeout(colorPalette, 1000)
+        }
+      })
 }

@@ -182,8 +182,13 @@ const template = [{
       if (focusedWindow) focusedWindow.webContents.send('favorite-city')
     }
     },
-    { label: 'Randomn City', accelerator: 'CmdOrCtrl+W', click: function (item, focusedWindow) {
+    {
+      label: 'Randomn City', accelerator: 'CmdOrCtrl+W', click: function (item, focusedWindow) {
       if (focusedWindow) focusedWindow.webContents.send('random-city')
+    }
+    },
+    { label: 'Geolocation', accelerator: 'CmdOrCtrl+G', click: function (item, focusedWindow) {
+      if (focusedWindow) focusedWindow.webContents.send('geolocation')
     }
     }
       ]}

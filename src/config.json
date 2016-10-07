@@ -14,6 +14,9 @@
       "hourly": "http://api.openweathermap.org/data/2.5/forecast?cnt=10&mode=json"
     }
   },
+  "location": {
+    "url": "https://maps.googleapis.com/maps/api/browserlocation/json"
+  },
   "colors": ["#b1695a", "#DB9864", "#E3BB88", "#D0C7A8", "#B1C2A3", "#80BBB2", "#6D9E96", "#8F95A5", "#6F7685"],
   "random": {
     "cities": [

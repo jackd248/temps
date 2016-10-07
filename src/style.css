@@ -435,7 +435,6 @@ h1:after {
     color: #000000;
     font-size: 18px;
     display: inline-block;
-    padding-left: 10px;
 }
 
 #settings .form-item input[type="text"] {
@@ -454,7 +453,7 @@ h1:after {
 }
 
 #settings .form-item input[type="text"][name="city"] {
-    padding-right: 20px;
+    padding-right: 40px;
 }
 
 #settings .form-item label.fav {
@@ -476,6 +475,19 @@ h1:after {
 
 #settings .form-item span.help a, #settings .footer a {
     color: #000;
+}
+
+#settings .form-item .geolocation {
+    width:20px;
+    height:20px;
+    position: absolute;
+    right: 30px;
+    margin-top: -22px;
+    display:inline-block;
+    vertical-align:middle;
+    background:url(../assets/checkboxes@2x.png) -120px top no-repeat;
+    background-size: cover;
+    cursor:pointer;
 }
 
 input[type="checkbox"], input[type="radio"] {
