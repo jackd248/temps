@@ -83,6 +83,8 @@ This application uses code from several open source projects:
 * [OpenWeatherMap](http://openweathermap.org/)
 * [Chart.js](http://www.chartjs.org/)
 
+The weather icons are made by myself. If you like to use them in your own project, you can find the icons on [Github](https://github.com/jackd248/weather-iconic) or [Noun Project](https://thenounproject.com/konradmichalik/collection/weather/).
+
 ## License
 
 Copyright (c) 2016 Konrad Michalik, This software is licensed under the [MIT License](LICENSE).
