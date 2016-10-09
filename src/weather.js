@@ -96,7 +96,14 @@ const showWeatherData = function () {
   jQuery('#main .actual-icon svg').html('<image xlink:href="assets/icons/' + wdata[0].weather[0].icon + '.svg" src="assets/icons/' + wdata[0].weather[0].icon + '.svg" width="80" height="80"/>')
 
   if (wdata[0].weather[0].main == 'Rain') {
-    showRain()
+    if (wdata[0].weather[0].description.indexOf('light') !== -1) {
+      showRain(50)
+    } else if (wdata[0].weather[0].description.indexOf('heavy') !== -1) {
+      showRain(200)
+    } else {
+      showRain(100)
+    }
+
   }
 
   if (wdata[0].weather[0].main == 'Snow') {

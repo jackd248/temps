@@ -155,12 +155,9 @@ var showErrorMessage = function (message) {
   refreshClock()
 }
 
-// number of drops created.
-var nbDrop = 300
-
-var showRain = function () {
+var showRain = function (nbDrop = 100) {
   for (var i = 1; i < nbDrop; i++) {
-    var dropLeft = randRange(0, 1600)
+    var dropLeft = randRange(0, 400)
     var dropTop = randRange(-1000, 1400)
 
     jQuery('#main').append('<div class="drop" id="drop' + i + '"></div>')
