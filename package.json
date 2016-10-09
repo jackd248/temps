@@ -43,11 +43,11 @@
     "electron-packager": "^8.0.0",
     "electron-prebuilt": "^1.4.1",
     "electron-installer-dmg": "0.1.2",
-    "electron-builder": "7.10.2",
+    "electron-builder": "7.11.4",
     "standard": "^8.3.0"
   },
   "dependencies": {
-    "electron": "1.4.2",
+    "electron": "1.4.3",
     "menubar": "^5.1.0",
     "auto-launch": "^5.0.1",
     "applescript": "^1.0.0",

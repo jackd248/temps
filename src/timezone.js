@@ -2,14 +2,14 @@ const getTimezone = function () {
   superagent
       .get(config.timezone.url)
       .query({location: wdata[0].coord.lat + ',' + wdata[0].coord.lon})
-      .query({timestamp: '1331161200'})
+      .query({timestamp: Math.floor(Date.now() / 1000)})
       .query({key: config.timezone.apikey})
       .end(function (err, res) {
         loading[3] = false
         if (err || !res.ok) {
           showErrorMessage('Failure during data fetching')
         } else {
-          timeoffset = res.body.rawOffset + 3600
+          timeoffset = res.body.rawOffset + res.body.dstOffset
           jQuery('#details .header .date').html(getTodayDate())
           refreshClock()
           checkLoading()

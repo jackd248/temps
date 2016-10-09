@@ -212,7 +212,7 @@ const autoUpdater = function () {
                 buttons: ['Yes', 'No']
               })
               if (confirm === 0) {
-                shell.openExternal('https://github.com/jackd248/temps/releases')
+                shell.openExternal('https://jackd248.github.io/temps/#download')
               }
             }
           } catch (err) {

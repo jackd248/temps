@@ -43,12 +43,12 @@
 * ~~geolocation usage~~
 * ~~code clean up~~
 
+## v0.6.1
+* timezone summertime bug
+* code clean up
+
 ## v0.7.0
 * city history
 * automatic testing
 * Less, ECMAScript 5
 * Clean up code
-
-## v0.8.0
-* city autocomplete
-* web demo
