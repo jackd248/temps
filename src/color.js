@@ -16,7 +16,7 @@ const getColor = function () {
   return color
 }
 
-const errorColor = function() {
+const errorColor = function () {
   setColor(config.color.error)
 }
 

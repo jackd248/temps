@@ -3,6 +3,7 @@ let JsonStorage = require('json-storage').JsonStorage
 let localStore = JsonStorage.create(localStorage, 'temps', { stringify: true })
 
 const jQuery = require('jquery')
+const config = require('./src/config.json')
 
 let wdata = {}
 
