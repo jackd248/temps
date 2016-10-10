@@ -1,25 +1,42 @@
 const superagent = require('superagent')
+const jQuery = require('jquery')
+const Chart = require('chart.js')
+const CountUp = require('countup.js')
+const ipcRenderer = require('electron').ipcRenderer
+
+const store = require('./store')
+const color = require('./color')
+const utils = require('./utils')
+const timezone = require('./timezone')
+const config = require('./config.json')
+
+let numAnim = null
 
 const getWeatherByCity = function (url, city, option, callback) {
   superagent
       .get(url)
       .query({q: city})
-      .query({units: getFormat()})
-      .query({appid: getApiKey()})
+      .query({units: store.getFormat()})
+      .query({appid: store.getApiKey()})
       .end(function (err, res) {
+        let loading = utils.getLoading
         loading[option] = false
+        utils.setLoading(loading)
         if (err || !res.ok) {
-          showErrorMessage('Failure during data fetching')
+          utils.showErrorMessage('Failure during data fetching')
+          console.log(err)
         } else {
+          const wdata = store.getWdata()
           wdata[option] = res.body
-          checkLoading()
-          if (wdata[option].cod != 404) {
-            setCity(city)
+          store.setWdata(wdata)
+          utils.checkLoading()
+          if (wdata[option].cod !== 404) {
+            store.setCity(city)
             if (callback && typeof (callback) === 'function') {
               callback()
             }
           } else {
-            showErrorMessage(wdata[option].message)
+            utils.showErrorMessage(wdata[option].message)
           }
         }
       })
@@ -30,30 +47,33 @@ const getWeatherByCoord = function (url, lat, lon, option, callback) {
       .get(url)
       .query({lat: lat})
       .query({lon: lon})
-      .query({units: getFormat()})
-      .query({appid: getApiKey()})
+      .query({units: store.getFormat()})
+      .query({appid: store.getApiKey()})
       .end(function (err, res) {
+        let loading = utils.getLoading
         loading[option] = false
+        utils.setLoading(loading)
         if (err || !res.ok) {
-          showErrorMessage('Failure during data fetching')
+          utils.showErrorMessage('Failure during data fetching')
         } else {
+          const wdata = store.getWdata()
           wdata[option] = res.body
-          checkLoading()
-          if (wdata[option].cod != 404) {
-            if (option == 0) setCity(wdata[option].name + ', ' + wdata[option].sys.country.toUpperCase())
+          store.setWdata(wdata)
+          utils.checkLoading()
+          if (wdata[option].cod !== 404) {
+            if (option === 0) store.setCity(wdata[option].name + ', ' + wdata[option].sys.country.toUpperCase())
             if (callback && typeof (callback) === 'function') {
               callback()
             }
           } else {
-            showErrorMessage(wdata[option].message)
+            utils.showErrorMessage(wdata[option].message)
           }
         }
       })
 }
 
 const refreshInfo = function () {
-  const info = setInterval(function ()
-    {
+  setInterval(function () {
     refreshWeather()
     console.log('refresh info')
   }, 300000)
@@ -61,41 +81,43 @@ const refreshInfo = function () {
 
 const refreshWeather = function () {
   jQuery('.spinner').fadeIn()
-  startLoading()
-  reset()
-  getWeatherByCity(config.weather.url.actual, getCity(), 0, showWeatherData)
-  getWeatherByCity(config.weather.url.daily, getCity(), 1, showForecastWeatherData)
-  getWeatherByCity(config.weather.url.hourly, getCity(), 2)
+  const wdata = store.getWdata()
+  utils.startLoading()
+  utils.reset()
+  getWeatherByCity(config.weather.url.actual, store.getCity(), 0, showWeatherData)
+  getWeatherByCity(config.weather.url.daily, store.getCity(), 1, showForecastWeatherData)
+  getWeatherByCity(config.weather.url.hourly, store.getCity(), 2)
 
   window.setTimeout(function () {
-    if (getMbInfo() & wdata[0].cod != 404) {
+    if (store.getMbInfo() && wdata[0].cod !== 404) {
       ipcRenderer.send('set-title', {
-        temperature: roundTemp(wdata[0].main.temp),
-        location: getCity(),
+        temperature: utils.roundTemp(wdata[0].main.temp),
+        location: store.getCity(),
         icon: wdata[0].weather[0].icon
       })
     }
-    if (wdata[0].cod != 404) {
-      getTimezone()
+    if (wdata[0].cod !== 404) {
+      timezone.getTimezone()
     }
   }, 500)
 
-  window.setTimeout(colorPalette, 1000)
+  window.setTimeout(color.colorPalette, 1000)
 }
 
 const showWeatherData = function () {
-  if (numAnim == null) {
-    numAnim = new CountUp('temp', 0, roundTemp(wdata[0].main.temp), 0, 2)
+  const wdata = store.getWdata()
+  if (numAnim === null) {
+    numAnim = new CountUp('temp', 0, utils.roundTemp(wdata[0].main.temp), 0, 2)
     numAnim.start()
   } else {
-    numAnim.update(roundTemp(wdata[0].main.temp))
+    numAnim.update(utils.roundTemp(wdata[0].main.temp))
   }
   jQuery('#main .temp .unit').html('°')
   jQuery('#main .temp-note').html(wdata[0].weather[0].description)
   jQuery('#details .location').html(wdata[0].name.toLowerCase() + ', ' + wdata[0].sys.country.toLowerCase())
   jQuery('#main .actual-icon svg').html('<image xlink:href="assets/icons/' + wdata[0].weather[0].icon + '.svg" src="assets/icons/' + wdata[0].weather[0].icon + '.svg" width="80" height="80"/>')
 
-  if (wdata[0].weather[0].main == 'Rain') {
+  if (wdata[0].weather[0].main === 'Rain') {
     if (wdata[0].weather[0].description.indexOf('light') !== -1) {
       showRain(50)
     } else if (wdata[0].weather[0].description.indexOf('heavy') !== -1) {
@@ -103,29 +125,28 @@ const showWeatherData = function () {
     } else {
       showRain(100)
     }
-
   }
 
-  if (wdata[0].weather[0].main == 'Snow') {
+  if (wdata[0].weather[0].main === 'Snow') {
     showSnow()
   }
 
-  if (wdata[0].weather[0].icon == '11d' || wdata[0].weather[0].icon == '11n') {
+  if (wdata[0].weather[0].icon === '11d' || wdata[0].weather[0].icon === '11n') {
     showThunder()
   }
 
-  colorPalette()
+  color.colorPalette()
 }
 
 const showForecastWeatherData = function () {
+  const wdata = store.getWdata()
   jQuery('#details .forecast').html('')
   let html = ''
   for (let i = 0; i < 4; i++) {
     html += '<div class="forecast-item" >'
-    html += '<div class="date">' + getStyledDate(i) + '</div>'
-        // html += '<div class="icon"><img src="assets/icons/' + wdata[1].list[i].weather[0].icon + '-1.png" width="60" alt="' + wdata[1].list[i].weather[0].description + '"/></div>';
-    html += '<div class="icon" name="' + wdata[1].list[i].weather[0].icon + '"><img src="assets/icons/' + wdata[1].list[i].weather[0].icon + '-1.png" width="60" alt="' + wdata[1].list[i].weather[0].description + '"/></div>'
-    html += '<div class="temp">' + roundTemp(wdata[1].list[i].temp.day) + '°</div>'
+    html += '<div class="date">' + utils.getStyledDate(i) + '</div>'
+    html += '<div class="icon" name="' + wdata[1].list[i].weather[0].icon + '"><img src="assets/icons/' + wdata[1].list[i].weather[0].icon + '.png" width="60" alt="' + wdata[1].list[i].weather[0].description + '"/></div>'
+    html += '<div class="temp">' + utils.roundTemp(wdata[1].list[i].temp.day) + '°</div>'
     html += '</div>'
   }
   jQuery('#details .forecast').html(html)
@@ -133,13 +154,14 @@ const showForecastWeatherData = function () {
   jQuery('.forecast-item .icon').each(function (el) {
     jQuery(this).html('')
     jQuery(this).load('assets/icons/' + jQuery(this).attr('name') + '.svg', null, function () {
-      jQuery('#details .forecast-item svg path').css('fill', color)
-      jQuery('#details .forecast-item svg circle').css('fill', color)
+      jQuery('#details .forecast-item svg path').css('fill', color.getColor())
+      jQuery('#details .forecast-item svg circle').css('fill', color.getColor())
     })
   })
 }
 
 const showHourlyWeatherData = function () {
+  const wdata = store.getWdata()
   const wrap = jQuery('#details .hourly #canvas-holder')
   wrap.html('<canvas id="chart" width="280" height="100"></canvas>')
   const c = jQuery('#details .hourly #canvas-holder #chart')
@@ -149,8 +171,8 @@ const showHourlyWeatherData = function () {
   let max = 0
   let min = 50
   for (let i = 0; i < 10; i++) {
-    const date = getDate(new Date(wdata[2].list[i].dt_txt))
-    const temp = roundTemp(wdata[2].list[i].main.temp)
+    const date = timezone.getDate(new Date(wdata[2].list[i].dt_txt))
+    const temp = utils.roundTemp(wdata[2].list[i].main.temp)
     const icon = wdata[2].list[i].weather[0].icon
     const obj = {
       x: date,
@@ -166,14 +188,14 @@ const showHourlyWeatherData = function () {
     }
   }
 
-  const format = (getFormat() == 'metric') ? '°C' : '°F'
+  const format = (store.getFormat() === 'metric') ? '°C' : '°F'
 
   max += 5
   min -= 5
 
   let previousTooltip = null
 
-  const chart = new Chart(c, {
+  new Chart(c, {
     type: 'line',
     data: {
       datasets: [{
@@ -182,16 +204,16 @@ const showHourlyWeatherData = function () {
         fill: false,
         lineTension: 0.5,
         backgroundColor: 'rgba(75,192,192,0.4)',
-        borderColor: color,
+        borderColor: color.getColor(),
         borderCapStyle: 'butt',
         borderDashOffset: 0.0,
         borderJoinStyle: 'miter',
-        pointBorderColor: color,
-        pointBackgroundColor: color,
+        pointBorderColor: color.getColor(),
+        pointBackgroundColor: color.getColor(),
         pointBorderWidth: 1,
         pointHoverRadius: 4,
-        pointHoverBackgroundColor: color,
-        pointHoverBorderColor: color,
+        pointHoverBackgroundColor: color.getColor(),
+        pointHoverBorderColor: color.getColor(),
         pointHoverBorderWidth: 2,
         pointRadius: 1,
         pointHitRadius: 10
@@ -228,7 +250,7 @@ const showHourlyWeatherData = function () {
           }
 
           if (tooltip.body) {
-            if (previousTooltip != tooltip.title[0]) {
+            if (previousTooltip !== tooltip.title[0]) {
               tooltipEl.removeClass('above below')
               tooltipEl.addClass(tooltip.yAlign)
               const parts = tooltip.body[0].lines[0].split(':')
@@ -237,7 +259,7 @@ const showHourlyWeatherData = function () {
               tooltipEl.html(innerHtml)
 
               jQuery('#chartjs-tooltip .icon').load('assets/icons/' + tooltip.footer[0] + '.svg', null, function () {
-                jQuery(this).find('svg path').css('fill', color)
+                jQuery(this).find('svg path').css('fill', color.getColor())
               })
               tooltipEl.css({
                 opacity: 1,
@@ -279,9 +301,8 @@ const showHourlyWeatherData = function () {
 }
 
 const getGeolocation = function () {
-
   jQuery('.spinner').fadeIn()
-  startLoading()
+  utils.startLoading()
 
   superagent
       .get(config.location.url)
@@ -290,30 +311,70 @@ const getGeolocation = function () {
       .end(function (err, res) {
         if (err || !res.ok) {
           console.log(err)
-          showErrorMessage('Failure during location fetching')
+          utils.showErrorMessage('Failure during location fetching')
         } else {
           const lat = res.body.location.lat
           const lon = res.body.location.lng
 
-          reset()
+          utils.reset()
           getWeatherByCoord(config.weather.url.actual, lat, lon, 0, showWeatherData)
           getWeatherByCoord(config.weather.url.daily, lat, lon, 1, showForecastWeatherData)
           getWeatherByCoord(config.weather.url.hourly, lat, lon, 2)
 
+          const wdata = store.getWdata()
+
           window.setTimeout(function () {
-            if (getMbInfo() & wdata[0].cod != 404) {
+            if (store.getMbInfo() & wdata[0].cod !== 404) {
               ipcRenderer.send('set-title', {
-                temperature: roundTemp(wdata[0].main.temp),
-                location: getCity(),
+                temperature: utils.roundTemp(wdata[0].main.temp),
+                location: store.getCity(),
                 icon: wdata[0].weather[0].icon
               })
             }
-            if (wdata[0].cod != 404) {
-              getTimezone()
+            if (wdata[0].cod !== 404) {
+              timezone.getTimezone()
             }
           }, 500)
 
-          window.setTimeout(colorPalette, 1000)
+          window.setTimeout(color.colorPalette, 1000)
         }
       })
 }
+
+const showRain = function (nbDrop = 100) {
+  for (var i = 1; i < nbDrop; i++) {
+    var dropLeft = utils.randRange(0, 400)
+    var dropTop = utils.randRange(-1000, 1400)
+
+    jQuery('#main').append('<div class="drop" id="drop' + i + '"></div>')
+    jQuery('#drop' + i).css('left', dropLeft)
+    jQuery('#drop' + i).css('top', dropTop)
+  }
+}
+
+const showThunder = function () {
+  jQuery('#main').prepend('<div class="thunder"></div>')
+}
+
+const showSnow = function () {
+  jQuery('#main').prepend('<div class="snow"></div>')
+}
+
+const getNumAnim = function () {
+  return numAnim
+}
+
+const setNumAnim = function (na) {
+  numAnim = na
+}
+
+exports.getWeatherByCity = getWeatherByCity
+exports.getWeatherByCoord = getWeatherByCoord
+exports.refreshInfo = refreshInfo
+exports.refreshWeather = refreshWeather
+exports.showWeatherData = showWeatherData
+exports.showForecastWeatherData = showForecastWeatherData
+exports.showHourlyWeatherData = showHourlyWeatherData
+exports.getGeolocation = getGeolocation
+exports.getNumAnim = getNumAnim
+exports.setNumAnim = setNumAnim

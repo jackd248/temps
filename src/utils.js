@@ -1,24 +1,34 @@
-var months = ['jan', 'feb', 'mar', 'apr', 'may', 'jun', 'jul', 'aug', 'sep', 'oct', 'nov', 'dec']
+const store = require('./store')
+const color = require('./color')
+const weather = require('./weather')
+const timezone = require('./timezone')
+const config = require('./config.json')
 
-var getTodayDay = function () {
+const ipcRenderer = require('electron').ipcRenderer
+const jQuery = require('jquery')
+
+let loading = [false, false, false, false]
+const months = ['jan', 'feb', 'mar', 'apr', 'may', 'jun', 'jul', 'aug', 'sep', 'oct', 'nov', 'dec']
+
+const getTodayDay = function () {
   var days = [
     'sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'
   ]
-  var date = getDate(new Date())
+  var date = timezone.getDate(new Date())
   return days[(date.getDay())]
 }
 
-var getTodayDate = function () {
-  var date = getDate(new Date())
+const getTodayDate = function () {
+  var date = timezone.getDate(new Date())
   return getTodayDay() + ', ' + months[date.getMonth()] + ' ' + date.getDate()
 }
 
-var getTime = function () {
-  var dt = getDate(new Date())
+const getTime = function () {
+  var dt = timezone.getDate(new Date())
   return dt.getHours() + ':' + addZero(dt.getMinutes())
 }
 
-var getStyledDate = function (num) {
+const getStyledDate = function (num) {
   var days = [
     'mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun'
   ]
@@ -26,68 +36,11 @@ var getStyledDate = function (num) {
   return days[(date.getDay() + num) % 7]
 }
 
-var setColor = function (c) {
-  color = c
-  jQuery('#main').css('background-color', c)
-  jQuery('.spinner > div').css('background-color', c)
-}
-
-var colorPalette = function () {
-  if (wdata[0].cod == 404) {
-    setColor('#444')
-    return
-  }
-  var temp = roundTemp(wdata[0].main.temp)
-  var colors = config.colors
-
-  if (getFormat() == 'metric') {
-    if (temp > 30) {
-      setColor(colors[0])
-    } else if (temp > 26) {
-      setColor(colors[1])
-    } else if (temp > 22) {
-      setColor(colors[2])
-    } else if (temp > 18) {
-      setColor(colors[3])
-    } else if (temp > 14) {
-      setColor(colors[4])
-    } else if (temp > 10) {
-      setColor(colors[5])
-    } else if (temp > 6) {
-      setColor(colors[6])
-    } else if (temp > 2) {
-      setColor(colors[7])
-    } else {
-      setColor(colors[8])
-    }
-  } else {
-    if (temp > 86) {
-      setColor(colors[0])
-    } else if (temp > 78) {
-      setColor(colors[1])
-    } else if (temp > 71) {
-      setColor(colors[2])
-    } else if (temp > 64) {
-      setColor(colors[3])
-    } else if (temp > 57) {
-      setColor(colors[4])
-    } else if (temp > 50) {
-      setColor(colors[5])
-    } else if (temp > 42) {
-      setColor(colors[6])
-    } else if (temp > 35) {
-      setColor(colors[7])
-    } else {
-      setColor(colors[8])
-    }
-  }
-}
-
-var roundTemp = function (temp) {
+const roundTemp = function (temp) {
   return Math.round(temp)
 }
 
-var toggleSettings = function () {
+const toggleSettings = function () {
   if (jQuery('#settings .content').is(':visible')) {
     jQuery('#main').height('300px')
     jQuery('#main .content').delay(500).fadeIn()
@@ -107,40 +60,39 @@ var toggleSettings = function () {
   }
 }
 
-var addZero = function (i) {
+const addZero = function (i) {
   if (i < 10) {
     i = '0' + i
   }
   return i
 }
 
-var toggleDetails = function () {
+const toggleDetails = function () {
   if (jQuery('#details .hourly').is(':visible')) {
     jQuery('#details .hourly').fadeOut()
     jQuery('#details .forecast').delay(500).fadeIn()
   } else {
     jQuery('#details .forecast').fadeOut()
     jQuery('#details .hourly').delay(500).fadeIn()
-    showHourlyWeatherData()
+    weather.showHourlyWeatherData()
   }
 }
 
-var showDate = function () {
+const showDate = function () {
   jQuery('#details .header .date').html(getTodayDate())
   jQuery('#main .clock').html(getTime())
-  var clock = setInterval(function ()
-    {
+  setInterval(function () {
     refreshClock()
   }, 60000)
 }
 
-var refreshClock = function () {
+const refreshClock = function () {
   jQuery('#details .header .date').html(getTodayDate())
   jQuery('#main .clock').html(getTime())
 }
 
-var showErrorMessage = function (message) {
-  setColor('#444444')
+const showErrorMessage = function (message) {
+  color.setColor('#444444')
   ipcRenderer.send('no-title')
   jQuery('#main .actual-icon svg').html('')
   jQuery('#details .location').html('')
@@ -148,65 +100,71 @@ var showErrorMessage = function (message) {
   jQuery('#details .hourly #canvas-holder').html('')
   jQuery('#main .content #temp').html('=( ')
   jQuery('#main .content .temp .unit').html('')
-  numAnim = null
+  weather.setNumAnim(null)
   jQuery('#main .content .temp-note').html(message)
   jQuery('#main .actual-icon svg').html('<image xlink:href="assets/icons/11d.svg" src="assets/icons/11d.svg" width="80" height="80"/>')
-  timeoffset = config.timezone.offset
+  timezone.setTimezoneOffset(config.timezone.offset)
   refreshClock()
 }
 
-var showRain = function (nbDrop = 100) {
-  for (var i = 1; i < nbDrop; i++) {
-    var dropLeft = randRange(0, 400)
-    var dropTop = randRange(-1000, 1400)
-
-    jQuery('#main').append('<div class="drop" id="drop' + i + '"></div>')
-    jQuery('#drop' + i).css('left', dropLeft)
-    jQuery('#drop' + i).css('top', dropTop)
-  }
-}
-
-var showThunder = function () {
-  jQuery('#main').prepend('<div class="thunder"></div>')
-}
-
-var showSnow = function () {
-  jQuery('#main').prepend('<div class="snow"></div>')
-}
-
-var reset = function () {
+const reset = function () {
   jQuery('.drop').remove()
   jQuery('.thunder').remove()
   jQuery('#chartjs-tooltip').css('opacity', 0)
 }
 
-var startLoading = function () {
+const startLoading = function () {
   loading[0] = true
   loading[1] = true
   loading[2] = true
   loading[3] = true
 }
 
-var checkLoading = function () {
+const getLoading = function () {
+  return loading
+}
+
+const setLoading = function (l) {
+  loading = l
+}
+
+const checkLoading = function () {
   if (!loading[0] && !loading[1] && !loading[2] && !loading[3]) {
     jQuery('.spinner').fadeOut()
   }
 }
 
 // function to generate a random number range.
-function randRange (minNum, maxNum) {
+const randRange = function (minNum, maxNum) {
   return (Math.floor(Math.random() * (maxNum - minNum + 1)) + minNum)
 }
 
-var randomCity = function () {
+const randomCity = function () {
   var cities = config.random.cities
-  setCity(cities[randRange(0, cities.length - 1)])
-  refreshWeather()
+  store.setCity(cities[randRange(0, cities.length - 1)])
+  weather.refreshWeather()
 }
 
-var favoriteCity = function () {
-  if (getFavoriteCity() && getFavoriteCity() != '') {
-    setCity(getFavoriteCity())
-    refreshWeather()
+const favoriteCity = function () {
+  if (store.getFavoriteCity() && store.getFavoriteCity() !== '') {
+    store.setCity(store.getFavoriteCity())
+    weather.refreshWeather()
   }
 }
+
+exports.toggleSettings = toggleSettings
+exports.toggleDetails = toggleDetails
+exports.roundTemp = roundTemp
+exports.showDate = showDate
+exports.getStyledDate = getStyledDate
+exports.getTodayDate = getTodayDate
+exports.refreshClock = refreshClock
+exports.showErrorMessage = showErrorMessage
+exports.reset = reset
+exports.startLoading = startLoading
+exports.checkLoading = checkLoading
+exports.randomCity = randomCity
+exports.favoriteCity = favoriteCity
+exports.getLoading = getLoading
+exports.setLoading = setLoading
+exports.randRange = randRange

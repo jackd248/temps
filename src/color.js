@@ -1,18 +1,31 @@
+const store = require('./store')
+const utils = require('./utils')
+const config = require('./config.json')
+
+const jQuery = require('jquery')
+
+let color = null
+
 const setColor = function (c) {
   color = c
   jQuery('#main').css('background-color', c)
   jQuery('.spinner > div').css('background-color', c)
 }
 
-const colorPalette = function (data) {
-  if (data[0].cod == 404) {
+const getColor = function () {
+  return color
+}
+
+const colorPalette = function () {
+  const wdata = store.getWdata()
+  if (wdata[0].cod === 404) {
     setColor('#444444')
     return
   }
-  var temp = roundTemp(data[0].main.temp)
+  var temp = utils.roundTemp(wdata[0].main.temp)
   var colors = config.colors
 
-  if (Store.getFormat() == 'metric') {
+  if (store.getFormat() === 'metric') {
     if (temp > 30) {
       setColor(colors[0])
     } else if (temp > 26) {
@@ -54,3 +67,7 @@ const colorPalette = function (data) {
     }
   }
 }
+
+exports.setColor = setColor
+exports.getColor = getColor
+exports.colorPalette = colorPalette

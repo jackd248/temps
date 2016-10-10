@@ -11,7 +11,8 @@ const ipcMain = electron.ipcMain
 const shell = electron.shell
 const superagent = require('superagent')
 const semver = require('semver')
-const config = require('./package.json')
+const config = require('./../package.json')
+const path = require('path')
 
 let autoLaunch = true
 
@@ -30,9 +31,9 @@ app.on('will-quit', function () {
 })
 
 const mb = menubar({
-  index: 'file://' + __dirname + '/index.html',
-  icon: __dirname + '/assets/IconTemplate.png',
-  width: 280,
+  index: path.join('file://', __dirname, '/../index.html'),
+  icon: path.join(__dirname, '/../assets/IconTemplate.png'),
+  width: 580,
   height: 480,
   resizable: false,
   'show-dock-icon': false,
@@ -65,9 +66,9 @@ mb.on('ready', function ready () {
     mb.tray.setToolTip('temps')
     mb.tray.setTitle('')
     if (process.platform === 'darwin') {
-      mb.tray.setImage(__dirname + '/assets/IconTemplate.png')
+      mb.tray.setImage(path.join(__dirname, '/../assets/IconTemplate.png'))
     } else {
-      mb.tray.setImage(__dirname + '/assets/icons/01dW.png')
+      mb.tray.setImage(path.join(__dirname, '/../assets/icons/01dW.png'))
     }
   })
 
@@ -76,9 +77,9 @@ mb.on('ready', function ready () {
     mb.tray.setToolTip(args.location + ' - ' + temperature)
     mb.tray.setTitle(temperature)
     if (process.platform === 'darwin') {
-      mb.tray.setImage(__dirname + '/assets/icons/' + args.icon + 'Template.png')
+      mb.tray.setImage(path.join(__dirname, '/../assets/icons', args.icon + 'Template.png'))
     } else {
-      mb.tray.setImage(__dirname + '/assets/icons/' + args.icon + 'W.png')
+      mb.tray.setImage(path.join(__dirname, '/../assets/icons', args.icon + 'W.png'))
     }
   })
 
@@ -92,8 +93,8 @@ mb.on('ready', function ready () {
   })
 
   ipcMain.on('auto-launch', function (event, args) {
-        // ToDo: appLauncher.isEnabled() not working for now
-        // console.log(appLauncher.isEnabled());
+    // ToDo: appLauncher.isEnabled() not working for now
+    // console.log(appLauncher.isEnabled());
     if (autoLaunch) {
       appLauncher.disable()
       autoLaunch = false
@@ -125,7 +126,7 @@ appLauncher.isEnabled().then(function (enabled) {
   if (enabled) return
   return appLauncher.enable()
 }).then(function (err) {
-
+  console.log(err)
 })
 
 appLauncher.enable()
@@ -134,10 +135,11 @@ appLauncher.enable()
 const template = [{
   label: 'Temps',
   submenu: [
-        { label: 'About Temps', selector: 'orderFrontStandardAboutPanel:' },
-        { type: 'separator' },
-        { label: 'Quit', accelerator: 'Command+Q', click: function () { app.quit() }}
-  ]}, {
+    { label: 'About Temps', selector: 'orderFrontStandardAboutPanel:' },
+    { type: 'separator' },
+    { label: 'Quit', accelerator: 'Command+Q', click: function () { app.quit() } }
+  ]},
+  {
     label: 'Edit',
     submenu: [
         { label: 'Undo', accelerator: 'CmdOrCtrl+Z', selector: 'undo:' },
@@ -165,33 +167,15 @@ const template = [{
     ]}, {
       label: 'Actions',
       submenu: [
-    { label: 'Details', accelerator: 'CmdOrCtrl+D', click: function (item, focusedWindow) {
-      if (focusedWindow) focusedWindow.webContents.send('toggle-details')
+        { label: 'Details', accelerator: 'CmdOrCtrl+D', click: function (item, focusedWindow) { if (focusedWindow) focusedWindow.webContents.send('toggle-details') } },
+        { label: 'Settings', accelerator: 'CmdOrCtrl+S', click: function (item, focusedWindow) { if (focusedWindow) focusedWindow.webContents.send('toggle-settings') } },
+        { type: 'separator' },
+        { label: 'Reload Data', accelerator: 'CmdOrCtrl+E', click: function (item, focusedWindow) { if (focusedWindow) focusedWindow.webContents.send('reload-data') } },
+        { label: 'Favorite City', accelerator: 'CmdOrCtrl+F', click: function (item, focusedWindow) { if (focusedWindow) focusedWindow.webContents.send('favorite-city') } },
+        { label: 'Randomn City', accelerator: 'CmdOrCtrl+W', click: function (item, focusedWindow) { if (focusedWindow) focusedWindow.webContents.send('random-city') } },
+        { label: 'Geolocation', accelerator: 'CmdOrCtrl+G', click: function (item, focusedWindow) { if (focusedWindow) focusedWindow.webContents.send('geolocation') } }
+      ]
     }
-    },
-    { label: 'Settings', accelerator: 'CmdOrCtrl+S', click: function (item, focusedWindow) {
-      if (focusedWindow) focusedWindow.webContents.send('toggle-settings')
-    }
-    },
-    { type: 'separator' },
-    { label: 'Reload Data', accelerator: 'CmdOrCtrl+E', click: function (item, focusedWindow) {
-      if (focusedWindow) focusedWindow.webContents.send('reload-data')
-    }
-    },
-    { label: 'Favorite City', accelerator: 'CmdOrCtrl+F', click: function (item, focusedWindow) {
-      if (focusedWindow) focusedWindow.webContents.send('favorite-city')
-    }
-    },
-    {
-      label: 'Randomn City', accelerator: 'CmdOrCtrl+W', click: function (item, focusedWindow) {
-      if (focusedWindow) focusedWindow.webContents.send('random-city')
-    }
-    },
-    { label: 'Geolocation', accelerator: 'CmdOrCtrl+G', click: function (item, focusedWindow) {
-      if (focusedWindow) focusedWindow.webContents.send('geolocation')
-    }
-    }
-      ]}
 ]
 
 const autoUpdater = function () {
