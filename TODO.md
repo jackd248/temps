@@ -44,7 +44,9 @@
 * ~~code clean up~~
 
 ## v0.6.1
-* timezone summertime bug
+* ~~timezone summertime bug~~
+* ~~rain improvement~~
+* ~~windows icon improvements~~
 * code clean up
 
 ## v0.7.0
