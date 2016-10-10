@@ -17,7 +17,19 @@
   "location": {
     "url": "https://maps.googleapis.com/maps/api/browserlocation/json"
   },
-  "colors": ["#b1695a", "#DB9864", "#E3BB88", "#D0C7A8", "#B1C2A3", "#80BBB2", "#6D9E96", "#8F95A5", "#6F7685"],
+  "color": {
+    "error" : "#444444",
+    "list": ["#b1695a", "#DB9864", "#E3BB88", "#D0C7A8", "#B1C2A3", "#80BBB2", "#6D9E96", "#8F95A5", "#6F7685"]
+  },
+  "date": {
+    "days": ["mon", "tue", "wed", "thu", "fri", "sat", "sun"],
+    "months": ["jan", "feb", "mar", "apr", "may", "jun", "jul", "aug", "sep", "oct", "nov", "dec"]
+  },
+  "start": {
+    "city": "Berlin, DE",
+    "format": "metric",
+    "interval": 300000
+  },
   "random": {
     "cities": [
       "London, UK",

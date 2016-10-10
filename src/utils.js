@@ -8,7 +8,7 @@ const ipcRenderer = require('electron').ipcRenderer
 const jQuery = require('jquery')
 
 let loading = [false, false, false, false]
-const months = ['jan', 'feb', 'mar', 'apr', 'may', 'jun', 'jul', 'aug', 'sep', 'oct', 'nov', 'dec']
+const months = config.date.months
 
 const getTodayDay = function () {
   var days = [
@@ -29,9 +29,7 @@ const getTime = function () {
 }
 
 const getStyledDate = function (num) {
-  var days = [
-    'mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun'
-  ]
+  var days = config.date.days
   var date = new Date()
   return days[(date.getDay() + num) % 7]
 }
@@ -92,7 +90,7 @@ const refreshClock = function () {
 }
 
 const showErrorMessage = function (message) {
-  color.setColor('#444444')
+  color.errorColor()
   ipcRenderer.send('no-title')
   jQuery('#main .actual-icon svg').html('')
   jQuery('#details .location').html('')

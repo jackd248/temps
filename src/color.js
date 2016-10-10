@@ -16,14 +16,18 @@ const getColor = function () {
   return color
 }
 
+const errorColor = function() {
+  setColor(config.color.error)
+}
+
 const colorPalette = function () {
   const wdata = store.getWdata()
   if (wdata[0].cod === 404) {
-    setColor('#444444')
+    errorColor()
     return
   }
   var temp = utils.roundTemp(wdata[0].main.temp)
-  var colors = config.colors
+  var colors = config.color.list
 
   if (store.getFormat() === 'metric') {
     if (temp > 30) {
@@ -71,3 +75,4 @@ const colorPalette = function () {
 exports.setColor = setColor
 exports.getColor = getColor
 exports.colorPalette = colorPalette
+exports.errorColor = errorColor

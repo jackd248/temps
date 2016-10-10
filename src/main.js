@@ -130,13 +130,13 @@ const init = function () {
   if (store.getCity()) {
     store.setCity(store.getCity())
   } else {
-    store.setCity('Berlin, DE')
+    store.setCity(config.start.city)
   }
 
   if (store.getFormat()) {
     store.setFormat(store.getFormat())
   } else {
-    store.setFormat('metric')
+    store.setFormat(config.start.format)
   }
 
   if (store.getApiKey()) {

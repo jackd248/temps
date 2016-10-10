@@ -76,7 +76,7 @@ const refreshInfo = function () {
   setInterval(function () {
     refreshWeather()
     console.log('refresh info')
-  }, 300000)
+  }, config.start.interval)
 }
 
 const refreshWeather = function () {

@@ -71,7 +71,7 @@ const getFormat = function () {
   if (localStore.get('format')) {
     return localStore.get('format')
   } else {
-    return 'metric'
+    return config.start.format
   }
 }
 
