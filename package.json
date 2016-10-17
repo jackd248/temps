@@ -2,7 +2,7 @@
   "name": "temps",
   "productName": "Temps",
   "website": "https://jackd248.github.io/temps/",
-  "version": "0.6.0",
+  "version": "0.6.1",
   "icon": "assets/app.png",
   "description": "A simple but smart menubar weather app",
   "main": "src/app.js",

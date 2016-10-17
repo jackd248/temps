@@ -10,9 +10,10 @@ Temps
 <h5 align="center"></h5>
 
 <p align="center">
-  <a href="https://github.com/jackd248/temps/releases"><img src="https://img.shields.io/github/release/jackd248/temps.svg" alt="Release"></a>
-  <a href="https://github.com/jackd248/temps/releases"><img src="https://img.shields.io/github/downloads/jackd248/temps/total.svg" alt="Downloads" /></a>
-  <a href="https://david-dm.org/jackd248/temps" title="dependencies status"><img src="https://david-dm.org/jackd248/temps/status.svg" /></a>
+  <a href="https://github.com/jackd248/temps/releases"><img src="https://img.shields.io/github/release/jackd248/temps.svg?style=flat-square" alt="Release"></a>
+  <a href="https://github.com/jackd248/temps/releases"><img src="https://img.shields.io/github/downloads/jackd248/temps/total.svg?style=flat-square" alt="Downloads" /></a>
+  <a href="https://david-dm.org/jackd248/temps" title="dependencies status"><img src="https://david-dm.org/jackd248/temps/status.svg?style=flat-square" /></a>
+  <a href="https://travis-ci.org/jackd248/temps" title="build status"><img src="https://travis-ci.org/jackd248/temps.svg?branch=master&style=flat-square" /></a>
 </p>
 
 > Temps is a modern and minimal menubar application based on Electron with actual weather information and forecast for Windows, Mac and Linux.
@@ -60,7 +61,7 @@ Builds app binaries for OS X, Linux, and Windows.
 
 ```npm run build```
 
-## Download
+## Download [![Github Releases (by Release)](https://img.shields.io/github/downloads/jackd248/temps/v0.6.0/total.svg?style=flat-square)]()
 
 You can [download](https://github.com/jackd248/temps/releases) the latest stable version of Temps for Windows, Mac OS and Linux. 
 
@@ -85,6 +86,6 @@ This application uses code from several open source projects:
 
 The weather icons are made by myself. If you like to use them in your own project, you can find the icons on [Github](https://github.com/jackd248/weather-iconic) or [Noun Project](https://thenounproject.com/konradmichalik/collection/weather/).
 
-## License
+## License [![License](https://img.shields.io/github/license/jackd248/temps.svg?style=flat-square)]()
 
 Copyright (c) 2016 Konrad Michalik, This software is licensed under the [MIT License](LICENSE).
