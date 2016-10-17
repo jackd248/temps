@@ -1,8 +1,8 @@
 const store = require('./store')
 const color = require('./color')
-const weather = require('./weather')
-const timezone = require('./timezone')
-const config = require('./config.json')
+const weather = require('./../components/weather')
+const timezone = require('./../components/timezone')
+const config = require('./../main/config.json')
 
 const ipcRenderer = require('electron').ipcRenderer
 const jQuery = require('jquery')
@@ -92,15 +92,9 @@ const refreshClock = function () {
 const showErrorMessage = function (message) {
   color.errorColor()
   ipcRenderer.send('no-title')
-  jQuery('#main .actual-icon svg').html('')
-  jQuery('#details .location').html('')
-  jQuery('#details .forecast').html('')
-  jQuery('#details .hourly #canvas-holder').html('')
-  jQuery('#main .content #temp').html('=( ')
-  jQuery('#main .content .temp .unit').html('')
-  weather.setNumAnim(null)
+  hideAll()
   jQuery('#main .content .temp-note').html(message)
-  jQuery('#main .actual-icon svg').html('<image xlink:href="assets/icons/11d.svg" src="assets/icons/11d.svg" width="80" height="80"/>')
+  jQuery('#main .actual-icon svg').html('<image xlink:href="../../assets/icons/11d.svg" src="../../assets/icons/11d.svg" width="80" height="80"/>')
   timezone.setTimezoneOffset(config.timezone.offset)
   refreshClock()
 }
@@ -150,6 +144,23 @@ const favoriteCity = function () {
   }
 }
 
+const hideAll = function () {
+  jQuery('#main .actual-icon svg').html('')
+  jQuery('#details .content').hide()
+  jQuery('#details .location').html('')
+  jQuery('#details .hourly #canvas-holder').html('')
+  jQuery('#main .content #temp').html('=( ')
+  jQuery('#main .content .temp .unit').html('')
+  jQuery('.clock').hide()
+  weather.setNumAnimTemp(null)
+  jQuery('.spinner').fadeOut()
+}
+
+const showAll = function () {
+  jQuery('.clock').show()
+  jQuery('#details .content').show()
+}
+
 exports.toggleSettings = toggleSettings
 exports.toggleDetails = toggleDetails
 exports.roundTemp = roundTemp
@@ -166,3 +177,5 @@ exports.favoriteCity = favoriteCity
 exports.getLoading = getLoading
 exports.setLoading = setLoading
 exports.randRange = randRange
+exports.hideAll = hideAll
+exports.showAll = showAll

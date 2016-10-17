@@ -1,6 +1,6 @@
 const store = require('./store')
 const utils = require('./utils')
-const config = require('./config.json')
+const config = require('./../main/config.json')
 
 const jQuery = require('jquery')
 
@@ -22,7 +22,7 @@ const errorColor = function () {
 
 const colorPalette = function () {
   const wdata = store.getWdata()
-  if (wdata[0].cod === 404) {
+  if (wdata[0].cod !== 200) {
     errorColor()
     return
   }

@@ -1,16 +1,20 @@
+'use strict'
+
 const superagent = require('superagent')
 const jQuery = require('jquery')
 const Chart = require('chart.js')
 const CountUp = require('countup.js')
 const ipcRenderer = require('electron').ipcRenderer
 
-const store = require('./store')
-const color = require('./color')
-const utils = require('./utils')
+const store = require('./../utilities/store')
+const color = require('./../utilities/color')
+const utils = require('./../utilities/utils')
 const timezone = require('./timezone')
-const config = require('./config.json')
+const config = require('./../main/config.json')
 
-let numAnim = null
+let NumAnimTemp = null
+let NumAnimF = []
+let chartjs = null
 
 const getWeatherByCity = function (url, city, option, callback) {
   superagent
@@ -81,6 +85,7 @@ const refreshInfo = function () {
 
 const refreshWeather = function () {
   jQuery('.spinner').fadeIn()
+  utils.showAll()
   const wdata = store.getWdata()
   utils.startLoading()
   utils.reset()
@@ -106,16 +111,16 @@ const refreshWeather = function () {
 
 const showWeatherData = function () {
   const wdata = store.getWdata()
-  if (numAnim === null) {
-    numAnim = new CountUp('temp', 0, utils.roundTemp(wdata[0].main.temp), 0, 2)
-    numAnim.start()
+  if (NumAnimTemp === null) {
+    NumAnimTemp = new CountUp('temp', 0, utils.roundTemp(wdata[0].main.temp), 0, 2)
+    NumAnimTemp.start()
   } else {
-    numAnim.update(utils.roundTemp(wdata[0].main.temp))
+    NumAnimTemp.update(utils.roundTemp(wdata[0].main.temp))
   }
   jQuery('#main .temp .unit').html('°')
   jQuery('#main .temp-note').html(wdata[0].weather[0].description)
   jQuery('#details .location').html(wdata[0].name.toLowerCase() + ', ' + wdata[0].sys.country.toLowerCase())
-  jQuery('#main .actual-icon svg').html('<image xlink:href="assets/icons/' + wdata[0].weather[0].icon + '.svg" src="assets/icons/' + wdata[0].weather[0].icon + '.svg" width="80" height="80"/>')
+  jQuery('#main .actual-icon svg').html('<image xlink:href="../../assets/icons/' + wdata[0].weather[0].icon + '.svg" src="../../assets/icons/' + wdata[0].weather[0].icon + '.svg" width="80" height="80"/>')
 
   if (wdata[0].weather[0].main === 'Rain') {
     if (wdata[0].weather[0].description.indexOf('light') !== -1) {
@@ -140,20 +145,23 @@ const showWeatherData = function () {
 
 const showForecastWeatherData = function () {
   const wdata = store.getWdata()
-  jQuery('#details .forecast').html('')
-  let html = ''
-  for (let i = 0; i < 4; i++) {
-    html += '<div class="forecast-item" >'
-    html += '<div class="date">' + utils.getStyledDate(i) + '</div>'
-    html += '<div class="icon" name="' + wdata[1].list[i].weather[0].icon + '"><img src="assets/icons/' + wdata[1].list[i].weather[0].icon + '.png" width="60" alt="' + wdata[1].list[i].weather[0].description + '"/></div>'
-    html += '<div class="temp">' + utils.roundTemp(wdata[1].list[i].temp.day) + '°</div>'
-    html += '</div>'
-  }
-  jQuery('#details .forecast').html(html)
+  let items = jQuery('#details .forecast .forecast-item')
+  items.each(function (i, item) {
+    jQuery('.item-' + i + ' .date').html(utils.getStyledDate(i))
+    jQuery('.item-' + i + ' .icon').html('<img src="../../assets/icons/' + wdata[1].list[i].weather[0].icon + '.png" width="60" alt="' + wdata[1].list[i].weather[0].description + '"/>')
+    jQuery('.item-' + i + ' .icon').attr('name', wdata[1].list[i].weather[0].icon)
+    if (NumAnimF[i] === null || NumAnimF[i] === undefined) {
+      NumAnimF[i] = new CountUp('temp-' + i, 0, utils.roundTemp(wdata[1].list[i].temp.day), 0, 2)
+      NumAnimF[i].start()
+    } else {
+      NumAnimF[i].update(utils.roundTemp(wdata[1].list[i].temp.day))
+    }
+    jQuery('.item-' + i + ' .temp .unit').html('°')
+  })
 
   jQuery('.forecast-item .icon').each(function (el) {
     jQuery(this).html('')
-    jQuery(this).load('assets/icons/' + jQuery(this).attr('name') + '.svg', null, function () {
+    jQuery(this).load('../../assets/icons/' + jQuery(this).attr('name') + '.svg', null, function () {
       jQuery('#details .forecast-item svg path').css('fill', color.getColor())
       jQuery('#details .forecast-item svg circle').css('fill', color.getColor())
     })
@@ -195,7 +203,7 @@ const showHourlyWeatherData = function () {
 
   let previousTooltip = null
 
-  new Chart(c, {
+  chartjs = new Chart(c, {
     type: 'line',
     data: {
       datasets: [{
@@ -258,12 +266,18 @@ const showHourlyWeatherData = function () {
               const innerHtml = '<div class="icon"></div> <span><b>' + parts[1].trim() + '</span></b> <span>' + parts[0].trim() + '</span><br/><small>' + dates[0].toLowerCase() + ', ' + dates[1] + '</small>'
               tooltipEl.html(innerHtml)
 
-              jQuery('#chartjs-tooltip .icon').load('assets/icons/' + tooltip.footer[0] + '.svg', null, function () {
+              jQuery('#chartjs-tooltip .icon').load('../../assets/icons/' + tooltip.footer[0] + '.svg', null, function () {
                 jQuery(this).find('svg path').css('fill', color.getColor())
               })
+              let x = tooltip.x
+              if (x < 0) {
+                x = 0
+              } else if (x > 210) {
+                x = 210
+              }
               tooltipEl.css({
                 opacity: 1,
-                left: tooltip.x + 35 + 'px',
+                left: x + 35 + 'px',
                 // top: tooltip.y + 350 +'px',
                 top: 430 + 'px' // always on bottom
               })
@@ -297,7 +311,7 @@ const showHourlyWeatherData = function () {
         mode: 'x-axis'
       }
     }
-  })
+  }, chartjs)
 }
 
 const getGeolocation = function () {
@@ -360,12 +374,12 @@ const showSnow = function () {
   jQuery('#main').prepend('<div class="snow"></div>')
 }
 
-const getNumAnim = function () {
-  return numAnim
+const getNumAnimTemp = function () {
+  return NumAnimTemp
 }
 
-const setNumAnim = function (na) {
-  numAnim = na
+const setNumAnimTemp = function (na) {
+  NumAnimTemp = na
 }
 
 exports.getWeatherByCity = getWeatherByCity
@@ -376,5 +390,5 @@ exports.showWeatherData = showWeatherData
 exports.showForecastWeatherData = showForecastWeatherData
 exports.showHourlyWeatherData = showHourlyWeatherData
 exports.getGeolocation = getGeolocation
-exports.getNumAnim = getNumAnim
-exports.setNumAnim = setNumAnim
+exports.getNumAnimTemp = getNumAnimTemp
+exports.setNumAnimTemp = setNumAnimTemp

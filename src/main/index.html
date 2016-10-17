@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <title>temps</title>
-    <link rel="stylesheet" href="src/style.css">
+    <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css?family=Rubik" rel="stylesheet">
 
 </head>
@@ -47,7 +47,26 @@
             </div>
             <div class="content">
                 <div class="forecast">
-
+                    <div class="forecast-item item-0">
+                        <div class="date"></div>
+                        <div class="icon"></div>
+                        <div class="temp"><span id="temp-0"></span><span class="unit"></span></div>
+                    </div>
+                    <div class="forecast-item item-1">
+                        <div class="date"></div>
+                        <div class="icon"></div>
+                        <div class="temp"><span id="temp-1"></span><span class="unit"></span></div>
+                    </div>
+                    <div class="forecast-item item-2">
+                        <div class="date"></div>
+                        <div class="icon"></div>
+                        <div class="temp"><span id="temp-2"></span><span class="unit"></span></div>
+                    </div>
+                    <div class="forecast-item item-3">
+                        <div class="date"></div>
+                        <div class="icon"></div>
+                        <div class="temp"><span id="temp-3"></span><span class="unit"></span></div>
+                    </div>
                 </div>
                 <div class="hourly hidden">
                     <div id="canvas-holder"></div>
@@ -92,7 +111,7 @@
                         <div class="pull-right"><input type="checkbox" name="auto-launch" value="true"><span class="fit"></span></div>
                     </label>
                 </div>
-                <div class="form-item">
+                <div class="form-item small">
                     <button class="apply pull-left">Apply</button>
                     <button class="quit pull-right">Quit</button>
                 </div>
@@ -108,6 +127,6 @@
         </div>
     </div>
 
-    <script type="text/javascript" src="src/main.js"></script>
+    <script type="text/javascript" src="main.js"></script>
 </body>
 </html>

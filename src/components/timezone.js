@@ -1,10 +1,10 @@
 const superagent = require('superagent')
 const jQuery = require('jquery')
 
-const store = require('./store')
+const store = require('./../utilities/store')
 const weather = require('./weather')
-const utils = require('./utils')
-const config = require('./config.json')
+const utils = require('./../utilities/utils')
+const config = require('./../main/config.json')
 
 let timeoffset = config.timezone.offset
 

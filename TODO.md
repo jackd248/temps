@@ -47,7 +47,7 @@
 * ~~timezone summertime bug~~
 * ~~rain improvement~~
 * ~~windows icon improvements~~
-* code clean up
+* ~~code clean up~~
 
 ## v0.7.0
 * city history

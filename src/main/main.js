@@ -1,10 +1,10 @@
 const jQuery = require('jquery')
 const ipcRenderer = require('electron').ipcRenderer
 
-const config = require('./src/config.json')
-const store = require('./src/store')
-const weather = require('./src/weather')
-const utils = require('./src/utils')
+const config = require('./config.json')
+const store = require('./../utilities/store')
+const weather = require('./../components/weather')
+const utils = require('./../utilities/utils')
 
 window.onload = function () {
   init()
