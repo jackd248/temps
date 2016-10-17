@@ -61,7 +61,7 @@ Builds app binaries for OS X, Linux, and Windows.
 
 ```npm run build```
 
-## Download [![Github Releases (by Release)](https://img.shields.io/github/downloads/jackd248/temps/v0.6.0/total.svg?style=flat-square)]()
+## Download [![Github Releases (by Release)](https://img.shields.io/github/downloads/jackd248/temps/v0.6.1/total.svg?style=flat-square)]()
 
 You can [download](https://github.com/jackd248/temps/releases) the latest stable version of Temps for Windows, Mac OS and Linux. 
 
