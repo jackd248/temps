@@ -1,11 +1,11 @@
 {
   "name": "temps",
-  "version": "v0.6.1",
+  "version": "v0.6.2",
   "apikey": "547bbdc38bd641bef6645cd2c4bc613f",
   "timezone": {
     "url": "https://maps.googleapis.com/maps/api/timezone/json",
     "apikey": "AIzaSyD7CnHeMDQV_XCXlimoPwiPSB_83Wfq7LE",
-    "offset": 7200
+    "offset": 0
   },
   "weather": {
     "url": {

@@ -268,6 +268,7 @@ const showHourlyWeatherData = function () {
 
               jQuery('#chartjs-tooltip .icon').load('../../assets/icons/' + tooltip.footer[0] + '.svg', null, function () {
                 jQuery(this).find('svg path').css('fill', color.getColor())
+                jQuery(this).find('svg circle').css('fill', color.getColor())
               })
               let x = tooltip.x
               if (x < 0) {
@@ -367,11 +368,11 @@ const showRain = function (nbDrop = 100) {
 }
 
 const showThunder = function () {
-  jQuery('#main').prepend('<div class="thunder"></div>')
+  jQuery('#main').append('<div class="thunder"></div>')
 }
 
 const showSnow = function () {
-  jQuery('#main').prepend('<div class="snow"></div>')
+  jQuery('#main').append('<div class="snow"></div>')
 }
 
 const getNumAnimTemp = function () {

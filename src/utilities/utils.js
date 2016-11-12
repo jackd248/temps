@@ -102,6 +102,7 @@ const showErrorMessage = function (message) {
 const reset = function () {
   jQuery('.drop').remove()
   jQuery('.thunder').remove()
+  jQuery('.snow').remove()
   jQuery('#chartjs-tooltip').css('opacity', 0)
 }
 

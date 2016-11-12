@@ -119,7 +119,8 @@ mb.on('show', function show () {
 })
 
 const appLauncher = new AutoLaunch({
-  name: 'temps'
+  name: 'temps',
+  isHidden: true
 })
 
 appLauncher.isEnabled().then(function (enabled) {

@@ -22,7 +22,13 @@ const getTimezone = function () {
         if (err || !res.ok) {
           utils.showErrorMessage('Failure during data fetching')
         } else {
-          timeoffset = res.body.rawOffset + res.body.dstOffset
+          if (res.body.status === 'OVER_QUERY_LIMIT') {
+            const d = new Date()
+            const n = d.getTimezoneOffset()
+            timeoffset = n * 60 * -1
+          } else {
+            timeoffset = res.body.rawOffset + res.body.dstOffset
+          }
           jQuery('#details .header .date').html(utils.getTodayDate())
           utils.refreshClock()
           utils.checkLoading()

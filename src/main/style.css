@@ -281,6 +281,7 @@ h1:after {
     top: 10px;
     left: 10px;
     position: absolute;
+    z-index: 2;
 }
 
 #main .settings img:hover, #main .settings:hover {
@@ -659,7 +660,7 @@ body {
     background: none;
     font-family: Androgyne;
     background-image: url('http://www.wearewebstars.dk/codepen/img/s1.png'), url('http://www.wearewebstars.dk/codepen/img//s2.png'), url('http://www.wearewebstars.dk/codepen/img//s3.png');
-    height: 100%;
+    height: 300px;
     left: 0;
     position: absolute;
     top: 0;
