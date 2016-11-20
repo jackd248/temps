@@ -6,7 +6,7 @@
   "icon": "assets/app.png",
   "description": "A simple but smart menubar weather app",
   "main": "src/app.js",
-  "electronVersion": "1.4.6",
+  "electronVersion": "1.4.7",
   "keywords": [
     "electron",
     "temperature",
@@ -49,7 +49,7 @@
     "standard": "^8.3.0"
   },
   "dependencies": {
-    "electron": "1.4.6",
+    "electron": "1.4.7",
     "menubar": "^5.1.0",
     "auto-launch": "^5.0.1",
     "applescript": "^1.0.0",
@@ -59,6 +59,6 @@
     "chart.js": "^2.2.1",
     "countup.js": "^1.7.1",
     "semver": "^5.1.0",
-    "superagent": "^2.0.0"
+    "superagent": "^3.0.0"
   }
 }

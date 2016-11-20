@@ -33,12 +33,11 @@ app.on('will-quit', function () {
 const mb = menubar({
   index: path.join('file://', __dirname, '/main/index.html'),
   icon: path.join(__dirname, '/../assets/IconTemplate.png'),
-  width: 280,
+  width: 580,
   height: 480,
   resizable: false,
-  'show-dock-icon': false,
-  'preload-window': true,
-  'transparent': true
+  showDockIcon: false,
+  preloadWindow: true,
 })
 
 mb.on('ready', function ready () {
@@ -61,6 +60,8 @@ mb.on('ready', function ready () {
   if (!ret) {
     console.log('registration failed')
   }
+
+  mb.showWindow()
 
   ipcMain.on('no-title', function (event, args) {
     mb.tray.setToolTip('temps')
@@ -118,8 +119,11 @@ mb.on('show', function show () {
   mb.window.webContents.send('show')
 })
 
+const appPath = app.getPath('exe').split('.app/Content')[0] + '.app';
+
 const appLauncher = new AutoLaunch({
   name: 'temps',
+  path: appPath,
   isHidden: true
 })
 

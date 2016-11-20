@@ -273,8 +273,8 @@ const showHourlyWeatherData = function () {
               let x = tooltip.x
               if (x < 0) {
                 x = 0
-              } else if (x > 210) {
-                x = 210
+              } else if (x > 205) {
+                x = 205
               }
               tooltipEl.css({
                 opacity: 1,
