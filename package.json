@@ -60,7 +60,6 @@
     "countup.js": "^1.7.1",
     "semver": "^5.1.0",
     "superagent": "^3.1.0",
-    "jquery-lang-js": "^3.0.2",
     "moment": "^2.17.1"
   }
 }

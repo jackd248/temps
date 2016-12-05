@@ -15,6 +15,7 @@ const config = require('./../package.json')
 const path = require('path')
 
 let autoLaunch = true
+let iconSetting = 'auto'
 
 // Quit when all windows are closed.
 app.on('window-all-closed', function () {
@@ -37,7 +38,7 @@ const mb = menubar({
   height: 480,
   resizable: false,
   showDockIcon: false,
-  preloadWindow: true,
+  preloadWindow: true
 })
 
 mb.on('ready', function ready () {
@@ -66,23 +67,20 @@ mb.on('ready', function ready () {
   ipcMain.on('no-title', function (event, args) {
     mb.tray.setToolTip('temps')
     mb.tray.setTitle('')
-    if (process.platform === 'darwin') {
-      mb.tray.setImage(path.join(__dirname, '/../assets/IconTemplate.png'))
-    } else {
-      mb.tray.setImage(path.join(__dirname, '/../assets/icons/01dW.png'))
-    }
+    changeIcon('01d')
   })
 
   ipcMain.on('set-title', function (event, args) {
     const temperature = Math.round(args.temperature) + '°'
-    mb.tray.setToolTip(args.location + ' - ' + temperature)
+    mb.tray.setToolTip(args.location + ' / ' + temperature)
     mb.tray.setTitle(temperature)
-    if (process.platform === 'darwin') {
-      mb.tray.setImage(path.join(__dirname, '/../assets/icons', args.icon + 'Template.png'))
-    } else {
-      mb.tray.setImage(path.join(__dirname, '/../assets/icons', args.icon + 'W.png'))
-    }
+    changeIcon(args.icon)
   })
+
+  ipcMain.on('icon-setting', function (event, args) {
+      iconSetting = args.setting
+      changeIcon(args.icon)
+    })
 
   ipcMain.on('close', function (event, args) {
     app.quit()
@@ -182,6 +180,23 @@ const template = [{
       ]
     }
 ]
+
+const changeIcon = function (icon) {
+    if (iconSetting === 'auto') {
+        if (process.platform === 'darwin') {
+            mb.tray.setImage(path.join(__dirname, '/../assets/icons', icon + 'Template.png'))
+        } else {
+            mb.tray.setImage(path.join(__dirname, '/../assets/icons', icon + 'W.png'))
+        }
+    } else {
+        if (iconSetting === 'white') {
+            mb.tray.setImage(path.join(__dirname, '/../assets/icons', icon + 'W.png'))
+        } else {
+            mb.tray.setImage(path.join(__dirname, '/../assets/icons', icon + '.png'))
+        }
+    }
+
+}
 
 const autoUpdater = function () {
   superagent

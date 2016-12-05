@@ -97,6 +97,15 @@ const loadEventListener = function () {
     utils.toggleSettings()
   })
 
+  jQuery('.menubar-icon select').on('change', function (e) {
+    let selection = jQuery('option:selected', this).val()
+    store.setIconSetting(selection)
+    ipcRenderer.send('icon-setting', {
+      setting: selection,
+      icon: weather.getIcon()
+    })
+  })
+
   jQuery('a').click(function (e) {
     e.preventDefault()
     const target = jQuery(this).attr('href')
@@ -167,6 +176,16 @@ const init = function () {
     store.setAutoLaunch(store.getAutoLaunch())
   } else {
     store.setAutoLaunch(true)
+  }
+
+  if (store.getIconSetting()) {
+    store.setIconSetting(store.getIconSetting())
+    ipcRenderer.send('icon-setting', {
+      setting: store.getIconSetting(),
+      icon: '01d'
+    })
+  } else {
+    store.setIconSetting('auto')
   }
 
   if (store.getFavoriteCity()) {

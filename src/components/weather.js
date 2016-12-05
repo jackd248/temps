@@ -109,6 +109,10 @@ const refreshWeather = function () {
   window.setTimeout(color.colorPalette, 1000)
 }
 
+const getIcon = function () {
+  return store.getWdata()[0].weather[0].icon
+}
+
 const showWeatherData = function () {
   const wdata = store.getWdata()
   if (NumAnimTemp === null) {
@@ -393,3 +397,4 @@ exports.showHourlyWeatherData = showHourlyWeatherData
 exports.getGeolocation = getGeolocation
 exports.getNumAnimTemp = getNumAnimTemp
 exports.setNumAnimTemp = setNumAnimTemp
+exports.getIcon = getIcon

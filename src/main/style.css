@@ -385,9 +385,13 @@ h1:after {
     transition: all 1s ease-in-out;
 }
 
+#settings h1 {
+    font-size: 26px;
+}
+
 #settings h1:before {
-    width: 45px;
-    height: 45px;
+    width: 40px;
+    height: 40px;
     content: ' ';
     background: url('../../assets/app.png') no-repeat center center;
     background-size: cover;
@@ -542,6 +546,32 @@ input[type="checkbox"][name="favorite-city"]:checked + span {
     background-size: cover;
 }
 
+.menubar-icon {
+    padding: 0;
+    margin: 0;
+    border: 1px solid #999999;
+    width: 60px;
+    overflow: hidden;
+    background-color: #fff;
+    background: #fff url(../../assets/dropdown@2x.png) center right no-repeat;
+}
+
+.menubar-icon select {
+    padding: 5px 8px;
+    width: 130%;
+    border: none;
+    box-shadow: none;
+    background-color: transparent;
+    background-image: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+}
+
+.menubar-icon select:focus {
+    outline: none;
+}
+
 .clear::after {
     content: "";
     clear: both;
@@ -553,7 +583,7 @@ input[type="checkbox"][name="favorite-city"]:checked + span {
     text-align: center;
     border: 1px solid #CCCCCC;
     color: #000;
-    padding: 6px;
+    padding: 4px;
     background: #FFF;
     box-sizing: border-box;
     font-size: 14px;
@@ -582,7 +612,6 @@ input[type="checkbox"][name="favorite-city"]:checked + span {
 
 #settings .footer {
     text-align: center;
-    margin-top: 5px;
 }
 @keyframes pulse {
     0%   { opacity: 1; }
