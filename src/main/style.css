@@ -266,7 +266,7 @@ h1:after {
 }
 
 #main .clock {
-    width: 40px;
+    width: 60px;
     height: 20px;
     position: absolute;
     top: 10px;
@@ -317,6 +317,7 @@ h1:after {
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
     box-sizing: border-box;;
+    text-transform: lowercase;
 }
 
 #details .header::after {
@@ -438,6 +439,10 @@ h1:after {
     display: inline-block;
 }
 
+#settings .form-item label.inline.small {
+    font-size: 12px;
+}
+
 #settings .form-item input[type="text"] {
      display: block;
      width: 100%;
@@ -455,6 +460,11 @@ h1:after {
 
 #settings .form-item input[type="text"][name="city"] {
     padding-right: 40px;
+}
+
+#settings .form-item input[type="text"].small {
+    font-size: 12px;
+    padding: 3px;
 }
 
 #settings .form-item label.fav {

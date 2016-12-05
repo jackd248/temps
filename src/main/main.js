@@ -39,8 +39,13 @@ const loadEventListener = function () {
   })
 
   jQuery('input[type="radio"][name="format"]').change(function () {
-    store.setFormat(jQuery(this).val())
-    weather.refreshWeather()
+      store.setFormat(jQuery(this).val())
+      weather.refreshWeather()
+  })
+
+  jQuery('input[type="radio"][name="time"]').change(function () {
+      store.setTimeFormat(jQuery(this).attr('data-field'))
+      weather.refreshWeather()
   })
 
   jQuery('input[type="checkbox"][name="favorite-city"]').change(function () {
@@ -137,6 +142,12 @@ const init = function () {
     store.setFormat(store.getFormat())
   } else {
     store.setFormat(config.start.format)
+  }
+
+  if (store.getTimeFormat()) {
+      store.setTimeFormat(store.getTimeFormat())
+  } else {
+      store.setTimeFormat(config.start.time)
   }
 
   if (store.getApiKey()) {

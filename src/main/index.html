@@ -87,7 +87,7 @@
                 </div>
                 <div class="form-item">
                     <label for="apikey">API Key</label>
-                    <input type="text" name="apikey" id="apikey" value=""/>
+                    <input type="text" name="apikey" id="apikey" value="" class="small"/>
                     <span class="help">
                         You need a free api key from <a href="http://www.openweathermap.org/" alt="openweathermap" target="_blank">openweathermap</a>.
                     </span>
@@ -109,6 +109,15 @@
                     <label class="clear">
                         <div class="pull-left">Start at login</div>
                         <div class="pull-right"><input type="checkbox" name="auto-launch" value="true"><span class="fit"></span></div>
+                    </label>
+                </div>
+                <div class="form-item small">
+                    <label class="clear">
+                        <div class="pull-left">Time format</div>
+                        <div class="pull-right fit">
+                            <label class="inline small"><input type="Radio" name="time" value="24" data-field="HH:mm" checked="checked" /><span></span>24h </label>
+                            <label class="inline small"><input type="Radio" name="time" value="12" data-field="h:mm a"/><span></span>12h </label>
+                        </div>
                     </label>
                 </div>
                 <div class="form-item small">

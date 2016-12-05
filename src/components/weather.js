@@ -293,7 +293,7 @@ const showHourlyWeatherData = function () {
           position: 'bottom',
           time: {
             unit: 'hour',
-            tooltipFormat: 'ddd - HH:mm',
+            tooltipFormat: 'ddd - ' + store.getTimeFormat(),
             displayFormats: {
               hour: 'MMM D, hA'
             }
