@@ -2,11 +2,11 @@
   "name": "temps",
   "productName": "Temps",
   "website": "https://jackd248.github.io/temps/",
-  "version": "0.6.2",
+  "version": "0.7.0",
   "icon": "assets/app.png",
   "description": "A simple but smart menubar weather app",
   "main": "src/app.js",
-  "electronVersion": "1.4.6",
+  "electronVersion": "1.4.12",
   "keywords": [
     "electron",
     "temperature",
@@ -45,11 +45,11 @@
     "electron-packager": "^8.0.0",
     "electron-prebuilt": "^1.4.1",
     "electron-installer-dmg": "0.1.2",
-    "electron-builder": "8.3.0",
+    "electron-builder": "10.8.1",
     "standard": "^8.3.0"
   },
   "dependencies": {
-    "electron": "1.4.6",
+    "electron": "1.4.12",
     "menubar": "^5.1.0",
     "auto-launch": "^5.0.1",
     "applescript": "^1.0.0",
@@ -59,6 +59,7 @@
     "chart.js": "^2.2.1",
     "countup.js": "^1.7.1",
     "semver": "^5.1.0",
-    "superagent": "^2.0.0"
+    "superagent": "^3.3.1",
+    "moment": "^2.17.1"
   }
 }

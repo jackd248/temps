@@ -96,6 +96,28 @@ const setWdata = function (data) {
   wdata = data
 }
 
+const getTimeFormat = function () {
+  return localStore.get('time-format')
+}
+
+const setTimeFormat = function (format) {
+  localStore.set('time-format', format)
+  if (format === 'HH:mm') {
+    jQuery('input:radio[name="time"]')[0].checked = true
+  } else {
+    jQuery('input:radio[name="time"]')[1].checked = true
+  }
+}
+
+const getIconSetting = function () {
+  return localStore.get('icon-setting')
+}
+
+const setIconSetting = function (setting) {
+  localStore.set('icon-setting', setting)
+  jQuery('.menubar-icon select').val(setting)
+}
+
 exports.getWdata = getWdata
 exports.setWdata = setWdata
 exports.setCity = setCity
@@ -110,3 +132,7 @@ exports.getFavoriteCity = getFavoriteCity
 exports.setFavoriteCity = setFavoriteCity
 exports.getAutoLaunch = getAutoLaunch
 exports.setAutoLaunch = setAutoLaunch
+exports.getTimeFormat = getTimeFormat
+exports.setTimeFormat = setTimeFormat
+exports.getIconSetting = getIconSetting
+exports.setIconSetting = setIconSetting

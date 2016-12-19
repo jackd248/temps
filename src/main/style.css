@@ -266,7 +266,7 @@ h1:after {
 }
 
 #main .clock {
-    width: 40px;
+    width: 60px;
     height: 20px;
     position: absolute;
     top: 10px;
@@ -317,6 +317,7 @@ h1:after {
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
     box-sizing: border-box;;
+    text-transform: lowercase;
 }
 
 #details .header::after {
@@ -384,9 +385,13 @@ h1:after {
     transition: all 1s ease-in-out;
 }
 
+#settings h1 {
+    font-size: 26px;
+}
+
 #settings h1:before {
-    width: 45px;
-    height: 45px;
+    width: 40px;
+    height: 40px;
     content: ' ';
     background: url('../../assets/app.png') no-repeat center center;
     background-size: cover;
@@ -438,6 +443,10 @@ h1:after {
     display: inline-block;
 }
 
+#settings .form-item label.inline.small {
+    font-size: 12px;
+}
+
 #settings .form-item input[type="text"] {
      display: block;
      width: 100%;
@@ -455,6 +464,11 @@ h1:after {
 
 #settings .form-item input[type="text"][name="city"] {
     padding-right: 40px;
+}
+
+#settings .form-item input[type="text"].small {
+    font-size: 12px;
+    padding: 3px;
 }
 
 #settings .form-item label.fav {
@@ -532,6 +546,30 @@ input[type="checkbox"][name="favorite-city"]:checked + span {
     background-size: cover;
 }
 
+#settings .menubar-icon {
+    padding: 5px 0 0 10px;
+    margin: 0;
+    display: inline;
+    width: 60px;
+    overflow: hidden;
+}
+
+#settings .menubar-icon select {
+    padding: 0;
+    border: none;
+    color: #000;
+    box-shadow: none;
+    background-color: transparent;
+    background-image: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+}
+
+#settings .menubar-icon select:focus {
+    outline: none;
+}
+
 .clear::after {
     content: "";
     clear: both;
@@ -543,7 +581,7 @@ input[type="checkbox"][name="favorite-city"]:checked + span {
     text-align: center;
     border: 1px solid #CCCCCC;
     color: #000;
-    padding: 6px;
+    padding: 4px;
     background: #FFF;
     box-sizing: border-box;
     font-size: 14px;
@@ -572,7 +610,6 @@ input[type="checkbox"][name="favorite-city"]:checked + span {
 
 #settings .footer {
     text-align: center;
-    margin-top: 5px;
 }
 @keyframes pulse {
     0%   { opacity: 1; }
@@ -659,7 +696,7 @@ body {
 .snow{
     background: none;
     font-family: Androgyne;
-    background-image: url('http://www.wearewebstars.dk/codepen/img/s1.png'), url('http://www.wearewebstars.dk/codepen/img//s2.png'), url('http://www.wearewebstars.dk/codepen/img//s3.png');
+    background-image: url(../../assets/s1.png), url(../../assets/s2.png), url(../../assets/s3.png);
     height: 300px;
     left: 0;
     position: absolute;
@@ -673,19 +710,19 @@ body {
 }
 @keyframes snow {
     0% {background-position: 0px 0px, 0px 0px, 0px 0px;}
-    100% {background-position: 500px 500px, 100px 200px, -100px 150px;}
+    100% {background-position: 0px 1000px, 0px 400px, 0px 300px;}
 }
 @-moz-keyframes snow {
     0% {background-position: 0px 0px, 0px 0px, 0px 0px;}
-    100% {background-position: 500px 500px, 100px 200px, -100px 150px;}
+    100% {background-position: 0px 1000px, 0px 400px, 0px 300px;}
 }
 @-webkit-keyframes snow {
     0% {background-position: 0px 0px, 0px 0px, 0px 0px;}
-    100% {background-position: 500px 500px, 100px 200px, -100px 150px;}
+    100% {background-position: 0px 1000px, 0px 400px, 0px 300px;}
 }
 @-ms-keyframes snow {
     0% {background-position: 0px 0px, 0px 0px, 0px 0px;}
-    100% {background-position: 500px 500px, 100px 200px, -100px 150px;}
+    100% {background-position: 0px 1000px, 0px 400px, 0px 300px;}
 }
 
 #chartjs-tooltip {
@@ -694,7 +731,7 @@ body {
     background: rgba(255,255,255,0);
     color: #999999;
     text-align: center;
-    width: 95px;
+    width: 100px;
     padding: 3px 11px;
     box-sizing: border-box;
     font-size: 14px;

@@ -109,6 +109,10 @@ const refreshWeather = function () {
   window.setTimeout(color.colorPalette, 1000)
 }
 
+const getIcon = function () {
+  return store.getWdata()[0].weather[0].icon
+}
+
 const showWeatherData = function () {
   const wdata = store.getWdata()
   if (NumAnimTemp === null) {
@@ -273,8 +277,8 @@ const showHourlyWeatherData = function () {
               let x = tooltip.x
               if (x < 0) {
                 x = 0
-              } else if (x > 210) {
-                x = 210
+              } else if (x > 205) {
+                x = 205
               }
               tooltipEl.css({
                 opacity: 1,
@@ -293,7 +297,7 @@ const showHourlyWeatherData = function () {
           position: 'bottom',
           time: {
             unit: 'hour',
-            tooltipFormat: 'ddd - HH:mm',
+            tooltipFormat: 'ddd - ' + store.getTimeFormat(),
             displayFormats: {
               hour: 'MMM D, hA'
             }
@@ -393,3 +397,5 @@ exports.showHourlyWeatherData = showHourlyWeatherData
 exports.getGeolocation = getGeolocation
 exports.getNumAnimTemp = getNumAnimTemp
 exports.setNumAnimTemp = setNumAnimTemp
+exports.getIcon = getIcon
+exports.showSnow = showSnow

@@ -87,7 +87,7 @@
                 </div>
                 <div class="form-item">
                     <label for="apikey">API Key</label>
-                    <input type="text" name="apikey" id="apikey" value=""/>
+                    <input type="text" name="apikey" id="apikey" value="" />
                     <span class="help">
                         You need a free api key from <a href="http://www.openweathermap.org/" alt="openweathermap" target="_blank">openweathermap</a>.
                     </span>
@@ -101,8 +101,16 @@
                 </div>
                 <div class="form-item small">
                     <label class="clear">
-                        <div class="pull-left">Show weather in menubar</div>
-                        <div class="pull-right"><input type="checkbox" name="mb-info" value="true"><span class="fit"></span></div>
+                        <div class="pull-left">Show weather in menubar
+                            <div class="menubar-icon">(
+                                <select name="menubar-icon" class="menubar-icon-select">
+                                    <option value="auto">auto</option>
+                                    <option value="white">white</option>
+                                    <option value="black">black</option>
+                                </select>)
+                            </div>
+                        </div>
+                        <div class="pull-right"><input type="checkbox" name="mb-info" value="true"><span class="fit mb"></span></div>
                     </label>
                 </div>
                 <div class="form-item small">
@@ -112,11 +120,20 @@
                     </label>
                 </div>
                 <div class="form-item small">
+                    <label class="clear">
+                        <div class="pull-left">Time format</div>
+                        <div class="pull-right fit">
+                            <label class="inline small"><input type="Radio" name="time" value="24" data-field="HH:mm" checked="checked" /><span></span>24h </label>
+                            <label class="inline small"><input type="Radio" name="time" value="12" data-field="h:mm a"/><span></span>12h </label>
+                        </div>
+                    </label>
+                </div>
+                <div class="form-item small">
                     <button class="apply pull-left">Apply</button>
                     <button class="quit pull-right">Quit</button>
                 </div>
                 <div class="footer">
-                    <a href="https://jackd248.github.io/temps/" target="_blank" alt="temps">temps</a> - v0.6.2 &copy; 2016
+                    <a href="https://jackd248.github.io/temps/" target="_blank" alt="temps">temps</a> - v0.7.0 &copy; 2016
                 </div>
             </div>
         </div>

@@ -43,6 +43,11 @@ const loadEventListener = function () {
     weather.refreshWeather()
   })
 
+  jQuery('input[type="radio"][name="time"]').change(function () {
+    store.setTimeFormat(jQuery(this).attr('data-field'))
+    weather.refreshWeather()
+  })
+
   jQuery('input[type="checkbox"][name="favorite-city"]').change(function () {
     const bool = jQuery('input[type="checkbox"][name="favorite-city"]:checked').length > 0
     if (bool) {
@@ -52,15 +57,27 @@ const loadEventListener = function () {
     }
   })
 
-  jQuery('input[type="checkbox"][name="mb-info"]').change(function () {
-    const bool = jQuery('input[type="checkbox"][name="mb-info"]:checked').length > 0
+  jQuery('input[type="checkbox"] + .mb').click(function () {
+    const bool = !(jQuery('input[type="checkbox"][name="mb-info"]:checked').length > 0)
     store.setMbInfo(bool)
     if (store.getMbInfo()) {
       weather.refreshWeather()
+      jQuery('input[type="checkbox"][name="mb-info"]').prop('checked', true)
     } else {
       ipcRenderer.send('no-title')
+      jQuery('input[type="checkbox"][name="mb-info"]').prop('checked', false)
     }
   })
+
+  // jQuery('input[type="checkbox"][name="mb-info"]').change(function () {
+  //   const bool = jQuery('input[type="checkbox"][name="mb-info"]:checked').length > 0
+  //   store.setMbInfo(bool)
+  //   if (store.getMbInfo()) {
+  //     weather.refreshWeather()
+  //   } else {
+  //     ipcRenderer.send('no-title')
+  //   }
+  // })
 
   jQuery('input[type="checkbox"][name="auto-launch"]').change(function () {
     const bool = jQuery('input[type="checkbox"][name="auto-launch"]:checked').length > 0
@@ -90,6 +107,15 @@ const loadEventListener = function () {
   jQuery('#settings .geolocation').click(function () {
     weather.getGeolocation()
     utils.toggleSettings()
+  })
+
+  jQuery('.menubar-icon select').on('change', function (e) {
+    let selection = jQuery('option:selected', this).val()
+    store.setIconSetting(selection)
+    ipcRenderer.send('icon-setting', {
+      setting: selection,
+      icon: weather.getIcon()
+    })
   })
 
   jQuery('a').click(function (e) {
@@ -139,6 +165,12 @@ const init = function () {
     store.setFormat(config.start.format)
   }
 
+  if (store.getTimeFormat()) {
+    store.setTimeFormat(store.getTimeFormat())
+  } else {
+    store.setTimeFormat(config.start.time)
+  }
+
   if (store.getApiKey()) {
     store.setApiKey(store.getApiKey())
   } else {
@@ -156,6 +188,16 @@ const init = function () {
     store.setAutoLaunch(store.getAutoLaunch())
   } else {
     store.setAutoLaunch(true)
+  }
+
+  if (store.getIconSetting()) {
+    store.setIconSetting(store.getIconSetting())
+    ipcRenderer.send('icon-setting', {
+      setting: store.getIconSetting(),
+      icon: '01d'
+    })
+  } else {
+    store.setIconSetting('auto')
   }
 
   if (store.getFavoriteCity()) {

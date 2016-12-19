@@ -6,32 +6,22 @@ const config = require('./../main/config.json')
 
 const ipcRenderer = require('electron').ipcRenderer
 const jQuery = require('jquery')
+const moment = require('moment')
 
 let loading = [false, false, false, false]
-const months = config.date.months
-
-const getTodayDay = function () {
-  var days = [
-    'sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'
-  ]
-  var date = timezone.getDate(new Date())
-  return days[(date.getDay())]
-}
 
 const getTodayDate = function () {
-  var date = timezone.getDate(new Date())
-  return getTodayDay() + ', ' + months[date.getMonth()] + ' ' + date.getDate()
+  var date = moment(timezone.getDate(new Date()))
+  return date.format('dddd, MMM D')
 }
 
 const getTime = function () {
-  var dt = timezone.getDate(new Date())
-  return dt.getHours() + ':' + addZero(dt.getMinutes())
+  var dt = moment(timezone.getDate(new Date()))
+  return dt.format(store.getTimeFormat())
 }
 
 const getStyledDate = function (num) {
-  var days = config.date.days
-  var date = new Date()
-  return days[(date.getDay() + num) % 7]
+  return moment().add(num + 1, 'days').format('ddd')
 }
 
 const roundTemp = function (temp) {
@@ -48,21 +38,14 @@ const toggleSettings = function () {
     jQuery('#settings .content').fadeOut()
     jQuery('#nav-icon').removeClass('open')
   } else {
-    jQuery('#main').height('120px')
+    jQuery('#main').height('110px')
     jQuery('#main .content').fadeOut()
     jQuery('#main .actual-icon').fadeOut()
     jQuery('#details').fadeOut()
-    jQuery('#settings').height('340px')
+    jQuery('#settings').height('360px')
     jQuery('#settings .content').delay(500).fadeIn()
     jQuery('#nav-icon').addClass('open')
   }
-}
-
-const addZero = function (i) {
-  if (i < 10) {
-    i = '0' + i
-  }
-  return i
 }
 
 const toggleDetails = function () {
