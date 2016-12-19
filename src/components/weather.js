@@ -398,3 +398,4 @@ exports.getGeolocation = getGeolocation
 exports.getNumAnimTemp = getNumAnimTemp
 exports.setNumAnimTemp = setNumAnimTemp
 exports.getIcon = getIcon
+exports.showSnow = showSnow

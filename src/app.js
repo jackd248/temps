@@ -34,7 +34,7 @@ app.on('will-quit', function () {
 const mb = menubar({
   index: path.join('file://', __dirname, '/main/index.html'),
   icon: path.join(__dirname, '/../assets/IconTemplate.png'),
-  width: 580,
+  width: 280,
   height: 480,
   resizable: false,
   showDockIcon: false,
@@ -118,6 +118,8 @@ mb.on('show', function show () {
 })
 
 const appPath = app.getPath('exe').split('.app/Content')[0] + '.app';
+
+console.log(appPath)
 
 const appLauncher = new AutoLaunch({
   name: 'temps',

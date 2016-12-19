@@ -547,19 +547,17 @@ input[type="checkbox"][name="favorite-city"]:checked + span {
 }
 
 .menubar-icon {
-    padding: 0;
+    padding: 5px 0 0 10px;
     margin: 0;
-    border: 1px solid #999999;
+    display: inline;
     width: 60px;
     overflow: hidden;
-    background-color: #fff;
-    background: #fff url(../../assets/dropdown@2x.png) center right no-repeat;
 }
 
 .menubar-icon select {
-    padding: 5px 8px;
-    width: 130%;
+    padding: 0;
     border: none;
+    color: #000;
     box-shadow: none;
     background-color: transparent;
     background-image: none;
@@ -698,7 +696,7 @@ body {
 .snow{
     background: none;
     font-family: Androgyne;
-    background-image: url('http://www.wearewebstars.dk/codepen/img/s1.png'), url('http://www.wearewebstars.dk/codepen/img//s2.png'), url('http://www.wearewebstars.dk/codepen/img//s3.png');
+    background-image: url(../../assets/s1.png), url(../../assets/s2.png), url(../../assets/s3.png);
     height: 300px;
     left: 0;
     position: absolute;
@@ -712,19 +710,19 @@ body {
 }
 @keyframes snow {
     0% {background-position: 0px 0px, 0px 0px, 0px 0px;}
-    100% {background-position: 500px 500px, 100px 200px, -100px 150px;}
+    100% {background-position: 0px 1000px, 0px 400px, 0px 300px;}
 }
 @-moz-keyframes snow {
     0% {background-position: 0px 0px, 0px 0px, 0px 0px;}
-    100% {background-position: 500px 500px, 100px 200px, -100px 150px;}
+    100% {background-position: 0px 1000px, 0px 400px, 0px 300px;}
 }
 @-webkit-keyframes snow {
     0% {background-position: 0px 0px, 0px 0px, 0px 0px;}
-    100% {background-position: 500px 500px, 100px 200px, -100px 150px;}
+    100% {background-position: 0px 1000px, 0px 400px, 0px 300px;}
 }
 @-ms-keyframes snow {
     0% {background-position: 0px 0px, 0px 0px, 0px 0px;}
-    100% {background-position: 500px 500px, 100px 200px, -100px 150px;}
+    100% {background-position: 0px 1000px, 0px 400px, 0px 300px;}
 }
 
 #chartjs-tooltip {
