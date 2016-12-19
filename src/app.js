@@ -34,7 +34,7 @@ app.on('will-quit', function () {
 const mb = menubar({
   index: path.join('file://', __dirname, '/main/index.html'),
   icon: path.join(__dirname, '/../assets/IconTemplate.png'),
-  width: 580,
+  width: 280,
   height: 480,
   resizable: false,
   showDockIcon: false,
@@ -78,9 +78,9 @@ mb.on('ready', function ready () {
   })
 
   ipcMain.on('icon-setting', function (event, args) {
-      iconSetting = args.setting
-      changeIcon(args.icon)
-    })
+    iconSetting = args.setting
+    changeIcon(args.icon)
+  })
 
   ipcMain.on('close', function (event, args) {
     app.quit()
@@ -117,7 +117,7 @@ mb.on('show', function show () {
   mb.window.webContents.send('show')
 })
 
-const appPath = app.getPath('exe').split('.app/Content')[0] + '.app';
+const appPath = app.getPath('exe').split('.app/Content')[0] + '.app'
 
 console.log(appPath)
 
@@ -184,20 +184,19 @@ const template = [{
 ]
 
 const changeIcon = function (icon) {
-    if (iconSetting === 'auto') {
-        if (process.platform === 'darwin') {
-            mb.tray.setImage(path.join(__dirname, '/../assets/icons', icon + 'Template.png'))
-        } else {
-            mb.tray.setImage(path.join(__dirname, '/../assets/icons', icon + 'W.png'))
-        }
+  if (iconSetting === 'auto') {
+    if (process.platform === 'darwin') {
+      mb.tray.setImage(path.join(__dirname, '/../assets/icons', icon + 'Template.png'))
     } else {
-        if (iconSetting === 'white') {
-            mb.tray.setImage(path.join(__dirname, '/../assets/icons', icon + 'W.png'))
-        } else {
-            mb.tray.setImage(path.join(__dirname, '/../assets/icons', icon + '.png'))
-        }
+      mb.tray.setImage(path.join(__dirname, '/../assets/icons', icon + 'W.png'))
     }
-
+  } else {
+    if (iconSetting === 'white') {
+      mb.tray.setImage(path.join(__dirname, '/../assets/icons', icon + 'W.png'))
+    } else {
+      mb.tray.setImage(path.join(__dirname, '/../assets/icons', icon + '.png'))
+    }
+  }
 }
 
 const autoUpdater = function () {

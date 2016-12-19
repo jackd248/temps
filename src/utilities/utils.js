@@ -12,7 +12,7 @@ let loading = [false, false, false, false]
 
 const getTodayDate = function () {
   var date = moment(timezone.getDate(new Date()))
-  return date.format('dddd, MMM D');
+  return date.format('dddd, MMM D')
 }
 
 const getTime = function () {
@@ -21,7 +21,7 @@ const getTime = function () {
 }
 
 const getStyledDate = function (num) {
-  return moment().add(num+1, 'days').format('ddd')
+  return moment().add(num + 1, 'days').format('ddd')
 }
 
 const roundTemp = function (temp) {
@@ -46,13 +46,6 @@ const toggleSettings = function () {
     jQuery('#settings .content').delay(500).fadeIn()
     jQuery('#nav-icon').addClass('open')
   }
-}
-
-const addZero = function (i) {
-  if (i < 10) {
-    i = '0' + i
-  }
-  return i
 }
 
 const toggleDetails = function () {

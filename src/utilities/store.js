@@ -102,10 +102,11 @@ const getTimeFormat = function () {
 
 const setTimeFormat = function (format) {
   localStore.set('time-format', format)
-  if (format === 'HH:mm')
+  if (format === 'HH:mm') {
     jQuery('input:radio[name="time"]')[0].checked = true
-  else
+  } else {
     jQuery('input:radio[name="time"]')[1].checked = true
+  }
 }
 
 const getIconSetting = function () {

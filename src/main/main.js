@@ -39,13 +39,13 @@ const loadEventListener = function () {
   })
 
   jQuery('input[type="radio"][name="format"]').change(function () {
-      store.setFormat(jQuery(this).val())
-      weather.refreshWeather()
+    store.setFormat(jQuery(this).val())
+    weather.refreshWeather()
   })
 
   jQuery('input[type="radio"][name="time"]').change(function () {
-      store.setTimeFormat(jQuery(this).attr('data-field'))
-      weather.refreshWeather()
+    store.setTimeFormat(jQuery(this).attr('data-field'))
+    weather.refreshWeather()
   })
 
   jQuery('input[type="checkbox"][name="favorite-city"]').change(function () {
@@ -58,15 +58,15 @@ const loadEventListener = function () {
   })
 
   jQuery('input[type="checkbox"] + .mb').click(function () {
-      const bool = !(jQuery('input[type="checkbox"][name="mb-info"]:checked').length > 0)
-      store.setMbInfo(bool)
-      if (store.getMbInfo()) {
-          weather.refreshWeather()
-          jQuery('input[type="checkbox"][name="mb-info"]').prop('checked', true)
-      } else {
-          ipcRenderer.send('no-title')
-          jQuery('input[type="checkbox"][name="mb-info"]').prop('checked', false)
-      }
+    const bool = !(jQuery('input[type="checkbox"][name="mb-info"]:checked').length > 0)
+    store.setMbInfo(bool)
+    if (store.getMbInfo()) {
+      weather.refreshWeather()
+      jQuery('input[type="checkbox"][name="mb-info"]').prop('checked', true)
+    } else {
+      ipcRenderer.send('no-title')
+      jQuery('input[type="checkbox"][name="mb-info"]').prop('checked', false)
+    }
   })
 
   // jQuery('input[type="checkbox"][name="mb-info"]').change(function () {
@@ -166,9 +166,9 @@ const init = function () {
   }
 
   if (store.getTimeFormat()) {
-      store.setTimeFormat(store.getTimeFormat())
+    store.setTimeFormat(store.getTimeFormat())
   } else {
-      store.setTimeFormat(config.start.time)
+    store.setTimeFormat(config.start.time)
   }
 
   if (store.getApiKey()) {
