@@ -34,7 +34,7 @@ app.on('will-quit', function () {
 const mb = menubar({
   index: path.join('file://', __dirname, '/main/index.html'),
   icon: path.join(__dirname, '/../assets/IconTemplate.png'),
-  width: 280,
+  width: 580,
   height: 480,
   resizable: false,
   showDockIcon: false,

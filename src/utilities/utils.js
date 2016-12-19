@@ -38,7 +38,7 @@ const toggleSettings = function () {
     jQuery('#settings .content').fadeOut()
     jQuery('#nav-icon').removeClass('open')
   } else {
-    jQuery('#main').height('120px')
+    jQuery('#main').height('110px')
     jQuery('#main .content').fadeOut()
     jQuery('#main .actual-icon').fadeOut()
     jQuery('#details').fadeOut()

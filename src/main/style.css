@@ -546,7 +546,7 @@ input[type="checkbox"][name="favorite-city"]:checked + span {
     background-size: cover;
 }
 
-.menubar-icon {
+#settings .menubar-icon {
     padding: 5px 0 0 10px;
     margin: 0;
     display: inline;
@@ -554,7 +554,7 @@ input[type="checkbox"][name="favorite-city"]:checked + span {
     overflow: hidden;
 }
 
-.menubar-icon select {
+#settings .menubar-icon select {
     padding: 0;
     border: none;
     color: #000;
@@ -566,7 +566,7 @@ input[type="checkbox"][name="favorite-city"]:checked + span {
     appearance: none;
 }
 
-.menubar-icon select:focus {
+#settings .menubar-icon select:focus {
     outline: none;
 }
 

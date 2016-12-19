@@ -85,9 +85,9 @@
                     <div class="geolocation"></div>
                     <label class="inline fav"><input type="checkbox" name="favorite-city" value="false"><span></span></label>
                 </div>
-                <div class="form-item small">
+                <div class="form-item">
                     <label for="apikey">API Key</label>
-                    <input type="text" name="apikey" id="apikey" value="" class="small"/>
+                    <input type="text" name="apikey" id="apikey" value="" />
                     <span class="help">
                         You need a free api key from <a href="http://www.openweathermap.org/" alt="openweathermap" target="_blank">openweathermap</a>.
                     </span>
@@ -103,14 +103,14 @@
                     <label class="clear">
                         <div class="pull-left">Show weather in menubar
                             <div class="menubar-icon">(
-                                <select>
+                                <select name="menubar-icon" class="menubar-icon-select">
                                     <option value="auto">auto</option>
                                     <option value="white">white</option>
                                     <option value="black">black</option>
                                 </select>)
                             </div>
                         </div>
-                        <div class="pull-right"><input type="checkbox" name="mb-info" value="true"><span class="fit"></span></div>
+                        <div class="pull-right"><input type="checkbox" name="mb-info" value="true"><span class="fit mb"></span></div>
                     </label>
                 </div>
                 <div class="form-item small">
@@ -133,7 +133,7 @@
                     <button class="quit pull-right">Quit</button>
                 </div>
                 <div class="footer">
-                    <a href="https://jackd248.github.io/temps/" target="_blank" alt="temps">temps</a> - v0.6.2 &copy; 2016
+                    <a href="https://jackd248.github.io/temps/" target="_blank" alt="temps">temps</a> - v0.7.0 &copy; 2016
                 </div>
             </div>
         </div>

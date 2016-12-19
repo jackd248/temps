@@ -1,6 +1,6 @@
 {
   "name": "temps",
-  "version": "v0.6.2",
+  "version": "v0.7.0",
   "apikey": "547bbdc38bd641bef6645cd2c4bc613f",
   "timezone": {
     "url": "https://maps.googleapis.com/maps/api/timezone/json",

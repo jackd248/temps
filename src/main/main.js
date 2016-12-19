@@ -57,15 +57,27 @@ const loadEventListener = function () {
     }
   })
 
-  jQuery('input[type="checkbox"][name="mb-info"]').change(function () {
-    const bool = jQuery('input[type="checkbox"][name="mb-info"]:checked').length > 0
-    store.setMbInfo(bool)
-    if (store.getMbInfo()) {
-      weather.refreshWeather()
-    } else {
-      ipcRenderer.send('no-title')
-    }
+  jQuery('input[type="checkbox"] + .mb').click(function () {
+      const bool = !(jQuery('input[type="checkbox"][name="mb-info"]:checked').length > 0)
+      store.setMbInfo(bool)
+      if (store.getMbInfo()) {
+          weather.refreshWeather()
+          jQuery('input[type="checkbox"][name="mb-info"]').prop('checked', true)
+      } else {
+          ipcRenderer.send('no-title')
+          jQuery('input[type="checkbox"][name="mb-info"]').prop('checked', false)
+      }
   })
+
+  // jQuery('input[type="checkbox"][name="mb-info"]').change(function () {
+  //   const bool = jQuery('input[type="checkbox"][name="mb-info"]:checked').length > 0
+  //   store.setMbInfo(bool)
+  //   if (store.getMbInfo()) {
+  //     weather.refreshWeather()
+  //   } else {
+  //     ipcRenderer.send('no-title')
+  //   }
+  // })
 
   jQuery('input[type="checkbox"][name="auto-launch"]').change(function () {
     const bool = jQuery('input[type="checkbox"][name="auto-launch"]:checked').length > 0
