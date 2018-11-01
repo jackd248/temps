@@ -80,7 +80,7 @@
                     temps
                 </h1>
                 <div class="form-item">
-                    <label for="city">City</label>
+                    <label for="city">도시</label>
                     <input type="text" name="city" id="city" value="" autofocus/>
                     <div class="geolocation"></div>
                     <label class="inline fav"><input type="checkbox" name="favorite-city" value="false"><span></span></label>
@@ -89,24 +89,24 @@
                     <label for="apikey">API Key</label>
                     <input type="text" name="apikey" id="apikey" value="" />
                     <span class="help">
-                        You need a free api key from <a href="http://www.openweathermap.org/" alt="openweathermap" target="_blank">openweathermap</a>.
+                        You need a free api key from <a href="http://www.openweathermap.org/" alt="openweathermap" target="_blank">날씨지도열기</a>.
                     </span>
                 </div>
                 <div class="form-item small clear">
-                    <div class="label pull-left">Temperature scale</div>
+                    <div class="label pull-left">날씨 표기 기준</div>
                     <div class="pull-right fit">
-                        <label class="inline"><input type="Radio" name="format" value="metric" checked="checked" /><span></span>°C </label>
-                        <label class="inline"><input type="Radio" name="format" value="imperial" /><span></span>°F </label>
+                        <label class="inline"><input type="Radio" name="format" value="metric" checked="checked" /><span></span>°C(섭씨) </label>
+                        <label class="inline"><input type="Radio" name="format" value="imperial" /><span></span>°F(화씨) </label>
                     </div>
                 </div>
                 <div class="form-item small">
                     <label class="clear">
-                        <div class="pull-left">Show weather in menubar
+                        <div class="pull-left">메뉴에 날씨보이기
                             <div class="menubar-icon">(
                                 <select name="menubar-icon" class="menubar-icon-select">
-                                    <option value="auto">auto</option>
-                                    <option value="white">white</option>
-                                    <option value="black">black</option>
+                                    <option value="auto">자동</option>
+                                    <option value="white">흰색</option>
+                                    <option value="black">검은색</option>
                                 </select>)
                             </div>
                         </div>
@@ -121,19 +121,20 @@
                 </div>
                 <div class="form-item small">
                     <label class="clear">
-                        <div class="pull-left">Time format</div>
+                        <div class="pull-left"> 시간 설정
+                        </div>
                         <div class="pull-right fit">
-                            <label class="inline small"><input type="Radio" name="time" value="24" data-field="HH:mm" checked="checked" /><span></span>24h </label>
-                            <label class="inline small"><input type="Radio" name="time" value="12" data-field="h:mm a"/><span></span>12h </label>
+                            <label class="inline small"><input type="Radio" name="time" value="24" data-field="HH:mm" checked="checked" /><span></span>24시 </label>
+                            <label class="inline small"><input type="Radio" name="time" value="12" data-field="h:mm a"/><span></span>12시 </label>
                         </div>
                     </label>
                 </div>
                 <div class="form-item small">
-                    <button class="apply pull-left">Apply</button>
-                    <button class="quit pull-right">Quit</button>
+                    <button class="apply pull-left">설정</button>
+                    <button class="quit pull-right">나가기</button>
                 </div>
                 <div class="footer">
-                    <a href="https://jackd248.github.io/temps/" target="_blank" alt="temps">temps</a> - v0.7.0 &copy; 2016
+                    <a href="https://jackd248.github.io/temps/" target="_blank" alt="temps">temps</a> - v9.9.9 &copy; 2016
                 </div>
             </div>
         </div>
