@@ -16,6 +16,19 @@ Temps
   <a href="https://travis-ci.org/jackd248/temps" title="build status"><img src="https://travis-ci.org/jackd248/temps.svg?branch=master&style=flat-square" /></a>
 </p>
 
+<strong>Notice</strong>
+<p>
+  The project isn't maintained anymore.
+</p>
+<p>
+  Feel free to try one of the diligent forks:
+</p>
+<ul>
+  <li><a href="https://github.com/musicpro/temps">musicpro/temps</a></li>
+  <li><a href="https://github.com/GirkovArpa/temps-lite">GirkovArpa/temps-lite</a></li>
+</ul>
+<hr/>
+
 > Temps is a modern and minimal menubar application based on Electron with actual weather information and forecast for Windows, Mac and Linux.
 
 ![temps screenshot](assets/screenshot.jpg)
