@@ -117,13 +117,8 @@ mb.on('show', function show () {
   mb.window.webContents.send('show')
 })
 
-const appPath = app.getPath('exe').split('.app/Content')[0] + '.app'
-
-console.log(appPath)
-
 const appLauncher = new AutoLaunch({
   name: 'temps',
-  path: appPath,
   isHidden: true
 })
 
